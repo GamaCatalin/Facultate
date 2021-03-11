@@ -1,0 +1,81 @@
+     1                                  bits 32 ; assembling for the 32 bits architecture
+     2                                  
+     3                                  ; declare the EntryPoint (a label defining the very first instruction of the program)
+     4                                  global start        
+     5                                  
+     6                                  ; declare external functions needed by our program
+     7                                  extern exit  
+     8                                  extern printf             ; tell nasm that exit exists even if we won't be defining it
+     9                                  import exit msvcrt.dll    ; exit is a function that ends the calling process. It is defined in msvcrt.dll
+    10                                  import printf msvcrt.dll                          ; msvcrt.dll contains exit, printf and all the other important C-runtime specific functions
+    11                                  
+    12                                  ; our data is declared here (the variables needed by our program)
+    13                                  segment data use32 class=data
+    14                                      ; ...
+    15                                  
+    16 00000000 010503080209                s db 1,5,3,8,2,9
+    17                                      l equ $-s
+    18 00000006 00<rept>                    d1 times l db 0
+    19 0000000C 00<rept>                    d2 times l db 0
+    20 00000012 00                          l1 db 0
+    21 00000013 00                          l2 db 0
+    22 00000014 4E756D6265723D2025-         format db "Number= %d", 0
+    22 0000001D 6400               
+    23 0000001F 00                          a db 0
+    24                                      
+    25                                  ; our code starts here
+    26                                  segment code use32 class=code
+    27                                      start:
+    28                                          ; ...
+    29                                          ;d1 filled with even numbers from s
+    30                                          ;d2 filled with odd numbers from s
+    31                                          
+    32                                          
+    33                                          
+    34                                          ;mov ecx, l
+    35                                          ;mov esi, 0
+    36                                          ;jecxz EndEven
+    37                                          ;Print: 
+    38                                          ;       mov ax,[s+esi]
+    39                                          ;        push ax
+    40                                          ;        push format
+    41                                          ;       call [printf]
+    42                                          ;        inc esi
+    43                                                 
+    44                                          ;EndEven:
+    45                                          
+    46                                          
+    47                                          
+    48                                          
+    49                                      
+    50 00000000 B906000000                      mov ecx,l
+    51 00000005 BE00000000                      mov esi, 0                      ;initialize the main string index
+    52 0000000A E33E                            jecxz End
+    53                                          Repeat:
+    54 0000000C 668B86[00000000]                        mov ax, [s+esi]
+    55 00000013 66A90100                                test ax,01h             ;tests the parity 
+    56 00000017 7B02                                    jnp Odd
+    57 00000019 7A16                                    jp Even
+    58                                                  
+    59                                                  Odd:                    ;adds an odd number to it's list
+    60 0000001B 8005[13000000]01                            add byte [l2],1
+    61 00000022 668B86[00000000]                            mov ax, [s+esi]
+    62 00000029 66A3[0C000000]                              mov [d2] ,ax
+    63 0000002F EB16                                        jmp increment
+    64                                                      
+    65                                                  Even:                   ;adds an even number to it's list
+    66 00000031 8005[12000000]01                            add byte [l1],1
+    67 00000038 668B86[00000000]                            mov ax, [s+esi]
+    68 0000003F 66A3[06000000]                              mov [d1],ax
+    69 00000045 EB00                                        jmp increment 
+    70                                                  
+    71                                                  increment:
+    72 00000047 46                                          inc esi             ;increments the main string index      
+    73 00000048 E2C2                            loop Repeat                     ;loops until the string is finished
+    74                                          End:   
+    75                                      
+    76                                  
+    77                                      
+    78                                          ; exit(0)
+    79 0000004A 6A00                            push    dword 0      ; push the parameter for exit onto the stack
+    80 0000004C FF15[00000000]                  call    [exit]       ; call exit to terminate the program

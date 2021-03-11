@@ -1,0 +1,91 @@
+;1.
+;a) Write a function to return the n-th element of a list, or NIL if such an element does not exist.
+
+
+
+(defun nElem (L n pos)
+  (cond
+      ((null L) nil)
+      ((= pos n) (car L))
+      (T (nElem (cdr L) n (+ pos 1)))
+  )
+)
+
+
+(defun getElem (L n)
+  (nElem L n 1)
+)
+
+
+
+
+(print (getElem '(1 2 3 4 5 6 7 8 9 10) '5))
+
+
+
+
+;b) Write a function to check whether an atom E is a member of a list which is not necessarily linear.
+
+
+
+
+(defun checkAtom (L e)
+  (cond 
+        ((null L) nil)
+        ((and (atom (car L)) (equal (car L) e)) T)
+        ((atom (car L)) (checkAtom (cdr L) e))
+        ((list (car L)) (or (checkAtom (car L) e) (checkAtom (cdr L) e)))
+    )
+)
+
+(print (checkAtom '(1 2 (3 (4 5) (6 7)) 8 (9 10)) '2))
+
+
+
+
+
+;c) Write a function to determine the list of all sublists of a given list, on any level.
+; A sublist is either the list itself, or any element that is a list, at any level. Example:
+; (1 2 (3 (4 5) (6 7)) 8 (9 10)) => 5 sublists :
+; ( (1 2 (3 (4 5) (6 7)) 8 (9 10)) (3 (4 5) (6 7)) (4 5) (6 7) (9 10) )
+
+
+
+
+
+(defun getAllSublists (L)
+    (cond
+        ((atom L) nil)
+        (T (apply 'append (list L) (mapcar 'getAllSublists L)))
+    )
+)
+
+
+(print (getAllSublists  '(1 2 (3 (4 5) (6 7)) 8 (9 10))))
+
+
+
+
+
+; d) Write a function to transform a linear list into a set.
+
+
+
+(defun removeDupes (L e)
+    (cond
+        ((null L) nil)
+        ((= (car L) e) (removeDupes (cdr L) e))
+        (T (cons (car L) (removeDupes (cdr L) e)))
+    )
+)
+
+(defun transformSet (L)
+    (cond
+        ((null L) nil)
+        (T (cons (car L) (transformSet (removeDupes (cdr L) (car L)))))
+    )
+)
+
+
+(print (transformSet '(1 2 3 4 2 4 5 6 2 3 6 3 3 3 4 4 5 5 7 6 6 6 6)))
+

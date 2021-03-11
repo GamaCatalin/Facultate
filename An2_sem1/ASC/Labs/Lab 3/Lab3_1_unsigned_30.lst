@@ -1,0 +1,71 @@
+     1                                  bits 32 ; assembling for the 32 bits architecture
+     2                                  
+     3                                  ; declare the EntryPoint (a label defining the very first instruction of the program)
+     4                                  global start        
+     5                                  
+     6                                  ; declare external functions needed by our program
+     7                                  extern exit               ; tell nasm that exit exists even if we won't be defining it
+     8                                  import exit msvcrt.dll    ; exit is a function that ends the calling process. It is defined in msvcrt.dll
+     9                                                            ; msvcrt.dll contains exit, printf and all the other important C-runtime specific functions
+    10                                  
+    11                                  ; our data is declared here (the variables needed by our program)
+    12                                  segment data use32 class=data
+    13                                      ; ...
+    14                                  
+    15                                      
+    16 00000000 01                          a db 1
+    17 00000001 0A00                        b dw 10
+    18 00000003 03000000                    c dd 3
+    19 00000007 0400000000000000            d dq 4
+    20                                      
+    21 0000000F 0000000000000000            aux1 dq 0
+    22                                      
+    23                                  ; our code starts here
+    24                                  segment code use32 class=code
+    25                                      start:
+    26                                          ; ...
+    27                                          
+    28                                          ;(b+c+a)-(d+c+a)
+    29                                          
+    30 00000000 B800000000                      mov EAX,0   ;clear all
+    31 00000005 BB00000000                      mov EBX,0
+    32 0000000A B900000000                      mov ECX,0
+    33 0000000F BA00000000                      mov EDX,0
+    34                                                  
+    35                                                                  ;d = [d+4] [d] 
+    36 00000014 8B1D[07000000]                  mov EBX, dword [d]      ;ebx = [d] 
+    37 0000001A 8B15[0B000000]                  mov EDX, dword [d+4]    ;edx = [d+4]
+    38                                          
+    39 00000020 131D[03000000]                  adc EBX,[c]             ;ebx = ebx + c
+    40                                          
+    41 00000026 A1[00000000]                    mov EAX, [a]
+    42 0000002B 6698                            cbw
+    43 0000002D 98                              cwde
+    44 0000002E 11C3                            adc EBX, EAX            ;ebx = ebx + eax
+    45                                          
+    46 00000030 891D[0F000000]                  mov [aux1],EBX          ;[aux1] = ebx
+    47 00000036 8915[13000000]                  mov [aux1+4],EDX        ;[aux1+4] = edx
+    48                                  
+    49                                          
+    50 0000003C BA00000000                      mov EDX, 0              ;edx = 0 
+    51 00000041 66A1[01000000]                  mov AX, [b]             ;ax = b
+    52 00000047 98                              cwde                    ;eax = b
+    53 00000048 89C3                            mov EBX, EAX
+    54                                          
+    55 0000004A 131D[03000000]                  adc EBX, [c]            ;ebx = ebx + c
+    56                                          
+    57 00000050 A0[00000000]                    mov AL, [a]             ;al = a
+    58 00000055 6698                            cbw                     ;ax = a
+    59 00000057 98                              cwde                    ;eax = a
+    60                                          
+    61 00000058 11C3                            adc EBX, EAX            ;ebx = ebx + a
+    62 0000005A 89D8                            mov EAX, EBX
+    63                                          
+    64                                          
+    65 0000005C 2B05[0F000000]                  sub EAX, dword [aux1]   ;eax = eax - [aux1]
+    66 00000062 2B15[13000000]                  sub EDX, dword [aux1+4] ;edx = edx - [aux1+4]
+    67                                          
+    68                                      
+    69                                          ; exit(0)
+    70 00000068 6A00                            push    dword 0      ; push the parameter for exit onto the stack
+    71 0000006A FF15[00000000]                  call    [exit]       ; call exit to terminate the program

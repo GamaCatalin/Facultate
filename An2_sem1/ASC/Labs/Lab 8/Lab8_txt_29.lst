@@ -1,0 +1,161 @@
+     1                                  bits 32 ; assembling for the 32 bits architecture
+     2                                  
+     3                                  ; declare the EntryPoint (a label defining the very first instruction of the program)
+     4                                  global start        
+     5                                  
+     6                                  ; declare external functions needed by our program
+     7                                  extern exit               ; tell nasm that exit exists even if we won't be defining it
+     8                                  import exit msvcrt.dll    ; exit is a function that ends the calling process. It is defined in msvcrt.dll
+     9                                  extern fopen
+    10                                  import fopen msvcrt.dll
+    11                                  extern fclose
+    12                                  import fclose msvcrt.dll
+    13                                  extern fprintf
+    14                                  import fprintf msvcrt.dll
+    15                                  extern fread
+    16                                  import fread msvcrt.dll
+    17                                  extern printf
+    18                                  import printf msvcrt.dll
+    19                                                            ; msvcrt.dll contains exit, printf and all the other important C-runtime specific functions
+    20                                  
+    21                                  ; our data is declared here (the variables needed by our program)
+    22                                  segment data use32 class=data
+    23                                      ; ...
+    24                                      
+    25                                      
+    26 00000000 00000000                    fileDescriptor dd 0
+    27 00000004 612B00                      accessMode db "a+",0
+    28 00000007 696E70757432392E74-         fileName db "input29.txt",0
+    28 00000010 787400             
+    29 00000013 20                          space db " "
+    30 00000014 3000                        readByte db "0",0
+    31 00000016 00                          maximumNumber db 0
+    32 00000017 00                          currentNumber db 0
+    33 00000018 00                          readDigit db 0
+    34 00000019 2000                        spaceString db " ",0
+    35 0000001B 2025642000                  printFormat db " %d ",0
+    36 00000020 4D61783A20256400            maxFormat db "Max: %d",0
+    37 00000028 526561643A20272563-         testingFormat db "Read: '%c' ",0
+    37 00000031 272000             
+    38 00000034 00                          outputString db "",0
+    39                                      
+    40                                  
+    41                                  ; our code starts here
+    42                                  segment code use32 class=code
+    43                                      start:
+    44                                          ; ...
+    45                                          
+    46                                          ;A text file is given. The text file contains numbers (in base 10) separated by spaces. Read the content of the file, determine the maximum number (from the numbers that have been read) and write the result 
+    47                                          
+    48                                          
+    49                                          
+    50 00000000 68[04000000]                    push dword accessMode
+    51 00000005 68[07000000]                    push dword fileName
+    52 0000000A FF15[00000000]                  call [fopen]
+    53 00000010 83C408                          add ESP, 4*2
+    54                                          
+    55                                          
+    56 00000013 83F800                          cmp EAX, 0
+    57 00000016 0F84CA000000                    je endProgram
+    58                                          
+    59                                          
+    60 0000001C A3[00000000]                    mov [fileDescriptor], EAX
+    61                                          
+    62                                                
+    63                                          
+    64                                          
+    65                                          mainLoop:
+    66 00000021 FF35[00000000]                      push dword [fileDescriptor]
+    67 00000027 6A01                                push dword 1
+    68 00000029 6A01                                push dword 1
+    69 0000002B 68[14000000]                        push dword readByte
+    70 00000030 FF15[00000000]                      call [fread]
+    71 00000036 83C410                              add ESP, 4*4
+    72                                              
+    73                                              
+    74 00000039 83F800                              cmp EAX, 0
+    75 0000003C 747C                                je cleanup
+    76                                              
+    77                                              
+    78                                              ;test print
+    79                                              
+    80 0000003E A0[14000000]                        mov AL, [readByte]
+    81 00000043 6698                                cbw
+    82 00000045 98                                  cwde
+    83                                              
+    84 00000046 50                                  push dword EAX
+    85 00000047 68[28000000]                        push dword testingFormat
+    86 0000004C FF15[00000000]                      call [printf]
+    87 00000052 83C408                              add ESP, 4*2
+    88                                              ;test print
+    89                                              
+    90                                              
+    91 00000055 8A15[14000000]                      mov DL, [readByte]
+    92 0000005B 3A15[13000000]                      cmp DL, [space]
+    93                                              
+    94 00000061 7421                                je isSpace
+    95                                              
+    96                                                       
+    97 00000063 80EA30                              sub DL, "0"
+    98                                              
+    99                                              
+   100 00000066 8815[18000000]                      mov [readDigit],DL
+   101                                              
+   102 0000006C A0[17000000]                        mov AL, [currentNumber]
+   103 00000071 B30A                                mov BL, 10
+   104 00000073 F6E3                                mul BL
+   105                                              
+   106 00000075 660305[18000000]                    add AX, [readDigit]
+   107                                              
+   108 0000007C 66A3[17000000]                      mov [currentNumber], AX
+   109                                              
+   110 00000082 EB31                                jmp endLoop
+   111                                              
+   112                                              isSpace:
+   113 00000084 A0[17000000]                            mov AL, [currentNumber]
+   114 00000089 3A05[16000000]                          cmp AL, [maximumNumber]
+   115                                                  
+   116 0000008F 761C                                    jbe endSpace
+   117                                                      
+   118 00000091 A0[17000000]                            mov AL, [currentNumber]    
+   119 00000096 A2[16000000]                            mov [maximumNumber],AL
+   120 0000009B 6698                                    cbw
+   121 0000009D 98                                      cwde
+   122 0000009E 50                                      push EAX
+   123 0000009F 68[20000000]                            push dword maxFormat
+   124 000000A4 FF15[00000000]                          call [printf]
+   125 000000AA 83C408                                  add ESP, 4*2
+   126                                                  
+   127                                                      endSpace:
+   128 000000AD B200                                            mov DL, 0
+   129 000000AF 8815[17000000]                                  mov [currentNumber],DL
+   130                                          
+   131                                              endLoop:
+   132                                          
+   133 000000B5 E967FFFFFF                      jmp mainLoop
+   134                                          
+   135                                  
+   136                                          
+   137                                          
+   138                                          cleanup:
+   139                                          
+   140 000000BA A0[16000000]                    mov AL, [maximumNumber]
+   141 000000BF 6698                            cbw
+   142 000000C1 98                              cwde
+   143 000000C2 50                              push dword EAX
+   144 000000C3 68[1B000000]                    push dword printFormat
+   145 000000C8 FF35[00000000]                  push dword [fileDescriptor]
+   146 000000CE FF15[00000000]                  call [fprintf]
+   147 000000D4 83C408                          add ESP, 4*2
+   148                                          
+   149                                          
+   150 000000D7 FF35[00000000]                  push dword [fileDescriptor]
+   151 000000DD FF15[00000000]                  call [fclose]
+   152 000000E3 83C404                          add ESP, 4*1       
+   153                                          
+   154                                          endProgram:
+   155                                      
+   156                                      
+   157                                          ; exit(0)
+   158 000000E6 6A00                            push    dword 0      ; push the parameter for exit onto the stack
+   159 000000E8 FF15[00000000]                  call    [exit]       ; call exit to terminate the program

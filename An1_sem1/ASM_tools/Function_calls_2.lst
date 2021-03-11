@@ -1,0 +1,93 @@
+     1                                  bits 32 ; assembling for the 32 bits architecture
+     2                                  
+     3                                  ; declare the EntryPoint (a label defining the very first instruction of the program)
+     4                                  global start        
+     5                                  
+     6                                  ; declare external functions needed by our program
+     7                                  extern exit
+     8                                  extern printf  
+     9                                  extern scanf            ; tell nasm that exit exists even if we won't be defining it
+    10                                  import exit msvcrt.dll
+    11                                  import printf msvcrt.dll
+    12                                  import scanf msvcrt.dll   ; exit is a function that ends the calling process. It is defined in msvcrt.dll
+    13                                                            ; msvcrt.dll contains exit, printf and all the other important C-runtime specific functions
+    14                                  
+    15                                  ; our data is declared here (the variables needed by our program)
+    16                                  segment data use32 class=data
+    17                                      ; ...
+    18                                     
+    19 00000000 456E74657220746865-         text1 dd "Enter the first number: ",0
+    19 00000009 206669727374206E75-
+    19 00000012 6D6265723A20000000-
+    19 0000001B 00                 
+    20 0000001C 456E74657220746865-         text2 dd "Enter the second number: ",0
+    20 00000025 207365636F6E64206E-
+    20 0000002E 756D6265723A200000-
+    20 00000037 0000000000         
+    21 0000003C 5468652071756F7469-         output dd "The quotient is %d, and the remainder is %d",0
+    21 00000045 656E74206973202564-
+    21 0000004E 2C20616E6420746865-
+    21 00000057 2072656D61696E6465-
+    21 00000060 722069732025640000-
+    21 00000069 000000             
+    22 0000006C 2564000000000000            format dd "%d",0
+    23                                     
+    24 00000074 00                          a db 0
+    25 00000075 00                          b db 0
+    26                                     
+    27 00000076 0000                        x dw 0
+    28 00000078 0000                        y dw 0
+    29                                     
+    30                                  ; our code starts here
+    31                                  segment code use32 class=code
+    32                                      start:
+    33                                          ; ...
+    34                                         
+    35                                         
+    36                                          ;divide 2 given numbers, a and b
+    37                                         
+    38                                         
+    39 00000000 B800000000                      mov eax,0    
+    40 00000005 68[00000000]                    push text1  
+    41 0000000A FF15[00000000]                  call [printf]
+    42 00000010 83C404                          add esp, 4*1
+    43 00000013 68[74000000]                    push a
+    44 00000018 68[6C000000]                    push format
+    45 0000001D FF15[00000000]                  call [scanf]
+    46 00000023 83C404                          add esp, 4*1
+    47                                         
+    48                                         
+    49 00000026 68[1C000000]                    push text2
+    50 0000002B FF15[00000000]                  call [printf]
+    51 00000031 83C404                          add esp, 4*1
+    52 00000034 68[75000000]                    push b
+    53 00000039 68[6C000000]                    push format
+    54 0000003E FF15[00000000]                  call [scanf]
+    55 00000044 83C404                          add esp, 4*1
+    56                                         
+    57 00000047 66A1[74000000]                  mov ax, [a] 
+    58 0000004D B400                            mov ah, 0
+    59 0000004F 8A1D[75000000]                  mov bl, [b]
+    60 00000055 F6F3                            div bl
+    61                                         
+    62 00000057 A2[76000000]                    mov [x], al
+    63 0000005C 8825[78000000]                  mov [y], ah
+    64                                         
+    65                                         
+    66 00000062 66A1[78000000]                  mov ax,[y]
+    67 00000068 98                              cwde
+    68 00000069 50                              push eax
+    69                                          
+    70 0000006A 66A1[76000000]                  mov ax,[x]                                                              
+    71 00000070 98                              cwde
+    72 00000071 50                              push eax        
+    73 00000072 68[3C000000]                    push output
+    74 00000077 FF15[00000000]                  call [printf]
+    75 0000007D 83C40C                          add esp, 4*3 
+    76                                         
+    77                                         
+    78                                         
+    79                                     
+    80                                          ; exit(0)
+    81 00000080 6A00                            push    dword 0      ; push the parameter for exit onto the stack
+    82 00000082 FF15[00000000]                  call    [exit]       ; call exit to terminate the program

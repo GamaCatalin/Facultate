@@ -1,0 +1,13 @@
+﻿  Server.c
+D:\Faculta\An2_sem1\Retele de calculatoare\Lab\Server\Server\Server.c(24,27): warning C4996: 'inet_addr': Use inet_pton() or InetPton() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+D:\Faculta\An2_sem1\Retele de calculatoare\Lab\Server\Server\Server.c(47,25): warning C4133: 'function': incompatible types - from 'sockaddr_in *' to 'sockaddr *'
+D:\Faculta\An2_sem1\Retele de calculatoare\Lab\Server\Server\Server.c(47,39): warning C4047: 'function': 'int *' differs in levels of indirection from 'unsigned int'
+D:\Faculta\An2_sem1\Retele de calculatoare\Lab\Server\Server\Server.c(47,27): warning C4024: 'getsockname': different types for formal and actual parameter 3
+D:\Faculta\An2_sem1\Retele de calculatoare\Lab\Server\Server\Server.c(48,9): warning C4996: 'inet_ntoa': Use inet_ntop() or InetNtop() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+D:\Faculta\An2_sem1\Retele de calculatoare\Lab\Server\Server\Server.c(59,14): warning C4098: 'sendToAll': 'void' function returning a value
+D:\Faculta\An2_sem1\Retele de calculatoare\Lab\Server\Server\Server.c(124,20): warning C4047: '=': 'int' differs in levels of indirection from 'SOCKET *'
+D:\Faculta\An2_sem1\Retele de calculatoare\Lab\Server\Server\Server.c(140,67): warning C4133: 'function': incompatible types - from 'sockaddr_in *' to 'sockaddr *'
+D:\Faculta\An2_sem1\Retele de calculatoare\Lab\Server\Server\Server.c(140,76): warning C4047: 'function': 'int *' differs in levels of indirection from 'int'
+D:\Faculta\An2_sem1\Retele de calculatoare\Lab\Server\Server\Server.c(140,69): warning C4024: 'accept': different types for formal and actual parameter 3
+D:\Faculta\An2_sem1\Retele de calculatoare\Lab\Server\Server\Server.c(175,10): warning C4013: 'close' undefined; assuming extern returning int
+  Server.vcxproj -> D:\Faculta\An2_sem1\Retele de calculatoare\Lab\Server\Debug\Server.exe

@@ -1,0 +1,3 @@
+Name1,Breed1,1-1-2001,100,Photo1
+Name2,Breed2,2-2-2002,200,Photo1
+Name3,Breed3,3-3-2003,300,Photo3

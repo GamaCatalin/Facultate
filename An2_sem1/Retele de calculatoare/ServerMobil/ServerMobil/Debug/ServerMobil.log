@@ -1,0 +1,3 @@
+﻿  serverMobil.c
+D:\Faculta\An2_sem1\Retele de calculatoare\ServerMobil\ServerMobil\serverMobil.c(98,10): warning C4101: 'buffer': unreferenced local variable
+  ServerMobil.vcxproj -> D:\Faculta\An2_sem1\Retele de calculatoare\ServerMobil\Debug\ServerMobil.exe

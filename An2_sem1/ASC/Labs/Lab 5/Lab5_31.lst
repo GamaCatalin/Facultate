@@ -1,0 +1,58 @@
+     1                                  bits 32 ; assembling for the 32 bits architecture
+     2                                  
+     3                                  ; declare the EntryPoint (a label defining the very first instruction of the program)
+     4                                  global start        
+     5                                  
+     6                                  ; declare external functions needed by our program
+     7                                  extern exit               ; tell nasm that exit exists even if we won't be defining it
+     8                                  import exit msvcrt.dll    ; exit is a function that ends the calling process. It is defined in msvcrt.dll
+     9                                                            ; msvcrt.dll contains exit, printf and all the other important C-runtime specific functions
+    10                                  
+    11                                  ; our data is declared here (the variables needed by our program)
+    12                                  segment data use32 class=data
+    13                                      ; ...
+    14                                      
+    15                                      
+    16 00000000 2B34326138345835            S db '+', '4', '2', 'a', '8', '4', 'X', '5'
+    17                                      lenghtS equ $-S
+    18 00000008 FF                          control1 db -1
+    19 00000009 00<rept>                    D times lenghtS db 0
+    20 00000011 FF                          control2 db -1
+    21 00000012 00000000                    dIndex dd 0
+    22 00000016 00000000                    sIndex dd 0
+    23                                      
+    24                                  ; our code starts here
+    25                                  segment code use32 class=code
+    26                                      start:
+    27                                          ; ...
+    28                                          ;A character string S is given. Obtain the string D which contains all the digit characters of S.
+    29                                          
+    30 00000000 B908000000                     mov ECX, lenghtS                 ;get the number of times we have to do the loop
+    31 00000005 BE00000000                     mov ESI, 0                       ;clear ESI
+    32                                         
+    33 0000000A E332                           jecxz End                        ;check if ECX is empty
+    34                                         stringLoop:
+    35 0000000C 8A86[00000000]                      mov AL,[S+ESI]              ;get the curent element in AL
+    36 00000012 3C30                                cmp AL, '0'                 ;check if the ascii code is at least that of '0'
+    37 00000014 7204                                jb isNotDigit               ;jump to the end of the loop otherwise
+    38                                              
+    39                                              checkDigit:                 
+    40 00000016 3C39                                    cmp AL, '9'             ;check if the ascii code is at most that of '9'
+    41 00000018 7602                                    jbe isDigit             ;go tho the next operation if so
+    42                                              isNotDigit:
+    43 0000001A EB1F                                    jmp endLoop             ;otherwise go to the end
+    44                                              isDigit:
+    45 0000001C 8935[16000000]                          mov [sIndex],ESI        ;save the index of the first string 
+    46 00000022 8B35[12000000]                          mov ESI, [dIndex]       ;get the index of the second string
+    47 00000028 8886[09000000]                          mov [D+ESI],AL          ;put the digit in the second string
+    48 0000002E 46                                      inc ESI                 ;increment the second string's index
+    49 0000002F 8935[12000000]                          mov [dIndex],ESI        ;save the second string index
+    50 00000035 8B35[16000000]                          mov ESI, [sIndex]       ;get the first string's index           
+    51                                              endLoop:    
+    52 0000003B 46                                      inc ESI                 ;increment the first string's index
+    53 0000003C E2CE                            loop stringLoop                 ;loop ECX times
+    54                                          End:
+    55                                     
+    56                                          ; exit(0)
+    57 0000003E 6A00                            push    dword 0      ; push the parameter for exit onto the stack
+    58 00000040 FF15[00000000]                  call    [exit]       ; call exit to terminate the program

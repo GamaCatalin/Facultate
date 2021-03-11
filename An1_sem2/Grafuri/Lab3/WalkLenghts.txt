@@ -1,0 +1,24 @@
+graph 1k
+   1-100:
+	Shortest walk: [1, 5, 487, 175, 714, 799, 222, 561]
+	Distance: 141
+   100-1:
+	Shortest walk: [100, 259, 229, 641, 538, 854]
+	Distance: 196
+
+
+
+graph 10k
+   1-100:
+	Shortest walk: [1, 7317, 460, 6010, 5295, 4560, 5513, 8467, 3517, 99, 9159, 6840, 5177, 7133, 288]
+	Distance: 344
+   100-1:
+	Shortest walk: [100, 4442, 3980, 1974, 407, 4489, 5162, 2008, 3631, 2305, 8336]
+	Distance: 238
+	
+
+graph 100k
+   1-100:
+	Took too long
+   100-1:
+	Took too long

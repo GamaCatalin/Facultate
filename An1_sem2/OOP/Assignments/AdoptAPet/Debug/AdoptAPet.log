@@ -1,0 +1,10 @@
+﻿  Main.cpp
+  Repository.cpp
+  Service.cpp
+  Test.cpp
+  UI.cpp
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\AdoptAPet\UI.cpp(98,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\AdoptAPet\UI.cpp(113,30): warning C4018: '<': signed/unsigned mismatch
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\AdoptAPet\UI.cpp(239,20): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
+  AdoptAPet.vcxproj -> C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\AdoptAPet\Debug\AdoptAPet.exe

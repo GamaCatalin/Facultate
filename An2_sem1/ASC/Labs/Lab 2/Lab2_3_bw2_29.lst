@@ -1,0 +1,75 @@
+     1                                  bits 32 ; assembling for the 32 bits architecture
+     2                                  
+     3                                  ; declare the EntryPoint (a label defining the very first instruction of the program)
+     4                                  global start        
+     5                                  
+     6                                  ; declare external functions needed by our program
+     7                                  extern exit               ; tell nasm that exit exists even if we won't be defining it
+     8                                  import exit msvcrt.dll    ; exit is a function that ends the calling process. It is defined in msvcrt.dll
+     9                                                            ; msvcrt.dll contains exit, printf and all the other important C-runtime specific functions
+    10                                  
+    11                                  ; our data is declared here (the variables needed by our program)
+    12                                  segment data use32 class=data
+    13                                      ; ...
+    14                                  
+    15 00000000 0B                          a db 11
+    16 00000001 05                          b db 5
+    17 00000002 09                          c db 9
+    18 00000003 0C                          d db 12
+    19                                      
+    20 00000004 0300                        e dw 3
+    21 00000006 0600                        f dw 6
+    22 00000008 0100                        g dw 1
+    23 0000000A 0200                        h dw 2
+    24                                      
+    25 0000000C 0000                        aux1 dw 0
+    26 0000000E 0000                        aux2 dw 0
+    27 00000010 00                          aux3 db 0
+    28                                      
+    29                                  ; our code starts here
+    30                                  segment code use32 class=code
+    31                                      start:
+    32                                          ; ...
+    33                                          
+    34 00000000 B800000000                      mov EAX, 0
+    35 00000005 BA00000000                      mov EDX, 0
+    36 0000000A BB00000000                      mov EBX, 0
+    37 0000000F B900000000                      mov ECX, 0
+    38                                          
+    39                                          
+    40 00000014 66A1[04000000]                  mov AX,[e]
+    41 0000001A 668B1D[06000000]                mov BX,[f]
+    42                                          
+    43 00000021 6601D8                          ADD AX,BX
+    44                                          
+    45 00000024 66A3[0C000000]                  mov [aux1],AX
+    46                                          
+    47                                          
+    48 0000002A 66A1[00000000]                  mov AX,[a]
+    49 00000030 668B1D[03000000]                mov BX,[d]
+    50                                          
+    51 00000037 00D8                            ADD AL,BL
+    52 00000039 A2[10000000]                    mov [aux3],AL
+    53                                          
+    54 0000003E A0[01000000]                    mov AL,[b]
+    55 00000043 8A1D[02000000]                  mov BL,[c]
+    56                                  
+    57 00000049 F6E3                            mul BL
+    58                                          
+    59 0000004B 668B1D[0C000000]                mov BX,[aux1]
+    60                                          
+    61 00000052 6629D8                          SUB AX,BX
+    62                                          
+    63 00000055 8A1D[10000000]                  mov BL,[aux3]
+    64 0000005B F6F3                            DIV BL
+    65                                          
+    66                                          
+    67                                        
+    68                                          
+    69                                          
+    70                                          
+    71                                          
+    72                                      
+    73                                          ; exit(0)
+    74 0000005D 6A00                            push    dword 0      ; push the parameter for exit onto the stack
+    75 0000005F FF15[00000000]                  call    [exit]       ; call exit to terminate the program

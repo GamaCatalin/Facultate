@@ -1,0 +1,93 @@
+     1                                  bits 32 ; assembling for the 32 bits architecture
+     2                                  
+     3                                  ; declare the EntryPoint (a label defining the very first instruction of the program)
+     4                                  global start        
+     5                                  
+     6                                  ; declare external functions needed by our program
+     7                                  extern exit               ; tell nasm that exit exists even if we won't be defining it
+     8                                  import exit msvcrt.dll    ; exit is a function that ends the calling process. It is defined in msvcrt.dll
+     9                                  extern scanf
+    10                                  import scanf msvcrt.dll
+    11                                  extern printf
+    12                                  import printf msvcrt.dll
+    13                                  extern fgets
+    14                                  import fgets msvcrt.dll
+    15                                  ;extern read
+    16                                  ;import read msvcrt.dll
+    17                                                            ; msvcrt.dll contains exit, printf and all the other important C-runtime specific functions
+    18                                  
+    19                                  ; our data is declared here (the variables needed by our program)
+    20                                  segment data use32 class=data
+    21                                      ; ...
+    22                                  
+    23                                      
+    24                                      
+    25 00000000 01000000                    aux dd 1
+    26 00000004 257300                      format db '%s',0
+    27 00000007 256400                      format1 db '%d',0
+    28 0000000A <res 000000C8>              buffer resb 200   
+    29                                      
+    30                                      
+    31                                  ; our code starts here
+    32                                  segment code use32 class=code
+    33                                      start:
+    34                                          ; ...
+    35                                          
+    36                                          ;Read a sentence from the keyboard. Count the letters from each word and print the numbers on the screen.
+    37                                          
+    38                                                 
+    39                                          
+    40                                          
+    41                                          Repeta:
+    42                                          
+    43                                          
+    44                                          
+    45                                          
+    46 00000000 68[0A000000]                    push dword buffer
+    47 00000005 68[04000000]                    push dword format
+    48 0000000A FF15[00000000]                  call [scanf]
+    49 00000010 83C408                          add ESP, 4*2
+    50                                  
+    51                                          
+    52                                          
+    53                                          
+    54 00000013 83F801                          cmp EAX, 1
+    55 00000016 751A                            jne exitLoop
+    56                                          
+    57                                          
+    58                                          printGood:
+    59                                          
+    60 00000018 68[0A000000]                    push dword buffer
+    61 0000001D 68[04000000]                    push dword format
+    62 00000022 FF15[00000000]                  call [printf]
+    63 00000028 83C408                          add ESP, 4*2
+    64                                          
+    65                                          
+    66 0000002B 83F804                          cmp EAX, 4
+    67 0000002E 7402                            je exitLoop
+    68                                          
+    69                                          
+    70                                          
+    71 00000030 EBCE                            jmp Repeta
+    72                                          
+    73                                          
+    74                                          
+    75                                          
+    76                                          exitLoop:
+    77                                          
+    78                                          
+    79                                          
+    80                                          
+    81                                          ;push dword [aux]
+    82                                          ;push dword format1
+    83                                          ;call [printf]
+    84                                          ;add ESP, 4*2
+    85                                          
+    86                                          
+    87                                          
+    88                                          
+    89                                          
+    90                                      
+    91                                          ; exit(0)
+    92 00000032 6A00                            push    dword 0      ; push the parameter for exit onto the stack
+    93 00000034 FF15[00000000]                  call    [exit]       ; call exit to terminate the program

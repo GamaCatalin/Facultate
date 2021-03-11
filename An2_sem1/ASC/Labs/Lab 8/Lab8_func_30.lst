@@ -1,0 +1,74 @@
+     1                                  bits 32 ; assembling for the 32 bits architecture
+     2                                  
+     3                                  ; declare the EntryPoint (a label defining the very first instruction of the program)
+     4                                  global start        
+     5                                  
+     6                                  ; declare external functions needed by our program
+     7                                  extern exit               ; tell nasm that exit exists even if we won't be defining it
+     8                                  import exit msvcrt.dll    ; exit is a function that ends the calling process. It is defined in msvcrt.dll
+     9                                  extern printf
+    10                                  import printf msvcrt.dll
+    11                                  extern scanf
+    12                                  import scanf msvcrt.dll
+    13                                                            ; msvcrt.dll contains exit, printf and all the other important C-runtime specific functions
+    14                                  
+    15                                  ; our data is declared here (the variables needed by our program)
+    16                                  segment data use32 class=data
+    17                                      ; ...
+    18                                  
+    19                                      
+    20 00000000 256400                      scanFormat db "%d",0
+    21 00000003 536D616C6C65737420-         printFormat db "Smallest numer: %d",0
+    21 0000000C 6E756D65723A202564-
+    21 00000015 00                 
+    22 00000016 00000000                    number dd 0
+    23 0000001A FFFFFFFF                    smallestNumber dd 0xFFFFFFFF
+    24                                      
+    25                                      
+    26                                      
+    27                                  ; our code starts here
+    28                                  segment code use32 class=code
+    29                                      start:
+    30                                          ; ...
+    31                                          
+    32                                          ;Read numbers (in base 10) in a loop until the digit '0' is read from the keyboard. Determine and display the smallest number from those that have been read.
+    33                                          
+    34                                          
+    35 00000000 B901000000                      mov ECX, 1                              ;initialize ECX
+    36                                          
+    37                                          mainLoop:
+    38 00000005 68[16000000]                        push dword number                   ;read the number from the keyboard
+    39 0000000A 68[00000000]                        push dword scanFormat
+    40 0000000F FF15[00000000]                      call [scanf]
+    41 00000015 83C408                              add ESP, 4*2
+    42                                              
+    43 00000018 A1[16000000]                        mov EAX, [number]                   ;move the number into EAX
+    44 0000001D 83F800                              cmp EAX, 0                          ;check if the number is equal to 0
+    45                                              
+    46 00000020 7414                                je afterLoop                        ;end the loop if the number is equal to 0
+    47                                              
+    48 00000022 3905[1A000000]                      cmp dword [smallestNumber], EAX     ;check if the read number is smaller than the current smallest number
+    49 00000028 720A                                jb endLoop                          
+    50                                                          
+    51 0000002A A3[1A000000]                        mov [smallestNumber],EAX            ;save the new smallest number
+    52                                                             
+    53                                                
+    54 0000002F B902000000                          mov ECX, 2
+    55                                          
+    56                                              endLoop:
+    57                                          
+    58 00000034 E2CF                            loop mainLoop                           ;loop until 0 is read
+    59                                          
+    60                                          
+    61                                          afterLoop:
+    62                                          
+    63 00000036 FF35[1A000000]                  push dword [smallestNumber]             ;print the smallest number
+    64 0000003C 68[03000000]                    push dword printFormat
+    65 00000041 FF15[00000000]                  call [printf]
+    66 00000047 83C408                          add ESP, 4*2
+    67                                          
+    68                                          
+    69                                      
+    70                                          ; exit(0)
+    71 0000004A 6A00                            push    dword 0      ; push the parameter for exit onto the stack
+    72 0000004C FF15[00000000]                  call    [exit]       ; call exit to terminate the program

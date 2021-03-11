@@ -1,0 +1,15 @@
+﻿  HTMLMyListController.cpp
+D:\Faculta\An1_sem2\OOP\Assignments\AdoptAPetFiles\HTMLMyListController.cpp(80,23): warning C4018: '<': signed/unsigned mismatch
+D:\Faculta\An1_sem2\OOP\Assignments\AdoptAPetFiles\HTMLMyListController.cpp(98,23): warning C4018: '<': signed/unsigned mismatch
+D:\Faculta\An1_sem2\OOP\Assignments\AdoptAPetFiles\HTMLMyListController.cpp(114,23): warning C4018: '<': signed/unsigned mismatch
+D:\Faculta\An1_sem2\OOP\Assignments\AdoptAPetFiles\HTMLMyListController.cpp(130,23): warning C4018: '<': signed/unsigned mismatch
+D:\Faculta\An1_sem2\OOP\Assignments\AdoptAPetFiles\HTMLMyListController.cpp(146,23): warning C4018: '<': signed/unsigned mismatch
+D:\Faculta\An1_sem2\OOP\Assignments\AdoptAPetFiles\HTMLMyListController.cpp(56,16): warning C4101: 'year': unreferenced local variable
+D:\Faculta\An1_sem2\OOP\Assignments\AdoptAPetFiles\HTMLMyListController.cpp(56,10): warning C4101: 'month': unreferenced local variable
+D:\Faculta\An1_sem2\OOP\Assignments\AdoptAPetFiles\HTMLMyListController.cpp(56,6): warning C4101: 'day': unreferenced local variable
+D:\Faculta\An1_sem2\OOP\Assignments\AdoptAPetFiles\HTMLMyListController.cpp(175,20): warning C4018: '<': signed/unsigned mismatch
+  Main.cpp
+D:\Faculta\An1_sem2\OOP\Assignments\AdoptAPetFiles\Service.h(6,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+D:\Faculta\An1_sem2\OOP\Assignments\AdoptAPetFiles\Service.h(7,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  Generating Code...
+  AdoptAPetFiles.vcxproj -> D:\Faculta\An1_sem2\OOP\Assignments\AdoptAPetFiles\Debug\AdoptAPetFiles.exe

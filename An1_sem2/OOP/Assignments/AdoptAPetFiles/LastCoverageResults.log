@@ -1,0 +1,21 @@
+[2020-05-13 12:51:13] [info] Start Program:
+Path:"D:\\Faculta\\An1_sem2\\OOP\\Assignments\\AdoptAPetFiles\\Debug\\AdoptAPetFiles.exe"
+Arguments:
+Working directory: "D:\\Faculta\\An1_sem2\\OOP\\Assignments\\AdoptAPetFiles\\"
+Modules: Selected: D:\Faculta\An1_sem2\OOP\Assignments\AdoptAPetFiles\Debug\AdoptAPetFiles.exe Excluded: 
+Sources: Selected: D:\Faculta\An1_sem2\OOP\Assignments\AdoptAPetFiles Excluded: 
+Log Level: Normal
+Cover Children: 0
+Aggregate by file: 1
+Continue after C++ exception: 0
+Optimized build support: 0
+Export: binary C:\Users\gamac\AppData\Local\Temp\e0h0nben.mg2 
+Input coverage: 
+Unified diff: 
+Excluded line regular expressions: 
+Substitute pdb source paths: 
+
+[2020-05-13 12:51:13] [info] Module: D:\Faculta\An1_sem2\OOP\Assignments\AdoptAPetFiles\Debug\AdoptAPetFiles.exe is selected because it matches selected pattern: D:\Faculta\An1_sem2\OOP\Assignments\AdoptAPetFiles\Debug\AdoptAPetFiles.exe
+[2020-05-13 12:51:14] [info] ----------------------------------------------------
+[2020-05-13 12:51:14] [info] Coverage binary generated in file: C:\Users\gamac\AppData\Local\Temp\e0h0nben.mg2
+[2020-05-13 12:51:14] [info] ----------------------------------------------------

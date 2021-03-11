@@ -1,0 +1,143 @@
+     1                                  bits 32 ; assembling for the 32 bits architecture
+     2                                  
+     3                                  ; declare the EntryPoint (a label defining the very first instruction of the program)
+     4                                  global start        
+     5                                  
+     6                                  ; declare external functions needed by our program
+     7                                  extern exit               ; tell nasm that exit exists even if we won't be defining it
+     8                                  import exit msvcrt.dll    ; exit is a function that ends the calling process. It is defined in msvcrt.dll
+     9                                                            ; msvcrt.dll contains exit, printf and all the other important C-runtime specific functions
+    10                                  
+    11                                  ; our data is declared here (the variables needed by our program)
+    12                                  segment data use32 class=data
+    13                                      ; ...
+    14                                  
+    15 00000000 0F0406013607                A db 15,4,6,1,54,7
+    16                                      lenghtA equ ($-A);
+    17 00000006 FF                          control1 db 0xFF
+    18 00000007 090603                      B db 9,6,3
+    19                                      lenghtB equ ($-B);
+    20 0000000A FF                          control2 db 0xFF
+    21                                      ;lenghtC equ ([lenghtA]+[lenghtB])
+    22                                      lenghtC equ 10
+    23 0000000B 00<rept>                    C times lenghtC db 0
+    24 00000015 FF                          control3 db 0xFF
+    25 00000016 00                          minLenght db 0
+    26 00000017 00                          maxLenght db 0
+    27 00000018 00000000                    currentIndex dd 0
+    28 0000001C 00                          zero db 0
+    29 0000001D 01                          one db 1
+    30                                      
+    31                                      
+    32                                      
+    33                                  ; our code starts here
+    34                                  segment code use32 class=code
+    35                                      start:
+    36                                          ; ...
+    37                                          ;Two strings of bytes A and B are given. Parse the shortest string of those two and build a third string C as follows:
+    38                                          ;up to the lenght of the shortest string C contains the largest element of the same rank from the two strings
+    39                                          ;then, up to the length of the longest string C will be filled with 1 and 0, alternatively.
+    40                                          
+    41                                          
+    42 00000000 B006                            mov AL, lenghtA                                 ;get into AL the lenth of A
+    43 00000002 3C03                            cmp AL, lenghtB                                 ;compare the lenght of A with the lenght of B
+    44                                          
+    45 00000004 7D0E                            jge lenAGreater                                 ;jump if A is greater
+    46                                          
+    47                                          
+    48                                          lenBGreater:                                    ;put into [minLenght] the lenght of A, and into [maxLenght] the lenght of B
+    49 00000006 A2[16000000]                        mov [minLenght], AL
+    50 0000000B B003                                mov AL,lenghtB
+    51 0000000D A2[17000000]                        mov [maxLenght], AL
+    52 00000012 EB0E                                jmp initLoop
+    53                                              
+    54                                          lenAGreater:                                    ;put into [maxLenght] the lenght of A, and into [minLenght] the lenght of B
+    55 00000014 A2[17000000]                        mov [maxLenght], AL
+    56 00000019 B003                                mov AL,lenghtB
+    57 0000001B A2[16000000]                        mov [minLenght], AL
+    58 00000020 EB00                                jmp initLoop
+    59                                          
+    60                                          
+    61                                          initLoop:                       
+    62 00000022 A0[17000000]                        mov AL, [maxLenght]                         ;get in AL the maximum lenght
+    63 00000027 6698                                cbw
+    64 00000029 98                                  cwde                                        ;convert the max lenght to a double word
+    65                                          
+    66                                          
+    67 0000002A 89C1                                mov ECX, EAX                                ;put into ECX the nr of times the loop needs to go through, i.e. maxLenght
+    68                                              
+    69 0000002C B800000000                          mov EAX, 0                                  ;clear EAX
+    70                                              
+    71 00000031 BF[0B000000]                        mov EDI, C                                  ;put into EDI the destination string, i.e C
+    72                                              
+    73                                              mainLoop:                                   ;start the main loop
+    74 00000036 A0[16000000]                            mov AL, [minLenght]
+    75 0000003B 6698                                    cbw
+    76 0000003D 98                                      cwde
+    77 0000003E 3905[18000000]                          cmp [currentIndex], EAX
+    78                                                  
+    79 00000044 7621                                    jbe lowString
+    80                                                  
+    81                                                  
+    82                                                  highString:
+    83 00000046 8B35[18000000]                              mov ESI, [currentIndex]
+    84 0000004C 4E                                          dec ESI
+    85 0000004D 8A86[0B000000]                              mov AL, [C+ESI]
+    86 00000053 3C00                                        cmp AL, 0
+    87                                                     
+    88 00000055 7408                                        je lastZero
+    89                                                      
+    90                                                      
+    91                                                      lastOne:
+    92 00000057 BE[1C000000]                                    mov ESI, zero
+    93 0000005C AC                                              LODSB
+    94 0000005D EB40                                            jmp nextLoop
+    95                                                          
+    96                                                      
+    97                                                      lastZero:
+    98 0000005F BE[1D000000]                                    mov ESI, one
+    99 00000064 AC                                              LODSB
+   100 00000065 EB38                                            jmp nextLoop
+   101                                                      
+   102                                          
+   103                                                  lowString:
+   104 00000067 8B35[18000000]                              mov ESI, [currentIndex]
+   105                                                      
+   106 0000006D 8A86[00000000]                              mov AL, [A+ESI]
+   107 00000073 8A9E[07000000]                              mov BL, [B+ESI]
+   108                                                      
+   109 00000079 38D8                                        cmp AL, BL
+   110                                                      
+   111 0000007B 7D11                                        jge alGreater
+   112                                                      
+   113                                                      
+   114                                                      blGreater:
+   115 0000007D 8B15[18000000]                                  mov EDX, [currentIndex]
+   116 00000083 81C2[07000000]                                  add EDX, B
+   117 00000089 89D6                                            mov ESI, EDX
+   118 0000008B AC                                              LODSB
+   119                                                          
+   120 0000008C EB11                                            jmp nextLoop
+   121                                                          
+   122                                                      alGreater:
+   123 0000008E 8B15[18000000]                                  mov EDX, [currentIndex]
+   124 00000094 81C2[00000000]                                  add EDX, A
+   125 0000009A 89D6                                            mov ESI, EDX
+   126 0000009C AC                                              LODSB
+   127                                                      
+   128 0000009D EB00                                            jmp nextLoop
+   129                                                      
+   130                                                      
+   131                                                   nextLoop:
+   132 0000009F AA                                          STOSB
+   133 000000A0 A1[18000000]                                mov EAX, [currentIndex]
+   134 000000A5 83C001                                      add EAX, 1
+   135 000000A8 A3[18000000]                                mov [currentIndex], EAX
+   136                                                      
+   137                                                      
+   138 000000AD E287                               loop mainLoop         
+   139                                          
+   140                                      
+   141                                          ; exit(0)
+   142 000000AF 6A00                            push    dword 0      ; push the parameter for exit onto the stack
+   143 000000B1 FF15[00000000]                  call    [exit]       ; call exit to terminate the program

@@ -1,0 +1,6 @@
+﻿  UI.cpp
+C:\Users\gamac\OneDrive\Desktop\Test\Test\UI.cpp(22,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\gamac\OneDrive\Desktop\Test\Test\UI.cpp(37,30): warning C4018: '<': signed/unsigned mismatch
+C:\Users\gamac\OneDrive\Desktop\Test\Test\UI.cpp(85,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\gamac\OneDrive\Desktop\Test\Test\UI.cpp(93,20): warning C4018: '<': signed/unsigned mismatch
+  Test.vcxproj -> C:\Users\gamac\OneDrive\Desktop\Test\Test\Debug\Test.exe

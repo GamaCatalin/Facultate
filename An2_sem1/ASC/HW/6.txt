@@ -1,0 +1,7 @@
+6)
+9h + 1h = Ah
+Bh + 2h = Dh
+Fh + 1h = 10h
+10h + Ah = 1Ah
+10h - 2h = Eh
+Bh - 3h = 9h	

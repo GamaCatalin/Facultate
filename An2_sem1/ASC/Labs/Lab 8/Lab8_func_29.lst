@@ -1,0 +1,142 @@
+     1                                  bits 32 ; assembling for the 32 bits architecture
+     2                                  
+     3                                  ; declare the EntryPoint (a label defining the very first instruction of the program)
+     4                                  global start        
+     5                                  
+     6                                  ; declare external functions needed by our program
+     7                                  extern exit               ; tell nasm that exit exists even if we won't be defining it
+     8                                  import exit msvcrt.dll    ; exit is a function that ends the calling process. It is defined in msvcrt.dll
+     9                                  extern scanf
+    10                                  import scanf msvcrt.dll
+    11                                  extern printf
+    12                                  import printf msvcrt.dll
+    13                                                            ; msvcrt.dll contains exit, printf and all the other important C-runtime specific functions
+    14                                  
+    15                                  ; our data is declared here (the variables needed by our program)
+    16                                  segment data use32 class=data
+    17                                      ; ...
+    18                                  
+    19 00000000 612061667465723A20          control1 db "a after: "
+    20 00000009 0000                        a dw 0
+    21 0000000B 0000                        x dw 0
+    22 0000000D 6D2061667465723A20          control2 db "m after: "
+    23 00000016 00000000                    m dd 0
+    24 0000001A 6E2061667465723A20          control3 db "n after: "
+    25 00000023 00000000                    n dd 0
+    26 00000027 6F7574707574206166-         control4 db "output after: "
+    26 00000030 7465723A20         
+    27 00000035 00000000                    output dd 0
+    28 00000039 666F726D6174206166-         control5 db "format after: "
+    28 00000042 7465723A20         
+    29 00000047 0000                        format dw 0
+    30 00000049 657463206166746572-         control6 db "etc after: "
+    30 00000052 3A20               
+    31 00000054 256400                      scanFormat db "%d",0
+    32 00000057 256400                      printFormat db "%d",0
+    33 0000005A 613D2000                    messageA db "a= ",0
+    34 0000005E 6D3D2000                    messageM db "m= ",0
+    35 00000062 6E3D2000                    messageN db "n= ",0
+    36 00000066 6E2063616E27742062-         errorMsg db "n can't be greater than m!",0
+    36 0000006F 652067726561746572-
+    36 00000078 207468616E206D2100 
+    37                                  
+    38                                      
+    39                                      
+    40                                  ; our code starts here
+    41                                  segment code use32 class=code
+    42                                      start:
+    43                                          ; ...
+    44                                          
+    45                                          ;Read three numbers a, m and n (a: word, 0 <= m, n <= 15, m > n) from the keyboard. Isolate the bits m-n of a and display the integer represented by those bits in base 16
+    46                                          
+    47                                          
+    48 00000000 68[5A000000]                    push dword messageA                 ;print the a message
+    49 00000005 FF15[00000000]                  call [printf]
+    50 0000000B 83C404                          add ESP, 4*1
+    51                                          
+    52 0000000E 68[09000000]                    push dword a                        ;scan for a
+    53 00000013 68[54000000]                    push dword scanFormat   
+    54 00000018 FF15[00000000]                  call [scanf]
+    55 0000001E 83C408                          add ESP, 4*2
+    56                                          
+    57                                          
+    58                                          
+    59 00000021 68[5E000000]                    push dword messageM                 ;print the m message
+    60 00000026 FF15[00000000]                  call [printf]
+    61 0000002C 83C404                          add ESP, 4*1
+    62                                          
+    63 0000002F 68[16000000]                    push dword m                        ;scan for m
+    64 00000034 68[54000000]                    push dword scanFormat
+    65 00000039 FF15[00000000]                  call [scanf]
+    66 0000003F 83C408                          add ESP, 4*2
+    67                                          
+    68                                          
+    69                                          
+    70 00000042 68[62000000]                    push dword messageN                 ;print the n message
+    71 00000047 FF15[00000000]                  call [printf]
+    72 0000004D 83C404                          add ESP, 4*1
+    73                                              
+    74 00000050 68[23000000]                    push dword n                        ;scan for n
+    75 00000055 68[54000000]                    push dword scanFormat
+    76 0000005A FF15[00000000]                  call [scanf]
+    77 00000060 83C408                          add ESP, 4*2
+    78                                          
+    79                                          
+    80                                          
+    81 00000063 A1[16000000]                    mov EAX, [m]                        ;check if n is greater than m
+    82 00000068 3B05[23000000]                  cmp EAX, [n]
+    83 0000006E 7F10                            jg  noError
+    84                                          
+    85 00000070 68[66000000]                    push dword errorMsg                 ;print an error and end the program if n>=m
+    86 00000075 FF15[00000000]                  call [printf]
+    87 0000007B 83C404                          add ESP,4*1
+    88 0000007E EB54                            jmp endProgram
+    89                                          
+    90                                          noError:
+    91                                          
+    92 00000080 BE00000000                      mov ESI, 0                          ;clear ESI
+    93                                          
+    94                                          
+    95 00000085 B90F000000                      mov ECX, 15                         ;move into ECX the number of times we have to do the loop
+    96                                          
+    97                                          
+    98                                          mainLoop:
+    99 0000008A 66A1[47000000]                      mov AX, [format]                ;move into AX the current format
+   100 00000090 3B35[23000000]                      cmp ESI, [n]                    ;check if the current index is between n and m
+   101 00000096 720C                                jb isUnderN
+   102                                              
+   103 00000098 3B35[16000000]                      cmp ESI, [m]
+   104 0000009E 7F04                                jg isOverM
+   105                                              
+   106                                              
+   107 000000A0 660D0080                            or AX, 10000000_00000000b       ;place a 1 at the begining of AX
+   108                                              
+   109                                              
+   110                                              isUnderN:
+   111                                              isOverM:
+   112                                          
+   113 000000A4 66D1E8                              shr AX, 1                       ;shift AX 1 to the right
+   114 000000A7 66A3[47000000]                      mov [format], AX                ;save the current format
+   115 000000AD 46                                  inc ESI                         ;increment the index
+   116                                          
+   117 000000AE E2DA                            loop mainLoop                       ;loop to find the format
+   118                                          
+   119                                          
+   120                                          
+   121 000000B0 66A1[09000000]                  mov AX, [a]                         ;move into AX the read word
+   122 000000B6 662305[47000000]                and AX, [format]                    ;isolate the bits determined by m and n
+   123 000000BD 98                              cwde
+   124                                          
+   125 000000BE A3[35000000]                    mov [output],EAX                    ;save the output
+   126                                          
+   127                                          
+   128 000000C3 FF35[35000000]                  push dword [output]                 ;print the output
+   129 000000C9 68[57000000]                    push dword printFormat
+   130 000000CE FF15[00000000]                  call [printf]
+   131                                          
+   132                                          
+   133                                          endProgram:
+   134                                      
+   135                                          ; exit(0)
+   136 000000D4 6A00                            push    dword 0      ; push the parameter for exit onto the stack
+   137 000000D6 FF15[00000000]                  call    [exit]       ; call exit to terminate the program

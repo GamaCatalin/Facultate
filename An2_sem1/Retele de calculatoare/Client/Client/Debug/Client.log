@@ -1,0 +1,4 @@
+﻿  clientUDP.c
+D:\Faculta\An2_sem1\Retele de calculatoare\Client\Client\clientUDP.c(22,27): warning C4996: 'inet_addr': Use inet_pton() or InetPton() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+D:\Faculta\An2_sem1\Retele de calculatoare\Client\Client\clientUDP.c(45,21): warning C4101: 'server': unreferenced local variable
+  Client.vcxproj -> D:\Faculta\An2_sem1\Retele de calculatoare\Client\Debug\Client.exe

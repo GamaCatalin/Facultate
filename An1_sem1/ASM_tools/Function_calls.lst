@@ -1,0 +1,79 @@
+     1                                  bits 32 ; assembling for the 32 bits architecture
+     2                                  
+     3                                  ; declare the EntryPoint (a label defining the very first instruction of the program)
+     4                                  global start        
+     5                                  
+     6                                  ; declare external functions needed by our program
+     7                                  extern exit
+     8                                  extern printf  
+     9                                  extern scanf            ; tell nasm that exit exists even if we won't be defining it
+    10                                  import exit msvcrt.dll
+    11                                  import printf msvcrt.dll
+    12                                  import scanf msvcrt.dll   ; exit is a function that ends the calling process. It is defined in msvcrt.dll
+    13                                                            ; msvcrt.dll contains exit, printf and all the other important C-runtime specific functions
+    14                                  
+    15                                  ; our data is declared here (the variables needed by our program)
+    16                                  segment data use32 class=data
+    17                                      ; ...
+    18                                     
+    19 00000000 456E74657220746865-         text1 dd "Enter the first number: ",0
+    19 00000009 206669727374206E75-
+    19 00000012 6D6265723A20000000-
+    19 0000001B 00                 
+    20 0000001C 456E74657220746865-         text2 dd "Enter the second number: ",0
+    20 00000025 207365636F6E64206E-
+    20 0000002E 756D6265723A200000-
+    20 00000037 0000000000         
+    21 0000003C 5468652070726F6475-         outputtext dd "The product is %d",0 ; am modificat tipul variabileleor- trebuie sa fie dd si nu db
+    21 00000045 637420697320256400-
+    21 0000004E 000000000000       
+    22 00000054 2564000000000000            format dd "%d", 0
+    23                                     
+    24 0000005C 00                          a db 0
+    25 0000005D 00                          b db 0
+    26                                     
+    27                                  
+    28                                  ; our code starts here
+    29                                  segment code use32 class=code
+    30                                      start:
+    31                                          ; ...
+    32                                         
+    33                                         
+    34                                          ;multiply 2 given numbers, a and b
+    35                                         
+    36                                         
+    37 00000000 B800000000                      mov eax,0    
+    38 00000005 68[00000000]                    push text1  
+    39 0000000A FF15[00000000]                  call [printf]
+    40 00000010 83C404                          add esp, 4*1
+    41 00000013 68[5C000000]                    push a
+    42 00000018 68[54000000]                    push format
+    43 0000001D FF15[00000000]                  call [scanf]
+    44 00000023 83C408                          add esp, 4*2
+    45                                         
+    46                                         
+    47 00000026 68[1C000000]                    push text2
+    48 0000002B FF15[00000000]                  call [printf]
+    49 00000031 83C404                          add esp, 4*1
+    50 00000034 68[5D000000]                    push b
+    51 00000039 68[54000000]                    push format
+    52 0000003E FF15[00000000]                  call [scanf]
+    53 00000044 83C408                          add esp, 4*2
+    54                                         
+    55 00000047 66A1[5C000000]                  mov ax, [a] ; pentru ca a este byte, iar in ax incape un word, va incarca in ah -rumatoarea pozitie din memorie (care este b de fapt). In memoria variabilele apar in ordinea definirii lor
+    56 0000004D B400                            mov ah, 0
+    57 0000004F 8A1D[5D000000]                  mov bl, [b]
+    58 00000055 F6E3                            mul bl
+    59                                         
+    60 00000057 6699                            cwd
+    61 00000059 50                              push eax ; aici pui pe stiva pt print doar un word. trebuie pus un double word. solutii: 1. pui alt word initializat cu 0 inainte (adica mov dx,0, push dx, ori faci conversie la double word si asa pui pe sti
+    62 0000005A 68[3C000000]                    push outputtext
+    63 0000005F FF15[00000000]                  call [printf]
+    64 00000065 83C408                          add esp, 4*2 ; aici pt ca ai pus 2 dublu cuvinte (eax si outputext), trebuie sa add 4*2      
+    65                                         
+    66                                         
+    67                                         
+    68                                     
+    69                                          ; exit(0)
+    70 00000068 6A00                            push    dword 0      ; push the parameter for exit onto the stack
+    71 0000006A FF15[00000000]                  call    [exit]       ; call exit to terminate the program

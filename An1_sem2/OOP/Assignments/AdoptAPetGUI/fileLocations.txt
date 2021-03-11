@@ -1,0 +1,5 @@
+D:\Faculta\An1_sem2\OOP\Assignments\AdoptAPetGUI\elements.txt
+
+D:\Faculta\An1_sem2\OOP\Assignments\AdoptAPetGUI\myList.html
+
+D:\Faculta\An1_sem2\OOP\Assignments\AdoptAPetGUI\myList.csv

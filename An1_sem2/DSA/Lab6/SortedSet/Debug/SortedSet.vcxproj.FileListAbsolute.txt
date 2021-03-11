@@ -1,0 +1,2 @@
+D:\Faculta\An1_sem2\DSA\Lab6\SortedSet\Debug\SortedSet.exe
+D:\Faculta\An1_sem2\DSA\Lab6\SortedSet\Debug\SortedSet.pdb

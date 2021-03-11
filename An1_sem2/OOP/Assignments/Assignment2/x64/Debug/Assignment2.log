@@ -1,0 +1,82 @@
+﻿  Repository.c
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\Repository.h(8,34): error C2079: 'medications' uses undefined struct 'Medicine'
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\Repository.h(11,2): warning C4091: 'typedef ': ignored on left of 'Repository' when no variable is declared
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\Repository.h(19,2): warning C4091: 'typedef ': ignored on left of 'Memory' when no variable is declared
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\Module.h(11,2): warning C4091: 'typedef ': ignored on left of 'Medicine' when no variable is declared
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\Repository.c(10,30): error C2109: subscript requires array or pointer type
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\Repository.c(11,30): error C2109: subscript requires array or pointer type
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\Repository.c(12,38): error C2109: subscript requires array or pointer type
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\Repository.c(12,50): error C2198: 'strcpy': too few arguments for call
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\Repository.c(13,38): error C2109: subscript requires array or pointer type
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\Repository.c(13,66): error C2198: 'strcpy': too few arguments for call
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\Repository.c(12,1): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\string.h(133): message : see declaration of 'strcpy'
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\Repository.c(13,1): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\string.h(133): message : see declaration of 'strcpy'
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\Repository.c(24,31): error C2109: subscript requires array or pointer type
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\Repository.c(26,29): error C2109: subscript requires array or pointer type
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\Repository.c(26,64): error C2109: subscript requires array or pointer type
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\Repository.c(27,36): error C2109: subscript requires array or pointer type
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\Repository.c(27,72): error C2109: subscript requires array or pointer type
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\Repository.c(27,78): error C2198: 'strcpy': too few arguments for call
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\Repository.c(28,36): error C2109: subscript requires array or pointer type
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\Repository.c(28,80): error C2109: subscript requires array or pointer type
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\Repository.c(28,94): error C2198: 'strcpy': too few arguments for call
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\Repository.c(29,29): error C2109: subscript requires array or pointer type
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\Repository.c(29,70): error C2109: subscript requires array or pointer type
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\Repository.c(46,31): error C2109: subscript requires array or pointer type
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\Repository.c(48,28): error C2109: subscript requires array or pointer type
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\Repository.c(49,36): error C2109: subscript requires array or pointer type
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\Repository.c(49,51): error C2198: 'strcpy': too few arguments for call
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\Repository.c(50,36): error C2109: subscript requires array or pointer type
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\Repository.c(50,67): error C2198: 'strcpy': too few arguments for call
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\Repository.c(102,17): error C2231: '.name': left operand points to 'struct', use '->'
+  Services.c
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\Repository.h(8,34): error C2079: 'medications' uses undefined struct 'Medicine'
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\Repository.h(11,2): warning C4091: 'typedef ': ignored on left of 'Repository' when no variable is declared
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\Repository.h(19,2): warning C4091: 'typedef ': ignored on left of 'Memory' when no variable is declared
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\Services.c(13,31): error C2109: subscript requires array or pointer type
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\Services.c(24,37): error C2109: subscript requires array or pointer type
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\Services.c(24,38): warning C4033: 'get_currentElement' must return a value
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\Services.c(38,17): error C2037: left of 'manufacturer' specifies undefined struct/union 'Medicine'
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\Services.c(38,29): warning C4033: 'get_currentManufacturer' must return a value
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\Services.c(44,17): error C2037: left of 'id' specifies undefined struct/union 'Medicine'
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\Services.c(44,19): warning C4033: 'get_currentID' must return a value
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\Services.c(50,17): error C2037: left of 'quantity' specifies undefined struct/union 'Medicine'
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\Services.c(50,25): warning C4033: 'get_currentQuantity' must return a value
+  UI.c
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\Repository.h(8,34): error C2079: 'medications' uses undefined struct 'Medicine'
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\Repository.h(11,2): warning C4091: 'typedef ': ignored on left of 'Repository' when no variable is declared
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\Repository.h(19,2): warning C4091: 'typedef ': ignored on left of 'Memory' when no variable is declared
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\UI.c(31,26): warning C4013: 'get_maxIndex' undefined; assuming extern returning int
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\UI.c(35,23): warning C4047: 'function': 'Medicine *' differs in levels of indirection from 'int'
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\UI.c(35,23): warning C4024: 'get_currentID': different types for formal and actual parameter 1
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\UI.c(36,34): warning C4047: 'function': 'Medicine *' differs in levels of indirection from 'int'
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\UI.c(36,34): warning C4024: 'get_currentName': different types for formal and actual parameter 1
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\UI.c(37,50): warning C4047: 'function': 'Medicine *' differs in levels of indirection from 'int'
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\UI.c(37,50): warning C4024: 'get_currentManufacturer': different types for formal and actual parameter 1
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\UI.c(38,35): warning C4047: 'function': 'Medicine *' differs in levels of indirection from 'int'
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\UI.c(38,35): warning C4024: 'get_currentQuantity': different types for formal and actual parameter 1
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\UI.c(56,28): warning C4047: 'function': 'Medicine *' differs in levels of indirection from 'int'
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\UI.c(56,28): warning C4024: 'get_currentQuantity': different types for formal and actual parameter 1
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\UI.c(58,24): warning C4047: 'function': 'Medicine *' differs in levels of indirection from 'int'
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\UI.c(58,24): warning C4024: 'get_currentID': different types for formal and actual parameter 1
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\UI.c(59,35): warning C4047: 'function': 'Medicine *' differs in levels of indirection from 'int'
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\UI.c(59,35): warning C4024: 'get_currentName': different types for formal and actual parameter 1
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\UI.c(60,51): warning C4047: 'function': 'Medicine *' differs in levels of indirection from 'int'
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\UI.c(60,51): warning C4024: 'get_currentManufacturer': different types for formal and actual parameter 1
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\UI.c(61,36): warning C4047: 'function': 'Medicine *' differs in levels of indirection from 'int'
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\UI.c(61,36): warning C4024: 'get_currentQuantity': different types for formal and actual parameter 1
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\UI.c(84,24): warning C4047: 'function': 'Medicine *' differs in levels of indirection from 'int'
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\UI.c(84,24): warning C4024: 'get_currentID': different types for formal and actual parameter 1
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\UI.c(85,35): warning C4047: 'function': 'Medicine *' differs in levels of indirection from 'int'
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\UI.c(85,35): warning C4024: 'get_currentName': different types for formal and actual parameter 1
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\UI.c(86,51): warning C4047: 'function': 'Medicine *' differs in levels of indirection from 'int'
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\UI.c(86,51): warning C4024: 'get_currentManufacturer': different types for formal and actual parameter 1
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\UI.c(87,36): warning C4047: 'function': 'Medicine *' differs in levels of indirection from 'int'
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\UI.c(87,36): warning C4024: 'get_currentQuantity': different types for formal and actual parameter 1
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\UI.c(257,34): error C2109: subscript requires array or pointer type
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\UI.c(257,8): warning C4473: 'printf' : not enough arguments passed for format string
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\UI.c(257,8): message : placeholders and their parameters expect 1 variadic arguments, but 0 were provided
+C:\Users\gamac\OneDrive\Desktop\Faculta\An1_sem2\OOP\Assignments\Assignment2\UI.c(257,8): message : the missing variadic argument 1 is required by format string '%s'
+  Generating Code...

@@ -1,0 +1,75 @@
+     1                                  bits 32 ; assembling for the 32 bits architecture
+     2                                  
+     3                                  ; declare the EntryPoint (a label defining the very first instruction of the program)
+     4                                  global start        
+     5                                  
+     6                                  ; declare external functions needed by our program
+     7                                  extern exit            ; tell nasm that exit exists even if we won't be defining it
+     8                                  extern printf
+     9                                  extern scanf
+    10                                  import exit msvcrt.dll    ; exit is a function that ends the calling process. It is defined in msvcrt.dll
+    11                                  import printf msvcrt.dll
+    12                                  import scanf msvcrt.dll
+    13                                                            ; msvcrt.dll contains exit, printf and all the other important C-runtime specific functions
+    14                                  
+    15                                  ; our data is declared here (the variables needed by our program)
+    16                                  segment data use32 class=data
+    17                                      ; ...
+    18                                      
+    19 00000000 2564000000000000            format dd "%d",0
+    20 00000008 0A09020704030C0B08-         sir dd 0702090Ah, 0B0C0304h, 05060108h 
+    20 00000011 010605             
+    21                                      len equ ($-sir)
+    22 00000014 00                          sir1 db 0
+    23                                      len1 equ ($-sir1)
+    24                                  
+    25                                  ; our code starts here
+    26                                  segment code use32 class=code
+    27                                      start:
+    28                                          ; ...
+    29                                          
+    30                                         ;turn double words from the string into bytes on another string
+    31                                          
+    32                                          
+    33                                          
+    34 00000000 BE[08000000]                    mov esi, sir
+    35 00000005 B90C000000                      mov ecx, len
+    36 0000000A BF[14000000]                    mov edi, sir1
+    37                                          
+    38 0000000F FC                              cld
+    39                                          
+    40                                          
+    41                                          Repeat:
+    42 00000010 AC                                  lodsb
+    43 00000011 AA                                  stosb 
+    44 00000012 E2FC                            loop Repeat
+    45                                          
+    46                                      
+    47                                          
+    48 00000014 B901000000                      mov ecx, len1
+    49 00000019 BE[14000000]                    mov esi, sir1
+    50                                          
+    51                                          
+    52                                          
+    53                                          
+    54                                          PrintLoop:
+    55                                              
+    56 0000001E AC                                  lodsb
+    57 0000001F 6698                                cbw
+    58 00000021 98                                  cwde
+    59                                              
+    60                                              
+    61 00000022 50                                  push eax
+    62 00000023 68[00000000]                        push format
+    63 00000028 FF15[00000000]                      call [printf]
+    64 0000002E E2EE                            loop PrintLoop
+    65                                          
+    66                                          
+    67                                          
+    68                                          
+    69                                          
+    70                                          
+    71                                      
+    72                                          ; exit(0)
+    73 00000030 6A00                            push    dword 0      ; push the parameter for exit onto the stack
+    74 00000032 FF15[00000000]                  call    [exit]       ; call exit to terminate the program

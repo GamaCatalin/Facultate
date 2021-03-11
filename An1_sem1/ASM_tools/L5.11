@@ -1,0 +1,80 @@
+bits 32 ; assembling for the 32 bits architecture
+
+; declare the EntryPoint (a label defining the very first instruction of the program)
+global start        
+
+; declare external functions needed by our program
+extern exit  
+extern printf             ; tell nasm that exit exists even if we won't be defining it
+import exit msvcrt.dll    ; exit is a function that ends the calling process. It is defined in msvcrt.dll
+import printf msvcrt.dll                          ; msvcrt.dll contains exit, printf and all the other important C-runtime specific functions
+
+; our data is declared here (the variables needed by our program)
+segment data use32 class=data
+    ; ...
+
+    s db 1,5,3,8,2,9
+    l equ $-s
+    d1 times l db 0
+    d2 times l db 0
+    l1 db 0
+    l2 db 0
+    format db "Number= %d", 0
+    a db 0
+    
+; our code starts here
+segment code use32 class=code
+    start:
+        ; ...
+        ;d1 filled with even numbers from s
+        ;d2 filled with odd numbers from s
+        
+        
+        
+        ;mov ecx, l
+        ;mov esi, 0
+        ;jecxz EndEven
+        ;Print: 
+        ;       mov ax,[s+esi]
+        ;        push ax
+        ;        push format
+        ;       call [printf]
+        ;        inc esi
+               
+        ;EndEven:
+        
+        
+        
+        
+    
+        mov ecx,l
+        mov esi, 0                      ;initialize the main string index
+        jecxz End
+        Repeat:
+                mov ax, [s+esi]
+                test ax,01h             ;tests the parity 
+                jnp Odd
+                jp Even
+                
+                Odd:                    ;adds an odd number to it's list
+                    add byte [l2],1
+                    mov ax, [s+esi]
+                    mov [d2] ,ax
+                    jmp increment
+                    
+                Even:                   ;adds an even number to it's list
+                    add byte [l1],1
+                    mov ax, [s+esi]
+                    mov [d1],ax
+                    jmp increment 
+                
+                increment:
+                    inc esi             ;increments the main string index      
+        loop Repeat                     ;loops until the string is finished
+        End:   
+    
+
+    
+        ; exit(0)
+        push    dword 0      ; push the parameter for exit onto the stack
+        call    [exit]       ; call exit to terminate the program

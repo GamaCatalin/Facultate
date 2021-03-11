@@ -1,0 +1,6 @@
+﻿  Client.c
+D:\Faculta\An2_sem1\Retele de calculatoare\Lab\Client\Client\Client.c(38,25): warning C4996: 'inet_addr': Use inet_pton() or InetPton() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+D:\Faculta\An2_sem1\Retele de calculatoare\Lab\Client\Client\Client.c(108,63): warning C4133: 'function': incompatible types - from 'sockaddr_in *' to 'const sockaddr *'
+D:\Faculta\An2_sem1\Retele de calculatoare\Lab\Client\Client\Client.c(130,55): warning C4133: 'function': incompatible types - from 'sockaddr_in *' to 'const sockaddr *'
+D:\Faculta\An2_sem1\Retele de calculatoare\Lab\Client\Client\Client.c(40): warning C4716: 'getAddrServer': must return a value
+  Client.vcxproj -> D:\Faculta\An2_sem1\Retele de calculatoare\Lab\Client\Debug\Client.exe

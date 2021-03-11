@@ -1,0 +1,59 @@
+%2.
+%a. Write a predicate to remove all occurrences of a certain atom from a list
+
+
+%remove(E:element,L:list,O:list)
+%flow model(i,i,o)
+%
+removeList(_,[],[]).
+
+removeList(E,[E|T],R):-
+    removeList(E,T,R),
+    !.
+
+removeList(E,[H|T],[H|R]):-
+    removeList(E,T,R).
+
+
+
+% b. Define a predicate to produce a list of pairs (atom n) from an
+% initial list of atoms. In this initial list atom has n occurrences.
+
+
+%count(E:element,Nr:int,L:list)
+%flow model(i,o,i)
+
+count(_,0,[]).
+
+count(E,Nr1,[E|T]):-
+    count(E,Nr,T),
+    Nr1 is Nr + 1.
+
+count(E,Nr,[H|T]):-
+    E\=H,
+    count(E,Nr,T).
+
+
+
+%numberatom(L:list,O:list)
+%flow model(i,o)
+
+numberatom([],[]).
+
+numberatom([H|T],[[H,N]|R]):-
+    count(H,Nr,T),
+    removeList(H,T,L),
+    N is Nr + 1,
+    numberatom(L,R).
+
+
+
+%multiplication(K:int,L:list,O:list)
+%flow model(i,i,o)
+
+multiplication(_,[],[]).
+
+multiplication(K,[H|T],[E|R]):-
+    E is H*K,
+    multiplication(K,T,R),
+    !.

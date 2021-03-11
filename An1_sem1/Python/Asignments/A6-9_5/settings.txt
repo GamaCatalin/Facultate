@@ -1,0 +1,3 @@
+repository = textfiles
+persons = A6-9_5/persons.txt
+actvities = A6-9_5/activities.txt

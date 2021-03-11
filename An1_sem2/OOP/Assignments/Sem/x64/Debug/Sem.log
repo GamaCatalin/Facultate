@@ -1,0 +1,5 @@
+﻿  uic Sem.ui
+  Sem.cpp
+  main.cpp
+  moc_Sem.cpp
+  Sem.vcxproj -> D:\Faculta\An1_sem2\OOP\Assignments\Sem\x64\Debug\Sem.exe

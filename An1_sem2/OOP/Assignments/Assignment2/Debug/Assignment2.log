@@ -1,0 +1,67 @@
+﻿  Repository.c
+C:\Users\gamac\OneDrive\Desktop\OOP\Assignements\Assignment2\Repository.h(11,2): warning C4091: 'typedef ': ignored on left of 'Medicine' when no variable is declared
+C:\Users\gamac\OneDrive\Desktop\OOP\Assignements\Assignment2\Repository.h(18,2): warning C4091: 'typedef ': ignored on left of 'Repository' when no variable is declared
+C:\Users\gamac\OneDrive\Desktop\OOP\Assignements\Assignment2\Repository.h(24,2): warning C4091: 'typedef ': ignored on left of 'Argument' when no variable is declared
+C:\Users\gamac\OneDrive\Desktop\OOP\Assignements\Assignment2\Repository.h(31,2): warning C4091: 'typedef ': ignored on left of 'Command' when no variable is declared
+C:\Users\gamac\OneDrive\Desktop\OOP\Assignements\Assignment2\Repository.c(11,45): warning C4047: 'function': 'char *' differs in levels of indirection from 'char (*)[100]'
+C:\Users\gamac\OneDrive\Desktop\OOP\Assignements\Assignment2\Repository.c(11,45): warning C4024: 'strcpy': different types for formal and actual parameter 1
+C:\Users\gamac\OneDrive\Desktop\OOP\Assignements\Assignment2\Repository.c(12,53): warning C4047: 'function': 'char *' differs in levels of indirection from 'char (*)[100]'
+C:\Users\gamac\OneDrive\Desktop\OOP\Assignements\Assignment2\Repository.c(12,53): warning C4024: 'strcpy': different types for formal and actual parameter 1
+C:\Users\gamac\OneDrive\Desktop\OOP\Assignements\Assignment2\Repository.c(11,1): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\string.h(133): message : see declaration of 'strcpy'
+C:\Users\gamac\OneDrive\Desktop\OOP\Assignements\Assignment2\Repository.c(12,1): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\string.h(133): message : see declaration of 'strcpy'
+C:\Users\gamac\OneDrive\Desktop\OOP\Assignements\Assignment2\Repository.c(24,1): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\string.h(133): message : see declaration of 'strcpy'
+C:\Users\gamac\OneDrive\Desktop\OOP\Assignements\Assignment2\Repository.c(25,1): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\string.h(133): message : see declaration of 'strcpy'
+C:\Users\gamac\OneDrive\Desktop\OOP\Assignements\Assignment2\Repository.c(44,43): warning C4047: 'function': 'char *' differs in levels of indirection from 'char (*)[100]'
+C:\Users\gamac\OneDrive\Desktop\OOP\Assignements\Assignment2\Repository.c(44,43): warning C4024: 'strcpy': different types for formal and actual parameter 1
+C:\Users\gamac\OneDrive\Desktop\OOP\Assignements\Assignment2\Repository.c(45,51): warning C4047: 'function': 'char *' differs in levels of indirection from 'char (*)[100]'
+C:\Users\gamac\OneDrive\Desktop\OOP\Assignements\Assignment2\Repository.c(45,51): warning C4024: 'strcpy': different types for formal and actual parameter 1
+C:\Users\gamac\OneDrive\Desktop\OOP\Assignements\Assignment2\Repository.c(44,1): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\string.h(133): message : see declaration of 'strcpy'
+C:\Users\gamac\OneDrive\Desktop\OOP\Assignements\Assignment2\Repository.c(45,1): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\string.h(133): message : see declaration of 'strcpy'
+  UI.c
+C:\Users\gamac\OneDrive\Desktop\OOP\Assignements\Assignment2\Repository.h(11,2): warning C4091: 'typedef ': ignored on left of 'Medicine' when no variable is declared
+C:\Users\gamac\OneDrive\Desktop\OOP\Assignements\Assignment2\Repository.h(18,2): warning C4091: 'typedef ': ignored on left of 'Repository' when no variable is declared
+C:\Users\gamac\OneDrive\Desktop\OOP\Assignements\Assignment2\Repository.h(24,2): warning C4091: 'typedef ': ignored on left of 'Argument' when no variable is declared
+C:\Users\gamac\OneDrive\Desktop\OOP\Assignements\Assignment2\Repository.h(31,2): warning C4091: 'typedef ': ignored on left of 'Command' when no variable is declared
+C:\Users\gamac\OneDrive\Desktop\OOP\Assignements\Assignment2\UI.c(48,16): warning C4018: '<': signed/unsigned mismatch
+C:\Users\gamac\OneDrive\Desktop\OOP\Assignements\Assignment2\UI.c(58,38): warning C4047: '=': 'char' differs in levels of indirection from 'char [2]'
+C:\Users\gamac\OneDrive\Desktop\OOP\Assignements\Assignment2\UI.c(118,14): warning C4013: 'atoi' undefined; assuming extern returning int
+C:\Users\gamac\OneDrive\Desktop\OOP\Assignements\Assignment2\UI.c(102,1): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\string.h(440): message : see declaration of 'strtok'
+C:\Users\gamac\OneDrive\Desktop\OOP\Assignements\Assignment2\UI.c(106,1): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\string.h(133): message : see declaration of 'strcpy'
+C:\Users\gamac\OneDrive\Desktop\OOP\Assignements\Assignment2\UI.c(112,1): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\string.h(440): message : see declaration of 'strtok'
+C:\Users\gamac\OneDrive\Desktop\OOP\Assignements\Assignment2\UI.c(114,1): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\string.h(133): message : see declaration of 'strcpy'
+C:\Users\gamac\OneDrive\Desktop\OOP\Assignements\Assignment2\UI.c(119,1): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\string.h(133): message : see declaration of 'strcpy'
+C:\Users\gamac\OneDrive\Desktop\OOP\Assignements\Assignment2\UI.c(120,1): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\string.h(133): message : see declaration of 'strcpy'
+C:\Users\gamac\OneDrive\Desktop\OOP\Assignements\Assignment2\UI.c(140,1): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\string.h(440): message : see declaration of 'strtok'
+C:\Users\gamac\OneDrive\Desktop\OOP\Assignements\Assignment2\UI.c(142,1): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\string.h(133): message : see declaration of 'strcpy'
+C:\Users\gamac\OneDrive\Desktop\OOP\Assignements\Assignment2\UI.c(165,1): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\string.h(440): message : see declaration of 'strtok'
+C:\Users\gamac\OneDrive\Desktop\OOP\Assignements\Assignment2\UI.c(167,1): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\string.h(133): message : see declaration of 'strcpy'
+C:\Users\gamac\OneDrive\Desktop\OOP\Assignements\Assignment2\UI.c(171,1): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\string.h(133): message : see declaration of 'strcpy'
+C:\Users\gamac\OneDrive\Desktop\OOP\Assignements\Assignment2\UI.c(172,1): warning C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\string.h(338): message : see declaration of 'strncpy'
+C:\Users\gamac\OneDrive\Desktop\OOP\Assignements\Assignment2\UI.c(183,1): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\string.h(440): message : see declaration of 'strtok'
+C:\Users\gamac\OneDrive\Desktop\OOP\Assignements\Assignment2\UI.c(185,1): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\string.h(133): message : see declaration of 'strcpy'
+C:\Users\gamac\OneDrive\Desktop\OOP\Assignements\Assignment2\UI.c(190,1): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\string.h(133): message : see declaration of 'strcpy'
+C:\Users\gamac\OneDrive\Desktop\OOP\Assignements\Assignment2\UI.c(191,1): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\string.h(133): message : see declaration of 'strcpy'
+  Generating Code...
+  Assignment2.vcxproj -> C:\Users\gamac\OneDrive\Desktop\OOP\Assignements\Assignment2\Debug\Assignment2.exe

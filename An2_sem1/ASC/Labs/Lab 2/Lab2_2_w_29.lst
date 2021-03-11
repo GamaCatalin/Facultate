@@ -1,0 +1,65 @@
+     1                                  bits 32 ; assembling for the 32 bits architecture
+     2                                  
+     3                                  ; declare the EntryPoint (a label defining the very first instruction of the program)
+     4                                  global start        
+     5                                  
+     6                                  ; declare external functions needed by our program
+     7                                  extern exit               ; tell nasm that exit exists even if we won't be defining it
+     8                                  import exit msvcrt.dll    ; exit is a function that ends the calling process. It is defined in msvcrt.dll
+     9                                                            ; msvcrt.dll contains exit, printf and all the other important C-runtime specific functions
+    10                                  
+    11                                  ; our data is declared here (the variables needed by our program)
+    12                                  segment data use32 class=data
+    13                                      ; ...
+    14                                  
+    15 00000000 0B00                        a dw 11
+    16 00000002 0500                        b dw 5
+    17 00000004 0900                        c dw 9
+    18 00000006 1800                        d dw 24
+    19                                      
+    20 00000008 0000                        aux1 dw 0
+    21 0000000A 0000                        aux2 dw 0
+    22                                      
+    23                                  ; our code starts here
+    24                                  segment code use32 class=code
+    25                                      start:
+    26                                          ; ...
+    27                                          
+    28 00000000 B800000000                      mov EAX, 0
+    29 00000005 BA00000000                      mov EDX, 0
+    30 0000000A BB00000000                      mov EBX, 0
+    31 0000000F B900000000                      mov ECX, 0
+    32                                          
+    33                                          
+    34 00000014 66A1[06000000]                 mov AX,[d]
+    35 0000001A 668B1D[00000000]               mov BX,[a]
+    36                                         
+    37 00000021 6629D8                         SUB AX,BX
+    38                                         
+    39 00000024 66A3[08000000]                 mov [aux1],AX
+    40                                         
+    41 0000002A 66A1[02000000]                 mov AX,[b]
+    42 00000030 668B1D[02000000]               mov BX,[b]
+    43                                         
+    44 00000037 6601D8                         ADD AX,BX
+    45                                         
+    46 0000003A 668B1D[04000000]               mov BX,[c]
+    47 00000041 6601D8                         ADD AX,BX
+    48                                         
+    49 00000044 66A3[0A000000]                 mov [aux2],AX
+    50                                         
+    51 0000004A 66A1[08000000]                 mov AX,[aux1]
+    52 00000050 668B1D[0A000000]               mov BX,[aux2]
+    53                                         
+    54 00000057 6601D8                         ADD AX,BX
+    55                                         
+    56                                         
+    57                                          
+    58                                          
+    59                                          
+    60                                          
+    61                                          
+    62                                      
+    63                                          ; exit(0)
+    64 0000005A 6A00                            push    dword 0      ; push the parameter for exit onto the stack
+    65 0000005C FF15[00000000]                  call    [exit]       ; call exit to terminate the program

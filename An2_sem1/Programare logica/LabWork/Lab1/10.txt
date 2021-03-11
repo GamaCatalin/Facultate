@@ -1,0 +1,21 @@
+10)
+
+a)
+
+	determine(list[])
+		{	0,	isEmpty(list[]) == True
+			FirstElement(list[]) + return determine(Sublist(list[]),	FirstElement(list[])%2==0
+			- FirstElement(list[]) + return determine(Sublist(list[]),	FirstElement(list[])%2!=0
+		}
+
+b)
+
+	difference(currentElement,list1,list2,dList,bufferList,isSearching)
+		{	return dList,	isEmpty(list1)==True && isSearching==False
+			return difference(currentElement,list1,list2,addElement(dList,currentElement),bufferList,False),	isEmpty(list1)==True && isEmpty(list2)==True
+			return difference(firstElement(list1),sublist(list1),bufferList,addElement(dList,currentElement),list2,True),	isEmpty(list2)==True	
+			return difference(firstElement(list1),sublist(list1),list2,dList,bufferList,False),	currentElement==firstElement(list2)		
+			return difference(currentElement,list1,addElement(list2,firstElement(bufferList),dList,sublist(bufferList),False),	isSearching==False && isEmpty(bufferlist)==False
+			return difference(currentElement,list1,list2,dList,bufferList,True),	isSearching==False && isEmpty(bufferList)==True
+			return difference(currentElement,list1,sublist(list2),addElement(bufferList,firstElement(list2),True),	isSearching==True && isEmpty(list2)==False
+		}
