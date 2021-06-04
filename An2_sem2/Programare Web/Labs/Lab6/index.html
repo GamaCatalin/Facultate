@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="style.css">
+
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+        let currentScreen = 1;
+
+        $(document).ready(function() {
+
+            $(".left-part").click(function ()
+                {
+                    if(currentScreen===1){
+                        return;
+                    }
+                    currentScreen--;
+
+                    console.log(currentScreen)
+
+                    switch (currentScreen) {
+                        case 1:{
+                            $("#screen2").animate({
+                                width: 'toggle'
+                            },500)
+                            $("#screen1").animate({
+                                width: 'toggle'
+                            },500)
+                            $("#elem2").css("background-color", "white");
+                            $("#elem1").css("background-color", "grey");
+                            return;
+                        }
+                        case 2:{
+                            $("#screen3").animate({
+                                width: 'toggle'
+                            },500)
+                            $("#screen2").animate({
+                                width: 'toggle'
+                            },500)
+                            $("#elem3").css("background-color", "white");
+                            $("#elem2").css("background-color", "grey");
+                            return;
+                        }
+                        case 3:{
+                            $("#screen4").animate({
+                                width: 'toggle'
+                            },500)
+                            $("#screen3").animate({
+                                width: 'toggle'
+                            },500)
+                            $("#elem4").css("background-color", "white");
+                            $("#elem3").css("background-color", "grey");
+                            return;
+                        }
+                    }
+                }
+            );
+            $(".right-part").click(function () {
+                    if(currentScreen===4){
+                        return;
+                    }
+                    currentScreen++;
+
+                    console.log(currentScreen)
+
+                    switch (currentScreen) {
+                        case 2:{
+                            $("#screen1").animate({
+                                width: '0'
+                            },500,function(){
+                                $("#screen1").hide().css("width","100%");
+                            })
+                            $("#screen2").animate({
+                                width: 'toggle'
+                            },500)
+                            $("#elem1").css("background-color", "white");
+                            $("#elem2").css("background-color", "grey");
+                            return;
+                        }
+                        case 3:{
+                            $("#screen2").animate({
+                                width: 'toggle'
+                            },500)
+                            $("#screen3").animate({
+                                width: 'toggle'
+                            },500)
+                            $("#elem2").css("background-color", "white");
+                            $("#elem3").css("background-color", "grey");
+                            return;
+                        }
+                        case 4:{
+                            $("#screen3").animate({
+                                width: 'toggle'
+                            },500)
+                            $("#screen4").animate({
+                                width: 'toggle'
+                            },500)
+                            $("#elem3").css("background-color", "white");
+                            $("#elem4").css("background-color", "grey");
+                            return;
+                        }
+                    }
+            });
+        });
+
+    </script>
+
+
+
+</head>
+<body>
+
+<main>
+
+
+    <div class="container">
+        <div class="screen-wrapper">
+            <div class="screen" id="screen1" style="display: block">
+                <div class="grid">
+                    <div class="icon chocolate"></div>
+                    <div class="icon chocolate"></div>
+                    <div class="icon chocolate"></div>
+                    <div class="icon chocolate"></div>
+                    <div class="icon chocolate"></div>
+                    <div class="icon chocolate"></div>
+                </div>
+                <div class="left-part"></div>
+                <div class="right-part"></div>
+            </div>
+
+            <div class="screen" id="screen2" style="display: none;">
+                <div class="grid">
+                    <div class="icon lightblue"></div>
+                    <div class="icon lightblue"></div>
+                    <div class="icon lightblue"></div>
+                </div>
+                <div class="left-part"></div>
+                <div class="right-part"></div>
+            </div>
+
+            <div class="screen" id="screen3" style="display: none;">
+                <div class="grid">
+                    <div class="icon steelblue"></div>
+                    <div class="icon steelblue"></div>
+                    <div class="icon steelblue"></div>
+                    <div class="icon steelblue"></div>
+                    <div class="icon steelblue"></div>
+                    <div class="icon steelblue"></div>
+                    <div class="icon steelblue"></div>
+                    <div class="icon steelblue"></div>
+                    <div class="icon steelblue"></div>
+                    <div class="icon steelblue"></div>
+                </div>
+                <div class="left-part"></div>
+                <div class="right-part"></div>
+            </div>
+
+            <div class="screen" id="screen4" style="display: none;">
+                <div class="grid">
+                    <div class="icon beige"></div>
+                    <div class="icon beige"></div>
+                    <div class="icon beige"></div>
+                    <div class="icon beige"></div>
+                </div>
+                <div class="left-part"></div>
+                <div class="right-part"></div>
+            </div>
+
+            <div class="display-page">
+                <div class="element" id="elem1"><div></div></div>
+                <div class="element" id="elem2"><div></div></div>
+                <div class="element" id="elem3"><div></div></div>
+                <div class="element" id="elem4"><div></div></div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+
+
+</main>
+
+
+
+</body>
+</html>

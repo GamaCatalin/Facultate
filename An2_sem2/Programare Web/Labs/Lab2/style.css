@@ -1,0 +1,59 @@
+body {
+  background-color: lightblue;
+}
+
+table{
+	border: solid #000000 1px;
+	padding: 0;
+	margin: 0px;
+}
+
+tr{
+	height: 100px;
+	border: solid black 1px;
+	padding: 0px;
+	margin: 0px;
+}
+
+th{
+	border: solid black 1px;
+	width: 200px;
+	padding: 0px;
+	margin: 0px;
+}
+
+td{
+	width: 200px;
+	padding: 0px;
+	margin: 0px;
+}
+
+table:hover .table-row{
+	height:0px;
+}
+
+.table-header {
+	padding: 0px;
+	margin: 0px;
+	background-color: red;
+}
+
+.table-row{
+	padding: 0px;
+	margin: 0px;
+	background-color: blue;
+	height:100px;
+	transition-duration: 1s;
+}
+
+.div-stair{
+	margin: 0px;
+	padding: 0px;
+	height: 100px;
+	width:100px;
+	background-color: #666699;
+	box-shadow: inset -40px -40px 15px #33334d;
+	margin-left:60px;
+	margin-top: -35px;
+	position: absolute;
+}

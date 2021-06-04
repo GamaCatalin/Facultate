@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<InterestRates>
+<InterestRate type="deposit" duration="1" rate="2" />
+<InterestRate type="deposit" duration="3" rate="3" />
+<InterestRate type="deposit" duration="6" rate="4" />
+<InterestRate type="deposit" duration="12" rate="5" />
+<InterestRate type="deposit" duration="18" rate="5.5" />
+<InterestRate type="loan" duration="1" rate="3" />
+<InterestRate type="loan" duration="3" rate="4" />
+<InterestRate type="loan" duration="6" rate="5" />
+<InterestRate type="loan" duration="12" rate="7" />
+<InterestRate type="loan" duration="18" rate="8" />
+<InterestRate type="loan" duration="24" rate="10" />
+<InterestRate type="loan" duration="36" rate="12" />
+<InterestRate type="loan" duration="48" rate="15" />
+<InterestRate type="loan" duration="60" rate="18" />
+</InterestRates>

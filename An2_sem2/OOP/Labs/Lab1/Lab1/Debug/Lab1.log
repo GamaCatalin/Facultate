@@ -1,0 +1,4 @@
+﻿  Source.c
+D:\Faculta\An2_sem2\OOP\Labs\Lab1\Lab1\Source.c(51,3): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\Faculta\An2_sem2\OOP\Labs\Lab1\Lab1\Source.c(98,2): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  Lab1.vcxproj -> D:\Faculta\An2_sem2\OOP\Labs\Lab1\Debug\Lab1.exe

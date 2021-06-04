@@ -1,0 +1,218 @@
+model Company_Example
+
+-- Navigating association classes
+    
+context Person
+    
+    inv managersSalary:
+        /**
+         * The 'select' operation is used to produce a subcollection of the initial
+         * collection. For each element in the original collection, the argument boolean
+         * expression is computed; if it evaluates to true, the element is included
+         * in the result. The 'select' operation may easily be expressed with 'iterate':
+         * collection->select(it|boolean-expression-with-it) <=> collection
+         * ->iterate(it; result = Set{}|if (boolean-expression-with-it) then
+         * result->including(it) else result endif). As it can be seen from the
+         * equivalent expression, the 'select' operation preserves the kind of the
+         * original collection (in this case it was considered 'Set' so the
+         * accumulator was initialized to 'Set{}').
+         * The example below selects only those jobs of a person that have the
+         * employer set to a given company c.
+         *
+         * The 'includes' operation tests whether an elemnts is contained in a collection.
+         * In the example bellow, the 'includes' operation is used to test whether all
+         * the companies managed by a person are also employers for that person
+         * (self.employer->includes(c)).
+         *
+         * The 'isEmpty' operation checks if a collection has no elements. In the example below
+         * the operation is used to test if a person manages no companies
+         * (self.managedCompanies->isEmpty)
+         *
+         * The 'last' operation can only be applied on ordered collections (OrderedSet or
+         * Sequence). It retrieves the last element of an ordered collection or
+         * the Undefined value if the collectionis empty
+         */
+        
+        if self.managedCompanies->isEmpty
+            then true
+            else self.managedCompanies->forAll(c | (self.employer->includes(c))
+            	and (self.job->select(j | j.employer = c).salary->sortedBy(s | s)->last = c.job.salary->sortedBy(s| s)->last))
+        endif
+        
+        
+        
+    inv isMarried:
+        /**
+         * The 'exists' operation checks whether an element exists in the collection
+         * that satisfies the given boolean expression.
+         * The example below checks whether a Marriage exists whose husband is 'self'.
+         */
+        let marr: Set(Marriage) = Marriage.allInstances in
+        
+        self.isMarried implies
+        	if sex = Sex::male
+        	    then marr->exists(m:Marriage| m.husband = self)
+        	    else marr->exists(m:Marriage| m.wife = self)
+        	endif
+        			
+-- Navigating association classes and working with Tuple Types
+
+context Company
+
+    def listOfTuples_Job_Salary:
+        /**
+     	 * The 'collect' operation on collections is used to compute a collection
+     	 * that is derived from another collection. It always results in a Bag
+     	 * or Sequence (if the original collection is ordered, the result is
+     	 * is a sequence, otherwise it is a Bag). For each element in the
+     	 * original collection the value of the argument expression is computed
+     	 * and then added to the result collection. The resulting collection will
+     	 * be flattened.
+     	 * The example bellow computes a Bag of tuples, each tuple holding
+     	 * the title and the salary of a Job in the original collection
+     	 */
+          let lOT_J_S: Sequence(TupleType(a:String, b:Integer)) =
+          	self.job->collect(Tuple{a=title, b = salary})->sortedBy(e:TupleType(a:String, b:Integer)| e.b)
+          	
+    def salaries_expenses:
+        /**
+         * The 'iterate' operation is the most general loop operation on OCL
+         * collections. It has a distinctive marker: the accumulator. The
+         * operation first initializes the accumulator;
+         * then it iterates over the initial collection and computes the value of the
+         * argument expression for each element. At each step, the accumulator is
+         * assigned the newly computed value.
+         * In the example below, the operation is used to compute the sum of
+         * all salaries for a Company
+         */
+          let c_s: Integer = lOT_J_S->iterate(t; s:Integer=0 | s+t.b)
+
+		
+--  Navigating recursive association classes
+        
+context Marriage
+    inv appropriateMArriageParticipants:
+        self.wife.sex = #female and self.husband.sex = #male
+        
+
+context NewPerson
+    
+    inv bosses_objectivity:
+        /**
+         * The 'size' operation retrieves the size of a collection (the number of elements)
+         *
+         * Below, the operation is used to compute the number of bosses and the number of
+         * employees for a given NewPerson
+         *
+         * The 'sum' operation computes the algebric sum of all the elements in a collection.
+         * If there is at least one collection element that is not of numeric type, the
+         * operation returns the 'Undefined' value. If all elements in the collection are
+         * integers, the result of the operation is an integer, too; otherwise (at least one
+         * element is a real number), the operation also returns a real number
+         */
+          let nB: Integer = self.bosses->size
+          let nE: Integer = self.employees->size in
+          if nB*nE = 0
+              then undefined
+              else (self.employeeRanking[bosses].score->sum / nB) <= (self.employeeRanking[employees].score->sum / nE)
+          endif
+          
+
+     
+context Person
+    
+     inv uniqueName:
+         /**
+          * The 'isUnique' operation on collections is used to check if an expression
+          * has distinct values for all the elements in a collection.
+          *
+          * The 'allInstances' operation on OclType retrieves a Set with all the
+          * instances of a given type. Here it is used on the Person type
+          *
+          * In the example below, the operation is used to test if all persons
+          * have distinct names. An equivalent using 'forAll' is provided as a comment.
+          */
+--        Person.allInstances->forAll(p1, p2 | p1 <> p2 implies p1.name <> p2.name)
+		Person.allInstances.name->isUnique(n | n)
+		
+context Bank
+    def customers:
+          let customers: Set(Person) = self.customer
+          
+     inv differentClients:
+         self.customer[1597] <> self.customer[1598]		
+		
+
+context Company
+
+
+    inv selectExample_NoDeclarator:
+        /**
+         * The 'notEmpty' operation checks if a collection has at least one element.
+         * In the example bellow, it is used to see if a company has at least one
+         * employee older than 50 years. First, the set of persons older than 50 years
+         * is computed; then a check is performed to see if the resulting set is not empty
+         */
+        self.employee->select(age > 50)->notEmpty()
+        
+    inv correct_and_efficient_specification:
+
+        self.employee->exists(age > 50)
+        
+        
+    inv test_any:
+        /**
+         * The 'any' operation retrieves any (one) collection element that satisfies
+         * a boolean expression. If no such element is found, the Undefined value
+         * is returned. If more such elements are found, one is randomly picked
+         * and returned. The result of the operation has the same type as
+         * the elements in the collection.
+         *
+         * The 'isDefined' operation on OclAny tests if the value on which
+         * it is called is not the Undefined value. The 'isUndefined'
+         * operation tests the negation of this condition.
+         *
+         * Below, 'any' is used to retrive a Person older than 50 years
+         * from the collection of a company's employees. The 'isDefined' test
+         * checks if the result is defined, which in this context is equivalent
+         * to testing whether a Person older than 50 years exists in the
+         * list of a company's employees (self.employee->exists(age > 50))
+         */
+        self.employee->any(age > 50).isDefined
+        
+    inv test_one:
+        /**
+         * The 'one' operation is used to check if a collection has exactly
+         * one element that matches a specified boolean expression.
+         * The example below uses it to test if a company has exactly one
+         * employee older than 50 years
+         */
+        self.employee->one(age > 50)
+        
+    inv forAll2:
+        /**
+         * The 'forAll' operation checks whether a boolean condition is satisfied
+         * by all the elements in a collection. It returns true if all the elements
+         * satisfy the condition and false if at least one element does not satisfy it.
+         * The 'forAll' operation may be generalized so that it checks the condition for
+         * tuples composed of the elements in the original collection.
+         * As such, the example bellow checks if the employees of a given company have
+         * distinct names. This is an example of a 2-declarator 'forAll'.
+         */
+        self.employee->forAll( e1, e2 | e1 <> e2 implies e1.name <> e2.name)
+       
+
+	inv correctUniqueness:
+	    self.employee.name->isUnique(n| n)      
+        
+context NamedEntities
+    
+    inv nameIsMandatory:
+        self.name.isDefined and self.name <> ''
+    
+context Person    
+    inv:
+        if self.sex=#male then true else false endif
+        
+
+endmodel

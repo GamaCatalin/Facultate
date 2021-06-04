@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT Accounts (Account*)>
+<!ELEMENT Account EMPTY>
+<!ATTLIST Accounts 
+	bankBranch CDATA #REQUIRED
+>
+<!ATTLIST Account
+	id ID #REQUIRED
+	client CDATA #REQUIRED
+	accountType (deposit | loan) #REQUIRED
+	creationDate CDATA #REQUIRED
+	expireDate CDATA #REQUIRED
+	sum CDATA #REQUIRED
+>	

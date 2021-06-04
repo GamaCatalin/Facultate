@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'ISO-8859-1' ?>
+<!-- This file stores configuration information about the
+profiles used to check a UML model -->
+<profiles><!--root element-->
+<profile name="UML">
+    <file name="metamodel/profiles/UML/inv_Activity_Graphs.ocl"/>
+    <file name="metamodel/profiles/UML/inv_Common_Behavior.ocl"/>
+    <file name="metamodel/profiles/UML/inv_CORE_N.ocl"/>
+    <file name="metamodel/profiles/UML/inv_Model_Management.ocl"/>
+    <file name="metamodel/profiles/UML/inv_State_Machines.ocl"/>
+    <file name="metamodel/profiles/UML/inv_Use_Cases.ocl"/>
+    <file name="metamodel/profiles/UML/UML_AO.ocl"/>
+</profile>
+<profile name="Java">
+    <file name="metamodel/profiles/Java/Java_Profile.ocl"/>
+</profile>
+</profiles>

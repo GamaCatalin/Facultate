@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Project name="CarRental">
+    <Directory name="Constraints" kind="0">
+        <File kind="1" AbsolutePath="F:/Cristi/Work/OCLE/Release2.0/examples/Use/CarRental2.bcr" RelativePath="CarRental2.bcr" selected="true"/>
+    </Directory>
+    <Directory name="Models" kind="0">
+        <Model kind="4" AbsolutePath="F:/Cristi/Work/OCLE/Release2.0/examples/Use/CarRental2.xml.zip" RelativePath="CarRental2.xml.zip" selected="true"/>
+    </Directory>
+</Project>

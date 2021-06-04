@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT Clients (Client*)>
+<!ELEMENT Client EMPTY>
+<!ATTLIST Client
+	id ID #REQUIRED
+	firstName CDATA #REQUIRED
+	lastName CDATA #REQUIRED
+	age CDATA #IMPLIED
+	sex (male | female) #IMPLIED
+>

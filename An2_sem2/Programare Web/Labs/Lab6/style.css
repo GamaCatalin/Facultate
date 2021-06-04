@@ -1,0 +1,176 @@
+html, body, div, table, ul, li, span, p{
+    margin:0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.screen-wrapper{
+    z-index: 20;
+
+}
+
+.screen{
+    width: 100%;
+    height: 100%;
+    float: left;
+    /*display: none;*/
+    /*opacity: 0.3;*/
+}
+
+#screen1{
+    background-color: blue;
+    z-index: 1;
+}
+
+#screen2{
+    background-color: green;
+    z-index: 2;
+}
+
+#screen3{
+    background-color: red;
+    z-index: 3;
+}
+
+#screen4{
+    background-color: aquamarine;
+    z-index: 4;
+}
+
+.left-part{
+    width:50%;
+    background-color: antiquewhite;
+    opacity: 0;
+    z-index: 5;
+    float: left;
+    margin-top: -120%;
+    position: relative;
+    display: block;
+}
+
+.right-part{
+    width: 50%;
+    background-color: aqua;
+    opacity: 0;
+    z-index: 5;
+    float: left;
+    margin-top: -120%;
+    margin-left: 50%;
+    position: relative;
+    display: block;
+}
+
+.container{
+    height:100%;
+    width: 50em;
+    position: absolute;
+    margin-left: 25%;
+}
+
+.active{
+    display: block;
+}
+
+.grid{
+    position: relative;
+    opacity: 1;
+}
+
+.chocolate{
+    background-color: chocolate;
+}
+
+.beige{
+    background-color: bisque;
+}
+
+.lightblue{
+    background-color: lightblue;
+}
+
+.steelblue{
+    background-color: steelblue;
+}
+
+.forestgreen{
+    background-color: forestgreen;
+}
+
+.icon{
+    width: 14%;
+    height: 12%;
+    margin: 5%;
+    border-radius: 6px;
+    border: black solid 1px;
+    float: left;
+    z-index: -10;
+    display: compact;
+}
+
+.display-page{
+    position: absolute;
+    display: block;
+    height: 5%;
+    width: 20%;
+    margin-top: 111%;
+    margin-left: 38%;
+}
+
+.element{
+    float: left;
+    position: relative;
+    background-color: white;
+    opacity: 0.5;
+    padding: 5%;
+    height: 5%;
+    width: 2%;
+    border-radius: 100px;
+    margin-left: 15px;
+}
+
+#elem1{
+    float: left;
+    position: relative;
+    background-color: grey;
+    opacity: 0.5;
+    padding: 5%;
+    height: 5%;
+    width: 2%;
+    border-radius: 100px;
+    margin-left: 15px;
+}
+#elem2{
+    float: left;
+    position: relative;
+    background-color: white;
+    opacity: 0.5;
+    padding: 5%;
+    height: 5%;
+    width: 2%;
+    border-radius: 100px;
+    margin-left: 15px;
+}
+#elem3{
+    float: left;
+    position: relative;
+    background-color: white;
+    opacity: 0.5;
+    padding: 5%;
+    height: 5%;
+    width: 2%;
+    border-radius: 100px;
+    margin-left: 15px;
+}
+#elem4{
+    float: left;
+    position: relative;
+    background-color: white;
+    opacity: 0.5;
+    padding: 5%;
+    height: 5%;
+    width: 2%;
+    border-radius: 100px;
+    margin-left: 15px;
+}
+

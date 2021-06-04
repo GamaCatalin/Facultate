@@ -1,0 +1,105 @@
+
+context InterestRate
+    inv typeConformance:
+        duration.toInteger().oclIsKindOf(Integer) and 
+        rate.toReal().oclIsKindOf(Real)
+        
+        
+context BankBranch
+	
+	inv identicalLocation:
+    	self.accounts.bankBranch = location
+
+
+context Bank
+def:
+	-- obtains the set of values for 'id' attributes of 'Client' class
+	let clientIDs: Set(String) = self.clients.client.id->asSet
+
+	inv conformsToCreditLevel:
+	    -- tests if the current loan sum is not greater than the creditLevel value
+	    Account.allInstances->iterate(c: Account; creditSum: Real = 0 |
+        		if c.accountType = #loan 
+        		    then
+	        			creditSum + c.sum.toReal()
+	        		else creditSum
+				endif) < creditLevel   
+
+context InterestRates
+    def:
+		-- obtains the interest rate per account type and duration
+	    let ratePerTypeAndDuration(accountType:NewEnumeration, duration: Integer) = 
+	    	self.interestRate->any(r | r.type = accountType 
+        		and r.duration.toInteger() = duration)
+		-- obtains the monthly rate per account type and duration
+        let monthlyRate(accountType:NewEnumeration, duration:Integer):Real = 
+        	if ratePerTypeAndDuration(accountType,duration).isDefined 
+        	    then
+	        	    ratePerTypeAndDuration(accountType,duration).rate.toReal()/1200
+	        	else
+	        		0
+	        endif
+    
+    
+context Account
+def:
+	-- variables that contain the Integer values for day, month and year
+    let creationDay: Integer = creationDate.substring(0,1).toInteger()
+    let expireDay: Integer = expireDate.substring(0,1).toInteger()
+    let creationMonth: Integer = creationDate.substring(3,4).toInteger()
+    let expireMonth: Integer = expireDate.substring(3,4).toInteger()
+    let creationYear: Integer = creationDate.substring(6,7).toInteger()
+	let expireYear: Integer = expireDate.substring(6,7).toInteger()
+
+	let isIntegerValueBetween(value: Real,inf: Integer,sup: Integer): Boolean =
+
+    	value.oclIsKindOf(Integer) and (inf <= value) and (sup >= value)
+
+	-- if the creation and expire day are not identical, the duration is not valid
+	let durationInMonths: Integer = 
+    		if creationDay <> expireDay
+			then -1
+	     		else
+	   			(expireYear-creationYear)*12 + 
+					expireMonth-creationMonth
+      	endif
+
+	inv validValues:
+		-- tests if the creation and expire date are valid calendar dates
+		isIntegerValueBetween(creationDay,1,31) and isIntegerValueBetween(expireDay,1,31) 
+		and
+		isIntegerValueBetween(creationMonth,1,12) and isIntegerValueBetween(expireMonth,1,12) 
+		and
+		isIntegerValueBetween(creationYear,0,99) and isIntegerValueBetween(expireYear,0,99)
+		
+	inv hasValidDuration:
+    	InterestRate.allInstances->exists(r | r.type = accountType and 
+								r.duration.toInteger() = self.durationInMonths)
+
+context Bank
+
+def:
+	-- computes the monthly income
+    let monthlyIncome: Real =
+        	Account.allInstances->iterate(a: Account; total: Real = 0 |
+        		if (a.accountType = #deposit) then
+	        		total - interestRates.monthlyRate(a.accountType, a.durationInMonths)*a.sum.toReal()
+	        	else
+        	    	total + interestRates.monthlyRate(a.accountType, a.durationInMonths)*a.sum.toReal()
+				endif)   
+				
+	inv conformsToFinancialObjective:
+    	self.monthlyIncome >= financialObjective/12    
+            	 
+context BankBranch
+    def:				
+		let clientsIds: Set(String) =
+			self.bank.clients.client->collect(c | c.id)->asSet   
+		    
+	inv hasSameLocation:
+	    self.accounts.bankBranch = location
+	    
+context BankBranch
+	inv validCustomerValues:
+    	self.accounts.account->forAll(a | clientsIds->includes(a.client))
+    

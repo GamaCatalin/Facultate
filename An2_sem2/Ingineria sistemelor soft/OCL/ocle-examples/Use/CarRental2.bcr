@@ -1,0 +1,94 @@
+context Branch
+inv: self.car.branch->isEmpty
+inv: self.manager.managedBranch->isEmpty
+
+
+context q1 : CarGroup inv:
+   not CarGroup.allInstances->exists(q2 | 
+     q1.lower = q2.higher and q1.higher = q2.lower)
+
+
+context Person
+
+-- The age attribute of persons is greater than zero
+inv Person1: 
+  age > 0
+
+-- both names must be defined
+--inv Person2:
+  --firstname.isDefined() and lastname.isDefined()
+
+
+-- the age must be in a reasonable range
+inv Person3:
+  self.age > 0 and age < 150
+
+
+context Employee
+
+-- each employee is either a manager or a clerk of a branch
+inv Employee1:
+   employer->isEmpty xor managedBranch->isEmpty
+   
+inv Employee2:
+    salary > 0
+
+context Branch 
+
+-- Each manager is also an employee of the same branch
+inv Branch1: 
+  self.employee->includes(self.manager)
+
+-- Managers get a higher salary than employees
+inv Branch2: 
+  self.employee->forAll(e | e <> self.manager 
+    implies self.manager.salary > e.salary)
+
+inv: self.car->isEmpty
+inv: self.manager.age>0
+
+context CarGroup 
+
+-- The order on CarGroups is not reflexive
+inv CarGroup1: 
+  higher <> self and lower <> self
+
+-- The order on CarGroups is anti-symmetric
+inv CarGroup2: 
+  higher.higher <> self and lower.lower <> self
+
+-- The order on CarGroups is strictly monotonic, i.e. there are no cycles
+
+context Car
+
+-- A car may not be assigned to a maintenance and 
+-- to a rental at the same time
+inv Car1: 
+  rental->isEmpty() or serviceDepot->isEmpty()
+
+-- A maintenance is done in only one service depot 
+-- (this cannot be expressed with multiplicities 
+-- on ternary associations)
+inv Car2: 
+  serviceDepot->size() <= 1
+
+context Rental
+
+  -- Only a car of the requested car group or a higher
+  -- (better) one may be assigned to a rental
+--   inv: self.car.isDefined implies 
+--     ( carGroup.car->includes(car) 
+--       or car.carGroup.isBetterThan(carGroup) )
+
+-- A reserved car group must be offered by the 
+-- branch providing the reservation
+inv Rental2: 
+  self.branch.carGroup->includes(self.carGroup)
+
+
+context Employee::raiseSalary(amount : Real) : Real
+  -- If the amount is positive, raise the salary 
+  -- by the given amount
+  pre:  amount > 0
+  post: self.salary = self.salary@pre + amount
+          and result = self.salary 

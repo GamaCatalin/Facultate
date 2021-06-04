@@ -1,0 +1,16 @@
+-- In this file you can write OCL constraints at the UML model level.
+-- You have below an example invariant showing you the OCL syntax used. 
+
+model NewModel
+
+-- --Example invariant
+--package SomePackage
+--
+--    context SomeClass
+--      -- check whether the value of someAttribute is empty or not
+--        inv example:
+--            self.someAttribute <> ""
+--
+--endpackage
+
+endmodel

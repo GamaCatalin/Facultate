@@ -1,0 +1,197 @@
+package Behavioral_Elements::State_Machines
+    
+context CompositeState
+/*
+inv CompositeState_WFR_1:
+--   [1]  A composite state can have at most one initial vertex
+
+	self.subvertex->select(v| v.oclIsKindOf(Pseudostate)).oclAsType(Pseudostate)->select(p| p.kind = ParameterDirectionKind::return)->size <= 1
+
+
+inv CompositeState_WFR_2:
+--   [2]  A composite state can have at most one deep history vertex
+
+	self.subvertex->select(v| v.oclIsKindOf(Pseudostate)).oclAsType(Pseudostate)->select(p| p.kind = #deepHistory)->size <= 1
+
+
+inv CompositeState_WFR_3:
+--   [3]  A composite state can have at most one shallow history vertex
+
+	self.subvertex->select(v| v.oclIsKindOf(Pseudostate)).oclAsType(Pseudostate)->select(p| p.kind = #shallowHistory)->size <= 1
+	
+	
+inv CompositeState_WFR_4:
+--   [4]  There have to be at least two composite substates in a concurent composite state
+ 	
+	(self.isConcurrent) implies (self.subvertex->select(v| v.oclIsKindOf(CompositeState))->size >= 2)
+	
+inv CompositeState_WFR_5:
+--   [5]   A concurent state can only have composite states as substates
+ 	
+	(self.isConcurrent) implies self.subvertex->forAll(s| (s.oclIsKindOf(CompositeState)))	
+*/	
+inv CompositeState_WFR_6:
+--   [6]  The substates of a composite state are part of only that composite state     	
+
+	self.subvertex->forAll(s| (s.oclAsType(StateVertex).container->size = 1) and (s.oclAsType(StateVertex).container = self))
+
+context FinalState
+    
+inv FinalState_WFR_1:
+--   [1]  A final state cannot have outgoing transitions
+
+    self.outgoing->size = 0
+/*  
+context Pseudostate
+  
+inv Pseudostate_WFR_1: -- !!! Numai in cadrul diagramei numele este gresit - trebuie corectat la PseudoState !!!
+--   [1]  An initial vertex can have at most an outgoing transition and not incoming transitions
+    
+    (self.kind = #initial) implies ((self.outgoing->size <= 1) and (self.incoming->isEmpty))
+
+inv Pseudostate_WFR_2:
+    
+    
+	((self.kind = #deepHistory) or (self.kind = #shallowHistory)) implies (self.outgoing->size <= 1)
+
+inv Pseudostate_WFR_3:
+    
+	(self.kind = #join) implies ((self.outgoing->size = 1) and (self.incoming->size >= 2))
+	
+inv Pseudostate_WFR_4:
+--  !!!   probabil ca aici ar fi fost bine-venita o operatie aditionala care sa returneze pentru fiecare stare sau pseudostare masina ei de stari	
+	(self.kind = #join and not self.oclAsType(StateVertex).container.oclAsType(SubmachineState).submachine.oclIsKindOf(ActivityGraph))
+		implies self.incoming->forAll(t1, t2 | t1<>t2 implies 
+		(self.oclAsType(StateVertex).container.oclAsType(SubmachineState).submachine.LCA(t1.source.oclAsType(State),
+		 t2.source.oclAsType(State)).oclAsType(StateVertex).container.isConcurrent))	
+	
+inv Pseudostate_WFR_5:
+
+	(self.kind = #fork) implies ((self.incoming->size = 1) and (self.outgoing->size >= 2))
+
+
+--inv Pseudostate_WFR_6: -- !!! La fel ca si [4] trebuie revazuta datorita magariei cu oclIsKindOf
+
+--	(self.kind = #fork and not oclIsKindOf(self.stateMachine, ActivityGraph)) implies
+--		self.outgoing->forAll (t1, t2 | t1<>t2 implies (self.stateMachine.LCA(t1.target, t2.target).container.isConcurrent))
+
+inv Pseudostate_WFR_7:
+    
+	(self.kind = #junction) implies ((self.incoming->size >= 1) and (self.outgoing->size >= 1))
+	
+
+inv Pseudostate_WFR_8:
+
+	(self.kind = #choice) implies ((self.incoming->size >= 1) and (self.outgoing->size >= 1))	
+
+--   context PseudoState
+
+inv PseudoState_WFR_9: -- !!!  De vazut ca trebuie schimbat numele lui Pseudostate in PseudoState in diagrame
+--   [1] In activity graphs, transitions incoming to (and outgoing from) join and fork pseudostates
+--       have as sources (targets) any state vertex. That is, joins and forks are syntactically not
+--       restricted to be used in combination with composite states, as is the case in state machines.
+
+	self.oclAsType(StateVertex).container.stateMachine.oclIsTypeOf(ActivityGraph) implies ((self.kind = #join or self.kind = #fork) implies
+	(self.incoming->forAll(t | t.source.oclIsKindOf(State) or source.oclIsTypeOf(Pseudostate)) and
+	(self.outgoing->forAll(t | t.source.oclIsKindOf(State) or source.oclIsTypeOf(Pseudostate)))))
+
+    
+--   [2] All of the paths leaving a fork must eventually merge in a subsequent join in the model.
+--       Furthermore, multiple layers of forks and joins must be well nested, with the exception of
+--       forks and joins leading to or from synch state. Therefore the concurrency structure of an
+--       activity graph is in fact equally restrictive as that of an ordinary state machine, even
+--       though the composite states need not be explicit.
+*/
+context StateMachine
+    
+inv StateMachine_WFR_1:    
+--   [1] A StateMachine is aggregated within either a classifier or a behavioral feature.
+
+	self.context->notEmpty implies (self.context.oclIsKindOf(BehavioralFeature) or self.context.oclIsKindOf(Classifier))
+
+inv StateMachine_WFR_2: 
+--   [2] A top state is always a composite.
+
+	self.top.oclIsTypeOf(CompositeState)
+
+
+inv StateMachine_WFR_3: 
+--   [3] A top state cannot have any containing states.
+
+	self.top.oclAsType(StateVertex).container->isEmpty
+
+inv StateMachine_WFR_4: 
+--   [4] The top state cannot be the source of a transition.
+
+	(self.top.outgoing->isEmpty)
+/*
+inv StateMachine_WFR_5: 
+--  [5] If a StateMachine describes a behavioral feature, it contains no triggers of type CallEvent,
+--      apart from the trigger on the initial transition (see OCL for Transition [8]).
+
+	self.context.oclIsKindOf(BehavioralFeature) implies self.transitions->reject(source.oclIsKindOf(Pseudostate) and
+		source.oclAsType(Pseudostate).kind= #initial).trigger->isEmpty
+	
+context SynchState
+
+inv SynchState_WFR_1:
+--   [1] The value of the bound attribute must be a positive integer, or unlimited.
+
+	(self.bound > 0) or (self.bound = unlimited)
+
+--   [2] All incoming transitions to a SynchState must come from the same region and all outgoing
+--       transitions from a SynchState must go to the same region.
+
+*/	
+context SubmachineState
+
+inv SubmachineState_WFR_1:
+--   [1] Only stub states allowed as substates of a submachine state.
+
+	self.subvertex->forAll (s | s.oclIsTypeOf(StubState))
+
+inv SubmachineState_WFR_2:
+--   [2] Submachine states are never concurrent.
+
+	self.isConcurrent = false
+
+
+context Transition
+/*
+inv Transition_WFR_1:
+--   [1] A fork segment should not have guards or triggers.
+
+	(self.source.oclIsKindOf(Pseudostate) and not self.stateMachine.oclIsKindOf(ActivityGraph)) implies
+	((self.source.oclAsType(Pseudostate).kind = #fork) implies ((self.guard->isEmpty) and (self.trigger->isEmpty)))
+
+inv Transition_WFR_2:
+--   [2] A join segment should not have guards or triggers.
+
+	self.target.oclIsKindOf(Pseudostate) implies ((self.target.oclAsType(Pseudostate).kind = #join) implies
+	((self.guard->isEmpty) and (self.trigger->isEmpty)))
+
+inv Transition_WFR_3:
+--   [3] A fork segment should always target a state.			
+
+	(self.stateMachine->notEmpty and not self.stateMachine.oclIsKindOf(ActivityGraph)) implies self.source.oclIsKindOf(Pseudostate)
+	 implies ((self.source.oclAsType(Pseudostate).kind = #fork) implies (self.target.oclIsKindOf(State)))
+
+inv Transition_WFR_4:
+--   [4] A join segment should always originate from a state.
+
+	(self.stateMachine->notEmpty and not self.stateMachine.oclIsKindOf(ActivityGraph)) implies self.target.oclIsKindOf(Pseudostate)
+ 	implies ((self.target.oclAsType(Pseudostate).kind = #join) implies (self.source.oclIsKindOf(State)))
+*/
+inv Transition_WFR_5:
+--   [5] Transitions outgoing pseudostates may not have a trigger.
+
+	self.source.oclIsKindOf(Pseudostate) implies (self.trigger->isEmpty)
+/*
+inv Transition_WFR_6:
+--   [6] An initial transition at the topmost level either has no trigger or it has a trigger with the stereotype "create.”
+
+	self.source.oclIsKindOf(Pseudostate) implies (self.source.oclAsType(Pseudostate).kind = #initial) implies
+	(self.source.oclAsType(StateVertex).container = self.stateMachine.top) implies ((self.trigger->isEmpty) or (self.trigger.stereotype.name = 'create'))
+*/
+
+endpackage

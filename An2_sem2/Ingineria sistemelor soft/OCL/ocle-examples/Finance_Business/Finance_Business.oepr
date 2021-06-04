@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Project name="Finance Business">
+    <Directory name="Constraints" kind="0">
+        <File kind="1" AbsolutePath="F:/Users/Dyan/28-ian-04/ex/Finance_Business/Finance_Business.bcr" RelativePath="Finance_Business.bcr" selected="true"/>
+    </Directory>
+    <Directory name="Models" kind="0">
+        <Model kind="4" AbsolutePath="F:/Users/Dyan/28-ian-04/ex/Finance_Business/Finance_Business.xml.zip" RelativePath="Finance_Business.xml.zip" selected="true"/>
+    </Directory>
+</Project>

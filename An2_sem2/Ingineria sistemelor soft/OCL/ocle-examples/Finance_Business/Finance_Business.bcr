@@ -1,0 +1,107 @@
+model Finance_Business
+
+context Portofolio
+    inv val:
+        value = holdings->iterate(h:Holding; acc:float = 0 | acc + h.number*h.security.price)
+        
+    //illustrate some observers, specified as OCL definition constraints:
+    def prices:
+        let priceOfOrders: Real = orders.security.price->sum()
+        let priceOfHoldings: Real = holdings.security.price->sum()
+        let value: Real = let temp = priceOfHoldings - priceOfOrders in
+        	if temp > 0 then temp
+            	else 0
+        	endif
+
+context Portofolio::loanValue():float
+    post resultUsingReject:
+        result = holdings->reject(security.oclType = Option)->iterate(h:Holding; v:float = 0 |
+                           if (h.security.oclType = Bond)
+                               then v + (h.number*security.price*0.9)
+                               else v + (h.number*security.price*0.6)
+                           endif
+                           )
+
+    post resultUsingSelect:
+        result = holdings->select(security.oclType = Bond or security.oclType = Stock)->
+        				iterate(h: Holding; value: real = 0 | 	if (h.security.oclType = Bond)
+        				    										then value + (number*security.price*0.9)
+        				    										else value + (number*security.price*0.6)
+        				    									endif
+        				        )
+
+context Customer::highRisk():Boolean
+    post:
+        result = if (self.possession.margin()->sum() > 0.9*(self.possession.loanValue()->sum()))
+            			then true
+            			else false
+            		endif
+
+//   Derivation
+//      Inference Rules pag. 156
+context Customer::highRisk(): Boolean
+    post firstScenario:
+        result = if(possession.margin()->sum > 0.9*(possession->collect(p | p.loanValue())->sum))
+            			then true
+            			else false
+            		endif
+
+    post secondScenario:
+        result = if (possession.margin()->sum > 0.9*(possession->collect(loanValue())->sum))
+            			then true
+            			else false
+            		endif
+
+
+  	post thirdScenario:
+        result = if (possession.margin()->sum > 0.9*(possession.loanValue()->sum))
+            			then true
+            			else false
+            		endif
+
+context Order
+    inv first:
+        type = #buy implies matchedPrice <= limit
+
+    inv second:
+        type = #sell implies matchedPrice >= limit
+
+    inv third:
+        type = Enum::sell implies (portofolio.holdings->exists(security.name = self.security.name))
+
+//    Computational Rules
+context Portofolio
+
+    inv calcTotalValueOfPortofolio:
+        value = holdings->iterate(h: Holding; result: real = 0 | result + (h.number * h.security.price))
+
+context Portofolio::loanValue(): float
+
+    post:
+        result = holdings->select(security.oclType = Bond or security.oclType = Stock)->
+        				iterate(h: Holding; value: real = 0 | if (h.security.oclType = Bond)
+        				    										then value + (number*security.price*0.9)
+        				    										else value + (number*security.price*0.6)
+        				    									endif
+        				        )
+
+
+context Portofolio::add(h: Holding): void
+    post:
+        holdings = holdings@pre->including(h)
+
+//      Structural Rules
+context Option
+
+    inv:
+        if self.oclIsKindOf(Security) then oclAsType(Security).isDefined
+            else true
+        endif
+
+    inv:
+        refer_to.oclType <> Option
+
+    inv another_invariant:
+        self <> refer_to            		
+
+endmodel

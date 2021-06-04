@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Project name="asoc">
+    <Directory name="Constraints" kind="0">
+        <File kind="1" AbsolutePath="C:/diplomka/prj/bugs3/asocMetaLevel.ocl" RelativePath="asocMetaLevel.ocl" selected="true"/>
+        <File kind="1" AbsolutePath="C:/diplomka/prj/bugs3/asocModelLevel.bcr" RelativePath="asocModelLevel.bcr" selected="true"/>
+    </Directory>
+    <Directory name="Models" kind="0">
+        <Model kind="4" AbsolutePath="C:/diplomka/prj/bugs3/asocModel.xml.zip" RelativePath="asocModel.xml.zip" selected="true"/>
+    </Directory>
+</Project>

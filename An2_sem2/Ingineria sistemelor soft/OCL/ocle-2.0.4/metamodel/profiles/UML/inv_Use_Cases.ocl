@@ -1,0 +1,63 @@
+package Behavioral_Elements::Use_Cases
+ 
+context Actor
+
+inv Actor_WFR_1:
+--   [1] Actors can only have Associations to UseCases, Subsystems, and Classes and these Associations are binary.
+
+	self.associations->forAll(a| a.connection->size = 2 and a.allConnections->exists(r| r.participant.oclIsKindOf(Actor)) and
+	a.allConnections->exists(r| r.participant.oclIsKindOf(UseCase) or r.participant.oclIsKindOf(Subsystem) or
+	r.participant.oclIsKindOf(Class)))
+
+inv Actor_WFR_2:
+--   [2] Actors cannot contain any Classifiers.
+
+	self.ownedElement->isEmpty 
+    
+context Extend
+
+inv Extend_WFR_1:
+--   [1] The referenced ExtensionPoints must be included in set of ExtensionPoint in the target UseCase.
+
+	self.base.allExtensionPoints -> includesAll (self.extensionPoint)
+
+context ExtensionPoint
+
+inv ExtesionPoint_WFR_1:
+--   [1] The name must not be the empty string.
+
+	not (self.name = '')
+
+--   context Include
+--   No extra well-formedness rules.
+
+context UseCase
+
+inv UseCase_WFR_1:
+--   [1] UseCases can only have binary Associations.
+
+	self.associations->forAll(a | a.connection->size = 2)
+
+inv UseCase_WFR_2:
+    
+--   [2] UseCases cannot have Associations to UseCases specifying the same entity.
+
+	self.associations->forAll(a| a.allConnectionsS->forAll(s, o| (s.participant.oclAsType(UseCase).specificationPathN->isEmpty and
+	o.participant.oclAsType(UseCase).specificationPathN->isEmpty) or (not s.participant.oclAsType(UseCase).specificationPathN->
+	includesAll(o.participant.oclAsType(UseCase).specificationPathN) and not o.participant.oclAsType(UseCase).specificationPathN->
+	includesAll(s.participant.oclAsType(UseCase).specificationPathN))))
+
+inv UseCase_WFR_3:
+--   [3] A UseCase cannot contain any Classifiers.
+
+
+	self.ownedElement->reject(e| e.oclIsKindOf(Action) or  e.oclIsKindOf(Collaboration))->isEmpty
+
+
+
+inv UseCase_WFR_4:
+--   [4] The names of the ExtensionPoints must be unique within the UseCase.
+
+	self.allExtensionPoints->forAll(x, y| x.name = y.name implies x = y)    
+    
+endpackage

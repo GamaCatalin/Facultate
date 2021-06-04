@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Accounts bankBranch="Bucuresti">
+	<Account id="A.1" client="C.5" accountType="deposit" creationDate="12-04-03" expireDate="12-04-04" sum="13569.3"/>
+	<Account id="A.2" client="C.8" accountType="depozit" creationDate="09-12-03" expireDate="09-06-04" sum="21912.7"/>
+	<Account id="A.3" client="C.7" accountType="loan" creationDate="25-03-04" expireDate="25-04-04" sum="569.9"/>
+	<Account id="A.4" client="C.9" accountType="deposit" creationDate="02-02-04" expireDate="02-08-04" sum="36351.3"/>
+	<Account id="A.5" client="C.4" accountType="deposit" creationDate="16-01-04" expireDate="16-04-04" sum="5921.0"/>
+	<Account id="A.6" client="A.1" accountType="deposit" creationDate="01-11-03" expireDate="01-05-04" sum="3589.1"/>
+	<Account id="A.7" client="C.7" accountType="loan" creationDate="23-03-03" expireDate="23-03-08" sum="27832.5"/>
+	<Account id="A.8" client="C.3" accountType="deposit" creationDate="19-12-03" expireDate="19-12-04" sum="7245.2"/>
+	<Account id="A.9" client="C.4" accountType="loan" creationDate="06-10-03" expireDate="06-10-06" sum="16356.3"/>
+	<Account id="A.10" client="C.3" accountType="loan" creationDate="18-01-04" expireDate="18-07-06" sum="23000.0"/>
+	<Account id="A.11" client="C.5" accountType="deposit" creationDate="29-03-04" expireDate="29-04-04" sum="3728.5"/>
+</Accounts>

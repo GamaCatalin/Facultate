@@ -1,0 +1,427 @@
+package Foundation::Core
+
+context Association
+
+--  [1] The AssociationEnds must have a unique name within the Association.
+
+inv WFR_1_Association:
+    
+--self.allConnectionsS->forAll( r1, r2 | r1.name = r2.name implies r1 = r2)
+	self.allConnectionsS->reject(name="")->isUnique(c | c.name)
+--  [2] At most one AssociationEnd may be an aggregation or composition.
+
+inv WFR_2_Association:
+    
+self.allConnectionsS->select(aggregation <>#none)->size <= 1
+
+--  [3] If an Association has three or more AssociationEnds, then no AssociationEnd may be an aggregation or composition.
+
+inv WFR_3_Association:
+    
+    self.allConnectionsS->size >=3 implies self.allConnectionsS->forAll(aggregation = #none)
+    
+    --  !!!  test BUN de prezentat si DEMONSTRAT  !!!
+--  !!!  Ar trebui testata in paralel cu WFR-ul specificat
+
+-- inv WFR4_initial:
+    
+--    self.allConnections->forAll(r | self.namespace.allContents->includes(r.participant)) or
+--			self.allConnections->forAll(r | self.namespace.allContents->excludes(r.participant) implies
+--			self.namespace.clientDependency->exists(d | d.oclIsTypeOf(Permission) and d.stereotype->exists(s | s.name = 'access') and
+--			d.supplier.oclAsType(Namespace).ownedElement->select(e | e.elementOwnership.visibility =
+--			#public)->includes(r.participant) or d.supplier.oclAsType(GeneralizableElement).allParents.oclAsType(Namespace).ownedElement
+--			->select(e | e. elementOwnership->exists(e | e.visibility = #public)->includes(r.participant) or d.supplier.oclAsType(Package).allImportedElementsc.namespace.oclAsType(Package).allVisibleElementsN->includes(oaen)))
+
+context AssociationClass
+
+--   [1] The names of the AssociationEnds and the StructuralFeatures do not overlap.
+
+	inv WFR_1_AssociationClass:
+	    self.allConnectionsS->forAll(ar | self.allFeatures->forAll(f | f.oclIsKindOf(StructuralFeature) implies ar.name <> f.name))
+
+--   [2] An AssociationClass cannot be defined between itself and something else.
+
+	inv WFR_2_AssociationClass:
+	    self.allConnectionsS->forAll(ar | ar.participant <> self)
+
+
+context AssociationEnd
+
+--   [1] The Classifier of an AssociationEnd cannot be an Interface or a DataType if the association is navigable away from that end.
+--   s-a corectat o greseala la isNavigable
+--   La find Multiplicity (class) selectia in browser e aiurea    
+
+	inv WFR_1_AssociationEnd:
+	    (self.participant.oclIsKindOf (Interface) or self.participant.oclIsKindOf(DataType)) implies
+				self.association.connection->select(ae | ae <> self)->forAll(not isNavigable)
+
+--   [2] An Instance may not belong by composition to more than one composite Instance.
+--   Si aici s-au facut corectii dupa multiplicity
+
+	inv WFR_2_AssociationEnd:
+	    self.aggregation = 2 implies self.multiplicity.range->forAll(upper <= 1)
+/*	    
+	    
+	inv test:
+	    self.multiplicity.range.upper <> 'unlimited'
+
+2147483647
+*/
+context BehavioralFeature
+
+--   [1] All Parameters should have a unique name.
+
+inv WFR_1_BehavioralFeature:
+    self.parameter->isUnique(p | p.name)
+    --   forAll(p1, p2 | p1.name = p2.name implies p1 = p2)
+    
+--   [2] The type of the Parameters should be included in the Namespace of the Classifier.
+
+
+	inv WFR_2_BehavioralFeature:
+
+	    self.parameter->forAll(p | self.owner.allVisibleElementsD->includes(p.type))
+
+
+context Binding
+
+inv WFR_1_Binding:
+--   [1] The client ModelElement must conform to the type of the supplier ModelElement in a Binding.
+
+	(self.client->asSequence->first).oclIsKindOf(self.supplier->asSequence->first.oclType)
+	
+inv WFR_2_Binding:
+--   [2] Each argument ModelElement of the supplier must have the same type (or a descendant of the type) of the corresponding
+--       supplier parameter ModelElement in a Binding.
+
+	let range : Set(Integer) = Set{1..self.argument->size()} in
+		range->forAll(index | self.argument->at(index).oclIsKindOf(supplier.templateParameter[parameterTemplate]->asSequence->at(index).oclType))
+
+inv WFR_3_Binding:
+--   [3] The number of arguments must equal the number of parameters.
+
+	self.argument->size() = self.supplier.templateParameter[parameterTemplate]->size()
+
+inv WFR_4_Binding:
+--   [3] A Binding has one client and one supplier.
+
+	(self.client->size = 1) and (self.supplier->size = 1)
+
+context Class
+
+inv WFR_1_Type:
+--   [1] A Type may not have any Methods.
+
+	self.stereotype.name->includes("type") implies not self.feature->exists(oclIsKindOf(Method))
+
+inv WFR_2_Type:
+--   [2] The parent of a type must be a type.
+
+	self.stereotype.name->includes("type") implies self.parent->forAll(stereotype.name->includes("type"))
+
+inv WFR_1_ImplementationClass:
+--   [1] All direct instances of an implementation class must not have any other Classifiers that are implementation classes.
+--   !!!  Aceste doua WFR-uri trebuie testate deoarece in ordersys nu sunt clase cu stereotipul implementation
+
+	self.stereotype.name->includes("implementation") implies self.instance->forAll(i| i.classifier->forAll(c|
+		c.stereotype.name->includes("implementation") implies c = self))
+
+inv WFR_2_ImplementationClass:
+--   [2] A parent of an implementation class must be an implementation class.
+
+	self.stereotype.name->includes("implementation") implies self.parent->forAll(stereotype.name->includes("implementation"))
+
+
+context Classifier
+
+inv WFR_1_Classifier:
+--   [1] No BehavioralFeature of the same kind may match the same signature in a Classifier.
+--   la paramatrul lui matchesSignature s-a realizat un cast
+
+	self.feature->select(f | f.oclIsKindOf(BehavioralFeature)).oclAsType(BehavioralFeature)->reject(f | f.parameter->size = 0)
+	->forAll(f, g | (((f.oclIsKindOf(Operation) and g.oclIsKindOf(Operation)) or
+								  (f.oclIsKindOf(Method ) and g.oclIsKindOf(Method )) or
+								  (f.oclIsKindOf(Reception) and g.oclIsKindOf(Reception))
+								  ) and f.oclAsType(BehavioralFeature).matchesSignatureS(g.oclAsType(BehavioralFeature))
+								)
+		   implies f = g)
+
+-- ________________________________________________________________________________________________________
+
+inv WFR_1_Classifier_test2:
+--   [1] No BehavioralFeature of the same kind may match the same signature in a Classifier.
+
+     let op: Set(Operation) = self.feature->select(oclIsKindOf(Operation)).oclAsType(Operation)->asSet in
+     
+     op->select( f | op->exists(g | (g <> f) and f.matchesSignatureS(g)))->isEmpty
+
+
+-- ________________________________________________________________________________________________________
+
+inv WFR_2_Classifier:		   
+--    [2] No Attributes may have the same name within a Classifier.
+
+	self.feature->select(a | a.oclIsKindOf(Attribute))->forAll( p, q| p.name = q.name implies p = q)
+
+inv WFR_3_Classifier:	
+
+	self.allOppositeAssociationEnds.name->reject(n| n='')->isUnique(n| n)
+
+inv WFR_4_Classifier:
+--   [4] The name of an Attribute may not be the same as the name of an opposite AssociationEnd or a ModelElement contained in the Classifier.
+
+	self.feature->select(a| a.oclIsKindOf(Attribute))->forAll(a | not self.allOppositeAssociationEnds.name->
+												       union(self.allContents.name)->includes(a.name))
+		
+inv WFR_5_Classifier:	
+--   [5] The name of an opposite AssociationEnd may not be the same as the name of an Attribute or a ModelElement contained in the Classifier.
+
+	let innClassVisName: Bag(String) = (self.allAttributes.name->union(self.allContents.name))->reject(e| e.isUndefined)->reject(e| e="") in
+
+	innClassVisName->excludesAll(self.oppositeAssociationEnds.name->reject(e| e=""))
+
+
+inv WFR_6_Classifier:	
+--   [6] For each Operation in an specification realized by the Classifier, the Classifier must have a matching Operation.
+
+	self.specification.allOperations->forAll(interOp| self.allOperations->exists(op| op.matchesSignature(interOp)))
+	
+inv WFR_7_Classifier:	
+--   [7] All of the generalizations in the range of a powertype have the same discriminator.
+
+	self.powertypeRange->forAll(g1, g2| g1.discriminator = g2.discriminator)
+
+inv WFR_8_Classifier:	
+--   [8] Discriminator names must be distinct from attribute names and opposite AssociationEnd names
+
+	let s: Set(Name) = self.allDiscriminatorsS->intersection(self.allAttributes.name->union(self.allOppositeAssociationEnds.name)->reject(e | e='')->asSet)
+	in s->isEmpty
+
+context Component
+
+inv WFR_1_Component:
+--   [1] A Component may only contain other Components in its namespace.
+
+	self.ownedElement->forAll(oclIsKindOf(Component))
+inv WFR_2_Component:
+--   [2] A Component does not have any Features.
+
+	self.feature->isEmpty
+
+inv WFR_3_Component:
+--   [3] A Component may only have as residents DataTypes, Interfaces, Classes, Associations, Dependencies, Constraints, Signals, DataValues and Objects.
+
+	self.allResidentElements->forAll( re| re.oclIsKindOf(DataType) or re.oclIsKindOf(Interface) or re.oclIsKindOf(Class) or
+		re.oclIsKindOf(Association) or	re.oclIsKindOf(Dependency) or	re.oclIsKindOf(Constraint) or	re.oclIsKindOf(Signal) or
+		re.oclIsKindOf(DataValue) or re.oclIsKindOf(Object))
+
+context Constraint
+
+inv WFR_1_Constraint:
+--   [1] A Constraint cannot be applied to itself.
+
+	not self.constrainedElement->includes(self)
+
+context DataType
+
+inv WFR_1_DataType:
+--   [1] A DataType can only contain Operations, which all must be queries.
+
+	self.allFeatures->forAll(f| f.oclIsKindOf(Operation) and f.oclAsType(Operation).isQuery)
+
+inv WFR_2_DataType:
+--   [2] A DataType cannot contain any other ModelElements.
+
+
+	self.ownedElement->isEmpty
+--   Dependency
+--   No extra well-formedness rules.
+
+--   Element
+--   No extra well-formedness rules.
+
+--   ElementOwnership
+--   No additional well-formedness rules.
+
+--   ElementResidence
+--   No additional well-formedness rules.
+
+--   Enumeration
+--   No additional well-formedness rules.
+
+--   EnumerationLiteral
+--   No additional well-formedness rules.
+
+--   Feature
+--   No extra well-formedness rules.
+
+context GeneralizableElement
+    
+
+inv WFR_1_GeneralizableElement:
+--   [1] A root cannot have any Generalizations.
+
+	self.isRoot implies self.generalization->isEmpty
+
+inv WFR_2_GeneralizableElement:
+--   [2] No GeneralizableElement can have a parent Generalization to an element which is a leaf.
+
+	self.parent->forAll(s | not s.isLeaf)
+
+inv WFR_3_GeneralizableElement:
+--   [3] Circular inheritance is not allowed.
+
+	not self.allParents->includes(self)
+
+inv WFR_4_GeneralizableElement:
+--   [4] The parent must be included in the Namespace of the GeneralizableElement.
+
+--	self.generalization->forAll(g| self.namespace.allContents->sortedBy(e| e.name)->includes(g.parent))
+	self.generalization->forAll(g| self.namespace.allVisibleElementsD
+									->includes(g.parent))
+
+inv WFR_5_GeneralizableElement:
+--   [5] A GeneralizableElement may only be a child of GeneralizableElement of the same kind.
+--   !!!  Aici lipsea oclType -- Trebuie vazut de ce esueaza acest WFR  !!!  A fost corectata
+	self.generalization.parent->forAll(p | if self.oclIsTypeOf(Class) then self.oclIsKindOf(p.oclType) or p.oclIsTypeOf(Interface) else self.oclIsKindOf(p.oclType) endif )
+
+--   Generalization
+--   No extra well-formedness rules.
+
+context Interface
+
+inv WFR_1_Interface:
+--   [1] An Interface can only contain Operations.
+
+	self.allFeatures->forAll(f | f.oclIsKindOf(Operation) or f.oclIsKindOf(Reception))
+
+inv WFR_2_Interface:
+--   [2] An Interface cannot contain any ModelElements.
+--   !!!  Evident ca aceasta regula este idioata din cauza lui allContents !!!
+
+--	self.allContents->isEmpty
+	self.ownedElement->reject(e | e.oclIsKindOf(Generalization))->isEmpty
+
+inv WFR_3_Interface:
+--   [3] All Features defined in an Interface are public.
+
+	self.allFeatures->forAll( f | f.visibility = #public )
+
+context Method
+
+inv WFR_1_Method:
+--   [1] If the realized Operation is a query, then so is the Method.
+
+	self.specification.isQuery implies self.isQuery
+
+inv WFR_2_Method:
+--   [2] The signature of the Method should be the same as the signature of the realized Operation.
+
+	self.hasSameSignature(self.specification)
+
+inv WFR_3_Method:
+--   [3] The visibility of the Method should be the same as for the realized Operation.
+
+	self.visibility = self.specification.visibility
+	
+inv WFR_4_Method:	
+--   [4] The realized Operation must be a feature (possibly inherited) of the same Classifier as the Method.
+
+	self.owner.allOperations->includes(self.specification)
+
+inv WFR_5_Method:
+--   [5] If the realized Operation has been overridden one or more times in the ancestors of the owner of the Method,
+--       then the Method must realize the latest overriding (that is, all other Operations with the same signature must
+--       be owned by ancestors of the owner of the real-sized Operation).
+
+	self.specification.owner.allOperations->includesAll((self.owner.allOperations->select(op| self.hasSameSignature(op))))
+
+inv WFR_6_Method:
+--   [6] There may be at most one method for a given classifier (as owner of the method) and operation (as specification of the method) pair.
+
+	self.owner.allMethods->select(m| m.specification = self.specification)->size = 1
+
+--   ModelElement
+--   That part of the model owned by a template is not subject to all well-formedness rules. A template is not directly usable
+--   in a well-formed model. The results of binding a template are subject to well-formedness rules. (not expressed in OCL)
+
+
+context ModelElement
+
+--   [1] Tags associated with a model element (directly via a property list or indirectly via a stereotype) must not 
+--       clash with any meta attributes associated with the model element.
+--       cannot be specified with OCL, level M2 not accessible
+
+inv WFR_2_ModelElement:
+--   [2] A model element must have at most one tagged value with a given tag name.
+
+	self.taggedValue->reject(t| t.type.name="")->isUnique(t| t.type.name)
+	
+
+context Namespace
+
+inv WFR_1_Namespace:
+--   [1] If a contained element, which is not an Association or Generalization has a name, then the name must be unique in the Namespace.
+
+	self.ownedElement->reject(e | e.oclIsKindOf(Association) or e.oclIsKindOf(Generalization))
+	                  ->reject(e | e.isUndefined)->sortedBy(name)->reject(e | e.name='')->isUnique(e | e.name)
+
+
+inv WFR_2_Namespace:
+--   [2] All Associations must have a unique combination of name and associated Classifiers in the Namespace.
+
+	self.ownedElement->select(oclIsKindOf(Association)).oclAsType(Association)->
+	  forAll(a1, a2| 
+	      if (a1.name = a2.name and a1.connection.participant = a2.connection.participant) implies (a1 = a2)
+		  then true
+		  else not (a1.connection.participant->dump('a1:') and a2.connection.participant->dump('a2:'))
+		  endif   
+		     )
+
+context StructuralFeature
+
+inv WFR_1_StructuralFeature:
+--   [1] The connected type should be included in the owner’s Namespace.
+
+	self.owner.allVisibleElementsD->includes(self.type)
+
+
+inv WFR_2_StructuralFeature:
+--   [2] The type of a StructuralFeature must be a Class, DataType or Interface.
+
+	self.type.oclIsKindOf(Class) or self.type.oclIsKindOf(DataType) or self.type.oclIsKindOf(Interface)
+
+
+context Abstraction
+
+--   A trace is an Abstraction with the «trace» stereotype. These are the additional constraints due to the stereotype.
+
+
+inv WFR_1_Trace:
+--   [1] The client ModelElements of a Trace must all be from the same Model.
+
+	self.stereotype.name->includes("trace") implies self.client->forAll(e1, e2 | e1.model = e2.model)
+
+
+inv WFR_2_Trace:
+--   [2] The supplier ModelElements of a Trace must all be from the same Model.
+
+	self.stereotype.name->includes("trace") implies self.supplier->forAll(e1, e2 | e1.model = e2.model)
+
+
+inv WFR_3_Trace:
+--   [3] The client and supplier ModelElements must be from two different Models.
+
+	self.stereotype.name->includes("trace") implies self.client.modelS <> self.supplier.modelS
+
+
+inv WFR_4_Trace:
+--   [4] The client and supplier ModelElements must all be from models of the same system.
+
+	self.stereotype.name->includes("trace") implies  self.client.model->excludesAll(self.supplier.model) = self.client.model
+
+--   Usage
+--   No extra well-formedness rules.
+
+
+endpackage

@@ -1,0 +1,660 @@
+model uml15  -- pentru a testa AO si WFR de la Package
+
+package Foundation::Core
+
+context Association
+
+--   [1] The operation allConnections results in the set of all AssociationEnds of the Association
+
+def:
+
+   let   allConnectionsS: Set(AssociationEnd) = self.connection->asSet
+--____________________________________________________________________________________________________________________
+
+context AssociationClass
+
+--  [1] The operation allConnections results in the set of all AssociationEnds of the AssociationClass, including all connections defined
+--      by its parent (transitive closure).  The parents of an associationClass can be a "simple" class or an associationClass.  In the 
+--      first case, (class) the allConnection AO is not defined.  The "similar" AO and concept is named oppositeAssociationEnds.  This AO
+--      have to be clearly mentioned in the AO textual description and the visibility must be taken into account in inheritance.
+
+def allConnectionsS:
+
+--    let  allConnectionsI: Set(AssociationEnd) = self.connection->union(self.parent->select(s | s.oclIsKindOf(Association))->
+--                                                collect (a : Association | a.allConnections))->asSet
+
+    let  allConnectionsS: Set(AssociationEnd) = (self.connection->union(self.parent->select(s | s.oclIsKindOf(Association))
+                                                .oclAsType(Association)->collect(a: Association |a.allConnections)
+                                                ->asSequence))->asSet
+
+
+def allConnectionsN:
+--   !!!  Specificatia data mai jos, intoarce toate capetele opuse de asocieri dintr-o clasa asociere. - vezi si comentariile lui C
+
+    let  allConnectionsN: Set(AssociationEnd) = (self.connection->asSet->union(self.oclAsType(Classifier).oppositeAssociationEndsN))->asSet->
+    union((self.allParents->select(s | s.oclIsTypeOf(AssociationClass)).oclAsType(AssociationClass)->collect(ac | ac.connection))->asSet->
+    union(self.allParents->select(s | s.oclIsTypeOf(Class)).oclAsType(Class)->collect(oppositeAssociationEndsN)->asSet)->
+    select(ae | (ae.visibility=#public or ae.visibility=#protected)))
+
+   let allOppositeAssociationEndsN: Set(AssociationEnd) = allConnectionsN
+--____________________________________________________________________________________________________________________
+context AssociationEnd
+    
+//  [1] The operation upperbound returns the maximum upperbound value across all potential ranges of a multiplicity.
+
+def upperbound:
+    
+	let upperboundS: UnlimitedInteger = self.multiplicity.range.upper->asSequence->sortedBy(u: UnlimitedInteger| u)->last
+	
+
+--____________________________________________________________________________________________________________________
+context BehavioralFeature
+
+--   [1] The operation hasSameSignature checks if the argument has the same signature as the instance itself.
+
+def matchesSignature_hasSameSignature:
+
+let hasSameSignatureI( b : BehavioralFeature ): Boolean = (self.name = b.name) and (self.parameter->size = b.parameter->size)
+                                                           and Sequence{ 1..(self.parameter->size) }->forAll(index: Integer |
+                                                           b.parameter->at(index).type = self.parameter->at(index).type and
+                                                           b.parameter->at(index).kind = self.parameter->at(index).kind)
+
+
+let hasSame_Param_Size(b: BehavioralFeature): Boolean =   (self.parameter->size = b.parameter->size)
+
+
+let hasSameSignatureS(bf: BehavioralFeature): Boolean =  if (self.parameter->size = 0 and bf.parameter->size = 0)
+    														then (self.name = bf.name)
+    														else if hasSame_Param_Size(bf)
+    														    	then Sequence{ 1..(self.parameter->size) }
+                                                         				 ->forAll(index: Integer | bf.parameter->at(index).type = 
+                                                         				 self.parameter->at(index).type and bf.parameter->at(index).
+                                                         				 kind = self.parameter->at(index).kind)
+                                                         			else false
+                                                         		 endif
+														 endif	
+
+--  [2] The operation matchesSignature checks if the argument has a signature that would clash with the signature of the instance itself (and therefore must be unique).
+--      Mismatches in kind or any differences in return parameters do not cause a mismatch.
+
+--Nu are # la return
+--let matchesSignatureI( b : BehavioralFeature ): Boolean = (self.name = b.name) and (self.parameter->size = b.parameter->size)
+--                                                           and Sequence{ 1..(self.parameter->size) }->forAll(index: Integer |
+--                                                           b.parameter->at(index).type = self.parameter->at(index).type or
+--                                                           (b.parameter->at(index).kind = return and
+--                                                           self.parameter->at(index).kind = return))
+
+let matchesSignatureS(bf: BehavioralFeature): Boolean =(self.name = bf.name) and  if (self.parameter->size = 0 and bf.parameter->size = 0)
+    														then true
+    														else if hasSame_Param_Size(bf)
+    														    	then Sequence{ 1..(self.parameter->size) }
+                                                         				 ->forAll(index: Integer | (bf.parameter->at(index).type = 
+                                                         				 self.parameter->at(index).type and bf.parameter->at(index).
+                                                         				 kind = self.parameter->at(index).kind) or (bf.parameter->at(index).kind = #return 
+                                                         				 and self.parameter->at(index).kind = #return))
+                                                         			else false
+                                                         		 endif
+														 endif	
+                                                          
+                                                         
+
+--____________________________________________________________________________________________________________________
+
+context Classifier def:
+
+--  [1] The operation allFeatures results in a Set containing all Features of the Classifier itself and all its inherited Features.
+--      The OCL specification did not take into account that only public and protected features are inherited.  This AO has an
+--      important impact on the others AO.
+
+--      let allFeaturesI: Set(Feature) = self.feature->union(self.parent.oclAsType(Classifier).allFeaturesI)
+
+	let allFeaturesS: Set(Feature) = self.feature->asSet->union(self.parent.oclAsType(Classifier).allFeaturesS->asSet)
+
+	let allFeaturesN: Sequence(Feature) = self.feature->union(self.parent.oclAsType(Classifier).allFeaturesN
+                             ->select(elementOwnership.visibility = #public or elementOwnership.visibility = #protected)->asSequence)
+
+--  [2] The operation allOperations results in a Set containing all Operations of the Classifier itself and all its inherited Operations.
+
+--   let   allOperationsI: Set(Operation) = self.allFeatures->select(f | f.oclIsKindOf(Operation))
+
+   let   allOperationsS: Set(Operation) = self.allFeaturesS->select(f | f.oclIsKindOf(Operation)).oclAsType(Operation)->asSet
+
+--   [3] The operation allMethods results in a Set containing all Methods of the Classifier itself and all its inherited Methods.
+
+--   let   allMethodsI: Set(Method) = self.allFeaturesI->select(f | f.oclIsKindOf(Method))
+   let   allMethodsS: Set(Method) = self.allFeaturesS->select(f | f.oclIsKindOf(Method)).oclAsType(Method)->asSet
+
+--   [4] The operation allAttributes results in a Set containing all Attributes of the Classifier itself and all its inherited Attributes.
+
+--   let   allAttributesI: Set(Attribute) = self.allFeaturesI->select(f | f.oclIsKindOf(Attribute))
+
+   let   allAttributesS: Set(Attribute)  = self.allFeaturesS->select(f | f.oclIsKindOf(Attribute)).oclAsType(Attribute)->asSet
+
+--   [5] The operation associations results in a Set containing all Associations of the Classifier itself.
+
+   let   associationsI: Set(Association) = self.association.association->asSet
+
+--   [6] The operation allAssociations results in a Set containing all Associations of the Classifier itself and all its inherited Associations.
+--   let   allAssociationsI: Set(Association) = self.associations->union(self.parent.oclAsType(Classifier).allAssociationsI)
+
+   let   allAssociationsS: Set(Association) = self.associationsI->union(self.parent.oclAsType(Classifier).allAssociationsS)->asSet
+
+
+--   [7] The operation oppositeAssociationEnds results in a set of all AssociationEnds that are opposite to the Classifier.
+
+   let   oppositeAssociationEndsS: Set(AssociationEnd) = self.associations->select(a | a.connection->select(ae | ae.participant = self)->size = 1)->collect(a |
+                                    a.connection->select(ae | ae.participant <> self))->union(self.associations->select(a | a.connection->select(ae |
+                                                                                              ae.participant = self)->size > 1)->collect(a | a.connection))->asSet
+
+   let  selOpAsEnd(as:Association, c:Classifier): Set(AssociationEnd)=
+   
+   		(if as.connection.participant->isUnique(c| c) then as.connection->select(ae | c.association->excludes(ae)) else as.connection endif)->asSet
+
+   let  oppositeAssociationEndsN: Set(AssociationEnd) = self.associations->iterate(ass ; acc:Set(AssociationEnd)=Set{} | acc->union(selOpAsEnd(ass, self)))
+
+
+--   [8] The operation allOppositeAssociationEnds results in a set of all AssociationEnds, including the inherited ones, that are opposite to the Classifier.
+
+   let   allOppositeAssociationEndsS: Set (AssociationEnd) = self.oppositeAssociationEndsS->union(self.parent.oclAsType(Classifier).allOppositeAssociationEndsS)->asSet
+
+
+	let allOppositeAssociationEndsN: Set(AssociationEnd) = self.oppositeAssociationEndsN->union(self.parent.oclAsType(Classifier)
+																					.allOppositeAssociationEndsN->asSet
+						    							->select(ae | ae.visibility = # public or ae.visibility = #protected))
+
+
+   let   allContentsS: Set(ModelElement) = self.contents->union(self.parent.oclAsType(Classifier).allContentsS->select(e | e.elementOwnership.visibility = #public or e.elementOwnership.visibility = #protected)->asSet)
+
+
+--   [9] The operation specification yields the set of Classifiers that the current Classifier realizes.
+   let   specificationS: Set(Classifier) = self.clientDependency->select(d | d.oclIsKindOf(Abstraction)and 
+                                           (d.stereotype->exists(e | e.name = "realize")) and d.supplier->exists(e |
+                                            e.oclIsKindOf(Classifier))).supplier.oclAsType(Classifier)->asSet
+
+   let allDiscriminatorsS: Set(Name) = self.generalization.discriminator->union(self.parent.oclAsType(Classifier).allDiscriminatorsS)->asSet
+
+--______________________________________________________________________________________________________________________
+  let allReceptions: Set(Reception) = self.allFeatures->select(f| f.oclIsKindOf(Reception)).oclAsType(Reception)->asSet
+
+
+context Component
+
+def allResidentElementsS:
+
+--  [1] The operation allResidentElements results in a Set containing all ModelElements resident in a Component or one of its ancestors.
+
+let   allResidentElementsS: Set(ModelElement) =  self.resident->union(self.parent.oclAsType(Component).allResidentElementsS
+                                                 ->iterate(aRE; acc:Set(ModelElement)=Set{} | acc->union(aRE.elementResidence
+                                    ->select(visibility = #public or visibility = #protected).resident)->asSet))
+
+
+--  let   allResidentElementsI: Set(ModelElement) = self.resident->union(self.parent.oclAsType(Component).allResidentElementsI
+--  ->select(re | re.elementResidence.visibility->includes(#public) or re.elementResidence.visibility->includes(#protected))->asSet
+
+
+
+context GeneralizableElement
+
+def parent_allParent:
+
+--  [1] The operation parent returns a Set containing all direct parents.  
+--   let  parentI: Set(GeneralizableElement) = self.generalization.parentI
+
+   let  parentS: Set(GeneralizableElement) = self.generalization.parent->asSet
+
+--  [2] The operation allParents returns a Set containing all the Generalizable Elements inherited by this GeneralizableElement (the transitive closure),
+--      excluding the GeneralizableElement itself.
+
+
+   let  allParentsS: Set(GeneralizableElement) = self.parent->union(self.parent.allParentsS->asSet)
+   
+
+/*
+
+--  specificatiile lui Carcu
+
+def: let iclosure:Set(GeneralizableElement)=
+     
+Sequence{1..GeneralizableElement.allInstances->size}->iterate(it:Integer;
+	  ac:Set(GeneralizableElement) = Set{self} |
+          ac->union(ac.specialization.child->asSet))
+          
+          
+def: let rclosure(s:Set(GeneralizableElement)):Set(GeneralizableElement)=
+    	  if s->includes(self) then s
+    	  else self.specialization.child->iterate(it:GeneralizableElement;
+    	    		ac:Set(GeneralizableElement) = s->including(self) |
+    	     		ac->union(it.rclosure(ac)))   	    
+    	  endif
+   
+*/   
+
+
+
+context ModelElement
+
+def modelElement_AO:
+
+--  [1] The operation supplier results in a Set containing all direct suppliers of the ModelElement.
+
+
+--   let  supplierI: Set(ModelElement) = self.clientDependency.supplierI
+
+   let  supplierS: Set(ModelElement) = self.clientDependency.supplier->asSet
+   
+   let  supplierP: Set(ModelElement) = self.clientDependency->select(cd | cd.oclIsTypeOf(Permission) and cd.stereotype.name->includes('import')).supplier->asSet
+
+
+--  [2] The operation allSuppliers results in a Set containing all the ModelElements that are suppliers of this ModelElement, including the suppliers of these Model Elements. This is the transitive closure.
+
+
+--   let  allSuppliersI: Set(ModelElement) = self.supplierI->union(self.supplier.allSuppliersI)
+
+   let  allSuppliersS: Set(ModelElement) = self.supplierS->union(self.supplierS.allSuppliersS->asSet)
+   
+   
+   let  allSuppliersC: Set(ModelElement) = Set{self}->closure(it| it.supplierS)
+   
+   let  allSuppliersP: Set(ModelElement) = Set{self}->closure(it| it.supplierP)
+
+
+--  [3] The operation “model” results in the set of Models to which the ModelElement belongs.
+
+--   let  modelI: Set(Model) = self.namespace->union(self.namespace.allSurroundingNamespaces)->select(ns| ns.oclIsKindOf(Model))
+
+   let  modelS: Set(Model) = (self.namespace->union(self.namespace.allSurroundingNamespacesN))->select( ns | ns.oclIsKindOf(Model)).oclAsType(Model)->asSet
+
+
+--  [4] A ModelElement is a template when it has parameters.
+
+--   let  isTemplateI: Boolean = (self.templateParameter->notEmpty)
+   let  isTemplateS: Boolean = (self.templateParameter[template]->notEmpty)
+
+
+--  [5] A ModelElement is an instantiated template when it is related to a template by a Binding relationship.
+
+   let  isInstantiatedI: Boolean = self.clientDependency->select(oclIsKindOf(Binding))->notEmpty
+
+
+
+--  [6] The templateArguments are the arguments of an instantiated template, which substitute for template parameters.
+
+ --  let  templateArgumentsI: Set(ModelElement) = self.clientDependency->select(oclIsKindOf(Binding)).oclAsType(Binding).argument
+
+   let  templateArgumentsS: Set(ModelElement) = self.clientDependency->select(oclIsKindOf(Binding)).oclAsType(Binding).argument.modelElement->asSet
+
+
+	let  languagePrimitiveTypes:Set(String) = Set{}
+
+context Namespace
+
+def namespace_AO:
+
+--   [1] The operation contents results in a Set containing all ModelElements contained by the Namespace.
+--       In case of recursive specifications, the stop conditions have to be clearly expressed.  Otherwise
+--       the values corresponding to the specifications cannot be computed.  Respecting the proposed pattern,
+--       the recursive specifications are more clear.
+
+--   let  contentsI: Set(ModelElement)  = self.ownedElement->union(self.namespace, contentsI)
+
+   let  contentsS: Set(ModelElement) = self.ownedElement->union(self.namespace.contentsS)
+
+   let  contAndImp: Set(ModelElement) = self.ownedElement->union(self.allSuppliersP->select(oclIsKindOf(Namespace)).oclAsType(Namespace).ownedElement->select(s| s.elementOwnership.visibility=#public)->asSet)
+
+   let  contentsN: Set(ModelElement) =  if self.namespace->isUndefined
+   		    								then contAndImp
+   		    								else contAndImp->union(self.namespace.contentsN)
+   										endif->select(oclIsKindOf(Classifier))
+   										
+   										
+   										
+   		    								
+context Namespace
+
+def  nE:      								
+        								
+   let importedElementsN: Set(ModelElement) = self.oclAsType(Package).importedElement
+   
+   let allSuppliersNamespace:Set(ModelElement)= self.allSuppliersC
+
+--   [2] The operation allContents results in a Set containing all ModelElements contained by the Namespace.
+
+   let  allContentsI: Set(ModelElement) = self.contents
+
+   let  allContentsN: Set(ModelElement) = 
+   		if self.oclAsType(GeneralizableElement).parent->isEmpty
+        	then self.contentsN
+            else self.contentsN->union(self.oclAsType(GeneralizableElement).parent.oclAsType(Namespace).ownedElement->
+                      select(e | e.elementOwnership.visibility = #public or e.elementOwnership.visibility = #protected))->asSet
+        endif
+ 
+ 
+	let  clientPermRel: Set(Dependency) = 	self.clientDependency->select(cd | cd.oclIsTypeOf(Permission) and (cd.stereotype.name
+											->intersection(Set{'access', 'friend'}))->notEmpty)
+											     
+ 	let  supplierPerm_A_F: Set(ModelElement) = 	clientPermRel.supplier->asSet
+            
+/*            
+   let elemsWithAccessOrFriendSt: Set(ModelElement) =
+   		if supplierPerm_A_F->notEmpty
+   		    then supplierPerm_A_F->iterate(cd ; acc:Set(ModelElement)=Set{} |
+   		    	 if (clientPermRel.stereotype.name->includes('access'))
+   		    	     then acc->union(cd.oclAsType(Namespace).ownedElement->select(e| e.elementOwnership.visibility=#public)->asSet)
+   		    	     else	if (clientPermRel.stereotype.name->includes('friend'))
+   		    	         		then acc->union(cd.oclAsType(Namespace).ownedElement->asSet)
+   		    	         		else acc
+   		    	         	endif
+   		    	 endif
+   		    	 )
+   		    else Set{}
+   		endif->select(oclIsKindOf(Classifier))--.oclAsType(ModelElement)->asSet
+*/   		         
+   		 	    
+   			         	    
+   		    	     
+   
+   let  allVisibleElementsP: Set(ModelElement) = self.allContentsN -- ->union(elemsWithAccessOrFriendSt)
+
+--   [3] The operation allVisibleElements results in a Set containing all ModelElements visible outside of the Namespace.
+
+   let  allVisibleElementsN: Set(ModelElement) = self.allContentsI->select(e | e.elementOwnership.visibility = #public)
+
+
+context Namespace
+    
+	def allVisibleElementsD:
+	    
+	let aVEI: Set(ModelElement) = Set{}   
+	let clDepSuplElem(d: Dependency): Set(ModelElement)= if d.supplier->forAll(oclIsKindOf(Package))
+       														then	if d.supplier.oclAsType(Namespace).ownedElement->isEmpty
+       																	then aVEI
+       																	else d.supplier->union(d.supplier.oclAsType(Namespace).ownedElement->asSet)
+   																 	endif
+   															else d.supplier
+   														endif
+      
+
+-- clDepStName returns the name of the Stereotype associated to the Dependency relationship specified as parameter
+
+   let clDepStName(dep: Dependency):Set(String) = dep.stereotype.name->asSet
+   
+   
+   let  depElemVisibleInNamespace: Set(ModelElement) =
+   		(if self.namespace.isUndefined
+   		    then self.clientDependency
+   		    else self.clientDependency->union(self.namespace.clientDependency)
+   		 endif)->select(oclIsKindOf(Dependency) or oclIsKindOf(Permission))->iterate(cD ; acc:Set(ModelElement)=Set{} | 
+         	if (clDepStName(cD)->excludes('friend'))
+            	then acc->union(clDepSuplElem(cD)->select(e | e.oclIsKindOf(Classifier) and e.elementOwnership.visibility=#public))
+                else  acc->union(clDepSuplElem(cD)->select(oclIsKindOf(Classifier)))
+            endif)
+   
+   let  allVisibleElementsD: Set(ModelElement) = self.allContentsN->select(oclIsKindOf(Classifier))->union(depElemVisibleInNamespace)
+
+
+--   [4] The operation allSurroundingNamespaces results in a Set containing all surrounding Namespaces.
+
+--    let  allSurroundingNamespacesS: Set(Namespace) = self.namespace->union(self.namespace.allSurroundingNamespacesS)
+
+context Namespace
+
+   def allSurroundingNamespaces_AO:
+
+//   let  allSurroundingNamespacesI: Set(Namespace) = self.namespace->union(self.namespace.allSurroundingNamespacesI)
+
+	 let  aSNI: Set(Namespace) = Set{}  
+   		let  allSurroundingNamespacesN: Set(Namespace) =
+   			if self.namespace->isEmpty
+   			    then aSNI   
+   				else self.namespace->union(self.namespace.allSurroundingNamespacesN)
+        	endif
+
+
+
+         
+endpackage
+
+package Behavioral_Elements::Common_Behavior
+context  Instance
+
+   def instance_AO:
+
+--   [1] The operation allLinks results in a set containing all Links of the Instance itself. --  !!! lipseste conversia
+
+--   let  allLinksI: Set(Link) = self.linkEnd.link
+   let  allLinksS: Set(Link) = self.linkEnd.link->asSet
+
+
+--   [2] The operation allOppositeLinkEnds results in a set containing all LinkEnds of Links connected to the Instance with another LinkEnd.
+
+--   let  allOppositeLinkEndsI: Set(LinkEnd) = self.allLinks.connection->select(le | le.instance <> self)
+   let  allOppositeLinkEndsS: Set(LinkEnd) = self.allLinksS.connection->asSet->select(le | le.instance <> self)
+
+
+--   [3] The operation selectedLinkEnds results in a set containing all opposite LinkEnds corresponding to a given AssociationEnd.
+
+--   let  selectedLinkEndsI(ae: AssociationEnd): Set(LinkEnd) = self.allOppositeLinkEndsI->select (le |le.associationEnd = ae)
+   let  selectedLinkEndsS(ae: AssociationEnd): Set(LinkEnd) = self.allOppositeLinkEndsS->select (le | le.associationEnd = ae)
+
+
+--   [4] The operation selectedAttributeLinks results in a set containing all AttributeLinks corresponding to a given Attribute.
+
+   let  selectedAttributeLinksS(ae : Attribute): Set(AttributeLink) = self.slot->select(s | s.attribute = ae)
+
+
+--   [5] The operation contents results in a Set containing all ModelElements contained by the Instance.
+
+--   let  contentsI: Set(ModelElement) = self.ownedInstance->union(self.ownedLink)
+   let  contentsS: Set(ModelElement) = self.ownedInstance.oclAsType(ModelElement)->union(self.ownedLink).oclAsType(ModelElement)->asSet
+
+
+
+endpackage
+
+
+package Behavioral_Elements::Collaborations
+
+
+context ClassifierRole
+
+def classifierRole_AO:
+
+--   [1] The operation allAvailableFeatures results in the set of all Features contained in the ClassifierRole together with those contained in the parents.
+
+
+--   let  allAvailableFeaturesI: Set(Feature) = self.availableFeature->union(self.parent.allAvailableFeaturesI)
+   let  allAvailableFeaturesS: Set(Feature) = self.availableFeature->union(self.parent.oclAsType(ClassifierRole).allAvailableFeaturesS)->asSet
+
+
+
+--   [2] The operation allAvailableContents results in the set of all ModelElements contained in the ClassifierRole together with those contained in the parents.
+
+--   let  allAvailableContentsI: Set(ModelElement) = self.availableContents->union(self.parent.allAvailableContentsI)
+   let  allAvailableContentsS: Set(ModelElement) = self.availableContents->union(self.parent.oclAsType(ClassifierRole).allAvailableContents)->asSet
+
+
+context Collaboration
+
+def allContents_AO:
+
+--  [1] The operation allContents results in the set of all ModelElements contained in the Collaboration together with those contained in the parents except those that have been specialized.
+
+--  let  allContentsI: Set(ModelElement) = self.contents->union(self.parent.allContentsI->reject( e | self.contents.name->include (e.name)))
+
+  let allContentsS: Set(ModelElement) = self.contents->union(self.parent.oclAsType(Collaboration).allContentsS->reject( e | self.contents.name->includes(e.name)))->asSet
+
+
+context Message
+
+def allPrecedessors_AO:
+
+--   [1] The operation allPredecessors results in the set of all Messages that precede the current one.
+
+--   let  allPredecessorsI: Set(Message) = self.predecessor->union(self.predecessor.allPredecessorsI)
+
+   let  allPredecessorsS: Set(Message) = self.predecessor->union(self.predecessor.allPredecessorsS)->asSet
+
+
+endpackage
+
+
+
+package Behavioral_Elements::Use_Cases
+
+context UseCase
+
+
+def useCase_AO:
+
+--   [1] The operation specificationPath results in a set containing all surrounding Namespaces that are not instances of Package.
+
+   let  specificationPathN: Set(Namespace) = self.allSurroundingNamespacesN->select(n |n.oclIsKindOf(Subsystem) or n.oclIsKindOf(Class))
+
+
+
+--   [2] The operation allExtensionPoints results in a set containing all ExtensionPoints of the UseCase.
+
+--   let  allExtensionPointsI: Set(ExtensionPoint) = self.allSupertypes.extensionPoint -> union(self.extensionPoint)
+   let  allExtensionPointsS: Set(ExtensionPoint) = self.allParents.oclAsType(UseCase).extensionPoint->union(self.extensionPoint)->asSet
+
+endpackage
+
+package Behavioral_Elements::State_Machines
+
+context StateMachine
+
+def:
+	--  Renaming the AdditionalOperation LCA to LACI is mandatory due to the conflict name with the operation specified in the metamodel
+
+   let LCAS(s1: State, s2: State): CompositeState = 
+   if ancestor(s1, s2) 	then s1.oclAsType(CompositeState)
+						else 	if ancestor(s2, s1) then s2.oclAsType(CompositeState)
+													else (LCAS(s1.oclAsType(StateVertex).container, s2.oclAsType(StateVertex).container))
+                        		endif
+   endif
+
+                                                                        
+
+   let ancestorS(s1: State, s2: State): Boolean = 
+   		if (s2 = s1) 
+   		    then true
+            else	if (s1.oclAsType(StateVertex).container->isEmpty)
+            			then true
+                    	else	if (s2.oclAsType(StateVertex).container->isEmpty)
+                    				then false
+                            		else (ancestor(s1, s2.oclAsType(StateVertex).container))
+                    	 		endif
+            		endif
+        endif
+
+
+endpackage
+
+package Behavioral_Elements::Activity_Graphs
+    
+context ObjectFlowState
+    
+def:
+   let isInputActionI(proc: Procedure): Boolean = not proc.argument->select(type = self.type)->isEmpty
+   
+   let isOutputActionI(proc: Procedure): Boolean = not proc.result->select(type = self.type)->isEmpty
+   
+endpackage
+
+package Model_Management
+
+
+context Package
+
+def:
+
+	let contentsI: Set(ModelElement) = self.ownedElement->union(self.importedElement)
+
+--  Example demonstrating the utility of the closure operation
+
+    let tC:Set(TupleType(a:Package, b:Set(ModelElement))) =
+    		(Package.allInstances->collect(i | Tuple{a=i, b=i.allSuppliersC}))->select(t | t.b->size > 2)->asSet
+
+
+    let tS:Set(TupleType(a:Package, b:Set(ModelElement))) =
+    		(Package.allInstances->collect(i | Tuple{a=i, b=i.allSuppliersS}))->select(t | t.b->size > 2)->asSet
+
+
+
+	let allContentsS:Set(ModelElement) = self.contents->union(self.parent.oclAsType(Package).allContentsS->select(e |
+                                                          e.elementOwnership.visibility = #public or e.elementOwnership.visibility = #protected)->asSet)
+
+
+
+   let clDepSuplElem(d: Dependency): Set(ModelElement)= d.supplier->asSequence->first.oclAsType(Package).ownedElement
+
+-- clDepStName returns the name of the Stereotype associated to the Dependency relationship specified as parameter
+
+   let allVisibleElementsN(): Set(ModelElement) = self.allContentsS->union(self.clientDependency->
+                             select(oclIsKindOf(Permission))->iterate(cD ; acc:Set(ModelElement)=Set{} | 
+                             if (clDepStName(cD)->includes('import') or (clDepStName(cD)->includes('access')))
+                                 then acc->union(clDepSuplElem(cD)->select(e | e.oclIsKindOf(Classifier) 
+                                      and e.elementOwnership.visibility=#public))
+                                 else if (clDepStName(cD)->includes('friend'))
+	                                  	then acc->union(clDepSuplElem(cD)->select(oclIsKindOf(Classifier)))
+	                                  	else acc->union(Set{})
+	                               	  endif
+
+
+                             endif))
+
+context Subsystem
+
+def:
+
+  let  contentsI: Set(ModelElement) = self.ownedElement->union(self.importedElement)
+
+--  let allSpecificationElementsI:Set(ModelElement) = self.allContents->select(c | c.elementOwnership.isSpecification)
+  let allSpecificationElementsS: Set(ModelElement) = self.oclAsType(Package).allContents->select(c | c.elementOwnership.isSpecification)
+
+
+endpackage
+
+
+package Foundation::Core
+
+context BehavioralFeature
+
+def:
+    let be(p:BehavioralFeature):BehavioralFeature=p.owner.parent->asSequence->first.oclAsType(Classifier).feature->
+                                               select(f | f.oclIsKindOf(BehavioralFeature) and p.name = f.name)->first.oclAsType(BehavioralFeature) 
+
+endpackage
+
+
+package  Foundation::Extension_Mechanisms
+
+context Stereotype
+
+def:
+
+--   let  findProfileI(me: ModelElement): Set (Package) = if (me.namespace->notEmpty) then
+--                                                                                    if (me.namespace.oclIsKindOf(Package) and
+--                                                                                     me.namespace.stereotype->notEmpty) and
+--                                                                                       me.namespace.stereotype->exists(s|s.name = profile)
+--                                                                                    then result = me.namespace
+--                                                                                    else -- go up to the next level of namespace
+--                                                                                        result = findProfileI (me.namespace)
+--                                                        else result = me.namespace -- return empty set
+
+	 let fPI: Set(Package) = Set{}
+   	let findProfileS(me : ModelElement): Set(Package) =
+   		if (me.namespace->notEmpty) 
+       		then 
+            	if (me.namespace.oclIsKindOf(Package) and me.namespace.stereotype->notEmpty)
+                		and me.namespace.stereotype->exists(s | s.name = "profile")
+                	then Set{ me.namespace.oclAsType(Package)}
+                    else findProfileS(me.namespace)-- go up to the next level of namespace
+                endif
+            else fPI
+   		endif
+                         										
+
+endpackage
+
+endmodel

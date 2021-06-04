@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MSXConfiguration msx.version="0.1" xmlns:MSX="http://lci.cs.ubbcluj.ro/msx">
+	<MSX:Metamodel name="UML 1.4" ext="Impl">
+		<MSX:Metamodel.classes>
+			<MSX:Class name="ro.ubbcluj.lci.uml.behavioralElements.collaborations.CollaborationInstanceSet"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.behavioralElements.commonBehavior.DataValue"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.behavioralElements.collaborations.Message"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.foundation.core.TemplateParameter"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.behavioralElements.stateMachines.FinalState"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.behavioralElements.collaborations.Collaboration"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.behavioralElements.commonBehavior.Signal"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.foundation.core.Parameter"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.behavioralElements.useCases.Actor"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.behavioralElements.stateMachines.SimpleState"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.foundation.dataTypes.BooleanExpression"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.foundation.core.ElementOwnership"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.modelManagement.ElementImport"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.foundation.core.BehavioralFeature"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.foundation.core.Interface"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.behavioralElements.stateMachines.ChangeEvent"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.behavioralElements.commonBehavior.SubsystemInstance"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.behavioralElements.commonBehavior.AttributeLink"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.foundation.core.Method"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.foundation.core.Primitive"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.behavioralElements.stateMachines.TimeEvent"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.behavioralElements.collaborations.ClassifierRole"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.foundation.core.Relationship"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.behavioralElements.activityGraphs.CallState"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.foundation.core.Artifact"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.behavioralElements.stateMachines.StateMachine"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.behavioralElements.activityGraphs.SubactivityState"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.foundation.core.Permission"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.behavioralElements.activityGraphs.ActivityGraph"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.foundation.dataTypes.ProcedureExpression"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.behavioralElements.useCases.UseCase"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.behavioralElements.commonBehavior.Link"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.modelManagement.Model"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.foundation.core.Feature"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.behavioralElements.useCases.UseCaseInstance"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.foundation.extensionMechanisms.TagDefinition"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.foundation.dataTypes.TimeExpression"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.foundation.dataTypes.LocationReference"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.foundation.core.AssociationEnd"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.foundation.core.Classifier"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.behavioralElements.commonBehavior.LinkEnd"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.behavioralElements.stateMachines.StateVertex"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.foundation.core.Dependency"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.foundation.extensionMechanisms.Stereotype"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.behavioralElements.commonBehavior.LinkObject"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.behavioralElements.activityGraphs.ObjectFlowState"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.foundation.dataTypes.MultiplicityRange"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.foundation.core.EnumerationLiteral"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.behavioralElements.stateMachines.Event"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.behavioralElements.stateMachines.SynchState"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.foundation.core.Attribute"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.foundation.core.AssociationClass"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.behavioralElements.commonBehavior.Exception"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.foundation.dataTypes.Mapping"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.foundation.core.PresentationElement"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.behavioralElements.stateMachines.StubState"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.foundation.dataTypes.MappingExpression"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.modelManagement.Subsystem"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.foundation.core.Component"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.behavioralElements.commonBehavior.ComponentInstance"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.behavioralElements.useCases.ExtensionPoint"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.foundation.core.ModelElement"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.foundation.core.ProgrammingLanguageDataType"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.behavioralElements.stateMachines.Guard"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.foundation.core.StructuralFeature"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.behavioralElements.collaborations.AssociationRole"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.foundation.dataTypes.TypeExpression"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.foundation.core.Element"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.foundation.core.Generalization"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.behavioralElements.commonBehavior.Reception"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.behavioralElements.stateMachines.CallEvent"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.foundation.core.Constraint"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.modelManagement.Package"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.foundation.core.Usage"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.behavioralElements.useCases.Extend"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.foundation.core.TemplateArgument"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.behavioralElements.activityGraphs.ActionState"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.foundation.core.Enumeration"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.behavioralElements.stateMachines.Transition"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.behavioralElements.commonBehavior.NodeInstance"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.behavioralElements.commonBehavior.Object"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.foundation.core.Namespace"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.behavioralElements.stateMachines.Pseudostate"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.behavioralElements.stateMachines.SubmachineState"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.foundation.core.Association"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.foundation.dataTypes.Geometry"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.foundation.core.Node"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.behavioralElements.collaborations.Interaction"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.foundation.core.Flow"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.foundation.core.Abstraction"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.foundation.dataTypes.Expression"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.behavioralElements.activityGraphs.Partition"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.foundation.core.Binding"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.foundation.dataTypes.ArgListsExpression"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.foundation.extensionMechanisms.TaggedValue"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.behavioralElements.stateMachines.SignalEvent"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.behavioralElements.activityGraphs.ClassifierInState"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.behavioralElements.useCases.Include"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.foundation.core.Class"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.behavioralElements.collaborations.AssociationEndRole"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.behavioralElements.collaborations.InteractionInstanceSet"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.foundation.core.Operation"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.foundation.core.ElementResidence"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.foundation.dataTypes.Multiplicity"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.foundation.core.GeneralizableElement"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.foundation.core.DataType"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.behavioralElements.commonBehavior.Instance"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.behavioralElements.commonBehavior.Stimulus"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.behavioralElements.stateMachines.State"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.behavioralElements.stateMachines.CompositeState"/>
+			<MSX:Class name="ro.ubbcluj.lci.uml.foundation.core.Comment"/>
+		</MSX:Metamodel.classes>
+		<MSX:Metamodel.xmlMappings>
+			<MSX:XMLMapping root="XMI" version="1.1" metamodel="UML" mversion="1.3">
+				<MSX:XMLMapping.default declInterf="false">
+					<MSX:XMLClassMapping name="ro.ubbcluj.lci.xmi.custom.xmi.xmi1_1.XMIClassMapping"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping"/>
+				</MSX:XMLMapping.default>
+				<MSX:XMLMapping.exceptions>
+					<!-- Field name or type changed -->
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlNamespace="" xmlName="type" oldXmlNamespace="" oldXmlName="participant" owner="ro.ubbcluj.lci.uml.foundation.core.AssociationEnd"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlNamespace="" xmlName="value" oldXmlNamespace="" oldXmlName="dataValue" owner="ro.ubbcluj.lci.uml.foundation.extensionMechanisms.TaggedValue"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.custom.xmi.xmi1_1.XMIFieldMapping_type" xmlNamespace="" xmlName="tag" oldXmlNamespace="" oldXmlName="type" owner="ro.ubbcluj.lci.uml.foundation.extensionMechanisms.TaggedValue"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlNamespace="" xmlName="participant" oldXmlNamespace="" oldXmlName="specifiedEnd" owner="ro.ubbcluj.lci.uml.foundation.core.Classifier"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlNamespace="" xmlName="elementResidence" oldXmlNamespace="" oldXmlName="container" owner="ro.ubbcluj.lci.uml.foundation.core.ModelElement"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlNamespace="" xmlName="parameterTemplate2" oldXmlNamespace="" oldXmlName="template" owner="ro.ubbcluj.lci.uml.foundation.core.ModelElement"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlNamespace="" xmlName="elementImport2" oldXmlNamespace="" oldXmlName="package" owner="ro.ubbcluj.lci.uml.foundation.core.ModelElement"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlNamespace="" xmlName="residentElement" oldXmlNamespace="" oldXmlName="resident" owner="ro.ubbcluj.lci.uml.foundation.core.Component"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlNamespace="" xmlName="resident" oldXmlNamespace="" oldXmlName="deployedComponent" owner="ro.ubbcluj.lci.uml.foundation.core.Node"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlNamespace="" xmlName="implementationLocation" oldXmlNamespace="" oldXmlName="container" owner="ro.ubbcluj.lci.uml.foundation.core.ElementResidence"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlNamespace="" xmlName="modelElement" oldXmlNamespace="" oldXmlName="template" owner="ro.ubbcluj.lci.uml.foundation.core.TemplateParameter"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlNamespace="" xmlName="modelElement2" oldXmlNamespace="" oldXmlName="parameterTemplate" owner="ro.ubbcluj.lci.uml.foundation.core.TemplateParameter"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlNamespace="" xmlName="subMachineState" oldXmlNamespace="" oldXmlName="submachineState" owner="ro.ubbcluj.lci.uml.behavioralElements.stateMachines.StateMachine"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlNamespace="" xmlName="elementImport" oldXmlNamespace="" oldXmlName="importedElement" owner="ro.ubbcluj.lci.uml.modelManagement.Package"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlNamespace="" xmlName="modelElement" oldXmlNamespace="" oldXmlName="importedElement" owner="ro.ubbcluj.lci.uml.modelManagement.ElementImport"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="UML" xmlName="ModelElement.parameterTemplate" oldXmlNamespace="" oldXmlName="parameterTemplate" owner="ro.ubbcluj.lci.uml.foundation.core.ModelElement"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="UML" xmlName="Classifier.feature" oldXmlNamespace="" oldXmlName="feature" owner="ro.ubbcluj.lci.uml.foundation.core.Classifier"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="UML" xmlName="Association.connection" oldXmlNamespace="" oldXmlName="connection" owner="ro.ubbcluj.lci.uml.foundation.core.Association"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="UML" xmlName="AssociationEnd.qualifier" oldXmlNamespace="" oldXmlName="qualifier" owner="ro.ubbcluj.lci.uml.foundation.core.AssociationEnd"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="UML" xmlName="BehavioralFeature.parameter" oldXmlNamespace="" oldXmlName="parameter" owner="ro.ubbcluj.lci.uml.foundation.core.BehavioralFeature"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="UML" xmlName="Multiplicity.range" oldXmlNamespace="" oldXmlName="range" owner="ro.ubbcluj.lci.uml.foundation.dataTypes.Multiplicity"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="UML" xmlName="Stereotype.stereotypeConstraint" oldXmlNamespace="" oldXmlName="stereotypeConstraint" owner="ro.ubbcluj.lci.uml.foundation.extensionMechanisms.Stereotype"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="UML" xmlName="Instance.slot" oldXmlNamespace="" oldXmlName="slot" owner="ro.ubbcluj.lci.uml.behavioralElements.commonBehavior.Instance"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="UML" xmlName="Link.connection" oldXmlNamespace="" oldXmlName="connection" owner="ro.ubbcluj.lci.uml.behavioralElements.commonBehavior.Link"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="UML" xmlName="LinkEnd.qualifiedValue" oldXmlNamespace="" oldXmlName="qualifierValue" owner="ro.ubbcluj.lci.uml.behavioralElements.commonBehavior.LinkEnd"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="UML" xmlName="State.entry" oldXmlNamespace="" oldXmlName="entry" owner="ro.ubbcluj.lci.uml.behavioralElements.stateMachines.State"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="UML" xmlName="State.exit" oldXmlNamespace="" oldXmlName="exit" owner="ro.ubbcluj.lci.uml.behavioralElements.stateMachines.State"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="UML" xmlName="State.doActivity" oldXmlNamespace="" oldXmlName="doActivity" owner="ro.ubbcluj.lci.uml.behavioralElements.stateMachines.State"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="UML" xmlName="State.internalTransition" oldXmlNamespace="" oldXmlName="internalTransition" owner="ro.ubbcluj.lci.uml.behavioralElements.stateMachines.State"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="UML" xmlName="Event.parameter" oldXmlNamespace="" oldXmlName="parameter" owner="ro.ubbcluj.lci.uml.behavioralElements.stateMachines.Event"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="UML" xmlName="Transition.guard" oldXmlNamespace="" oldXmlName="guard" owner="ro.ubbcluj.lci.uml.behavioralElements.stateMachines.Transition"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="UML" xmlName="Transition.effect" oldXmlNamespace="" oldXmlName="effect" owner="ro.ubbcluj.lci.uml.behavioralElements.stateMachines.Transition"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="UML" xmlName="StateMachine.top" oldXmlNamespace="" oldXmlName="top" owner="ro.ubbcluj.lci.uml.behavioralElements.stateMachines.StateMachine"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="UML" xmlName="StateMachine.transitions" oldXmlNamespace="" oldXmlName="transitions" owner="ro.ubbcluj.lci.uml.behavioralElements.stateMachines.StateMachine"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="UML" xmlName="Interaction.message" oldXmlNamespace="" oldXmlName="message" owner="ro.ubbcluj.lci.uml.behavioralElements.collaborations.Interaction"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="UML" xmlName="Collaboration.interaction" oldXmlNamespace="" oldXmlName="interaction" owner="ro.ubbcluj.lci.uml.behavioralElements.collaborations.Collaboration"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="UML" xmlName="ActivityGraph.partition" oldXmlNamespace="" oldXmlName="partition" owner="ro.ubbcluj.lci.uml.behavioralElements.activityGraphs.ActivityGraph"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="UML" xmlName="StructuralFeature.multiplicity" oldXmlNamespace="" oldXmlName="multiplicity" owner="ro.ubbcluj.lci.uml.foundation.core.StructuralFeature"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="UML" xmlName="AssociationEnd.multiplicity" oldXmlNamespace="" oldXmlName="multiplicity" owner="ro.ubbcluj.lci.uml.foundation.core.AssociationEnd"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="UML" xmlName="Attribute.initialValue" oldXmlNamespace="" oldXmlName="initialValue" owner="ro.ubbcluj.lci.uml.foundation.core.Attribute"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="UML" xmlName="Parameter.defaultValue" oldXmlNamespace="" oldXmlName="defaultValue" owner="ro.ubbcluj.lci.uml.foundation.core.Parameter"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="UML" xmlName="Constraint.body" oldXmlNamespace="" oldXmlName="body" owner="ro.ubbcluj.lci.uml.foundation.core.Constraint"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="UML" xmlName="Abstraction.mapping" oldXmlNamespace="" oldXmlName="mapping" owner="ro.ubbcluj.lci.uml.foundation.core.Abstraction"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="UML" xmlName="ClassifierRole.multiplicity" oldXmlNamespace="" oldXmlName="multiplicity" owner="ro.ubbcluj.lci.uml.behavioralElements.collaborations.ClassifierRole"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="UML" xmlName="AssociationRole.multiplicity" oldXmlNamespace="" oldXmlName="multiplicity" owner="ro.ubbcluj.lci.uml.behavioralElements.collaborations.AssociationRole"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="UML" xmlName="TagDefinition.multiplicity" oldXmlNamespace="" oldXmlName="multiplicity" owner="ro.ubbcluj.lci.uml.foundation.extensionMechanisms.TagDefinition"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="CDATA" xmlNamespace="UML" xmlName="Operation.specification" oldXmlNamespace="" oldXmlName="specification" owner="ro.ubbcluj.lci.uml.foundation.core.Operation"/>
+					<!--MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="UML" xmlName="TaggedValue.value" oldXmlNamespace="" oldXmlName="value" owner="ro.ubbcluj.lci.uml.foundation.extensionMechanisms.TaggedValue"/-->
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="UML" xmlName="AssociationEndRole.collaborationMultiplicity" oldXmlNamespace="" oldXmlName="collaborationMultiplicity" owner="ro.ubbcluj.lci.uml.behavioralElements.collaborations.AssociationEndRole"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="UML" xmlName="Component.residentElement" oldXmlNamespace="" oldXmlName="residentElement" owner="ro.ubbcluj.lci.uml.foundation.core.Component"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="UML" xmlName="CompositeState.subvertex" oldXmlNamespace="" oldXmlName="subvertex" owner="ro.ubbcluj.lci.uml.behavioralElements.stateMachines.CompositeState"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="UML" xmlName="Enumeration.literal" oldXmlNamespace="" oldXmlName="literal" owner="ro.ubbcluj.lci.uml.foundation.core.Enumeration"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="UML" xmlName="ModelElement.taggedValue" oldXmlNamespace="" oldXmlName="taggedValue" owner="ro.ubbcluj.lci.uml.foundation.core.ModelElement"/>
+					<!-- Object creation changed -->
+					<MSX:XMLClassMapping name="ro.ubbcluj.lci.xmi.custom.xmi.xmi1_1.XMIClassMapping_ModelElement" owner="ro.ubbcluj.lci.uml.foundation.core.ModelElement"/>
+					<!-- Objects HREF -->
+					<MSX:XMLClassMapping name="ro.ubbcluj.lci.xmi.custom.xmi.xmi1_1.XMIClassMapping_ModelElement" xmlType="OBJECT_HREF" owner="ro.ubbcluj.lci.uml.foundation.core.Class"/>
+					<MSX:XMLClassMapping name="ro.ubbcluj.lci.xmi.custom.xmi.xmi1_1.XMIClassMapping_ModelElement" xmlType="OBJECT_HREF" owner="ro.ubbcluj.lci.uml.foundation.core.Interface"/>
+					<MSX:XMLClassMapping name="ro.ubbcluj.lci.xmi.custom.xmi.xmi1_1.XMIClassMapping_ModelElement" xmlType="OBJECT_HREF" owner="ro.ubbcluj.lci.uml.foundation.core.Relationship"/>
+					<MSX:XMLClassMapping name="ro.ubbcluj.lci.xmi.custom.xmi.xmi1_1.XMIClassMapping_ModelElement" xmlType="OBJECT_HREF" owner="ro.ubbcluj.lci.uml.foundation.core.Generalization"/>
+					<MSX:XMLClassMapping name="ro.ubbcluj.lci.xmi.custom.xmi.xmi1_1.XMIClassMapping_ModelElement" xmlType="OBJECT_HREF" owner="ro.ubbcluj.lci.uml.modelManagement.Package"/>
+					<MSX:XMLClassMapping name="ro.ubbcluj.lci.xmi.custom.xmi.xmi1_1.XMIClassMapping_ModelElement" xmlType="OBJECT_HREF" owner="ro.ubbcluj.lci.uml.behavioralElements.useCases.Actor"/>
+					<MSX:XMLClassMapping name="ro.ubbcluj.lci.xmi.custom.xmi.xmi1_1.XMIClassMapping_ModelElement" xmlType="OBJECT_HREF" owner="ro.ubbcluj.lci.uml.behavioralElements.useCases.UseCase"/>
+					<!-- Field setting and getting changed -->
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.custom.xmi.xmi1_1.XMIFieldMapping_ownedElement" xmlType="ELEMENT" xmlNamespace="UML" xmlName="Namespace.ownedElement" oldXmlNamespace="" oldXmlName="ownedElement" owner="ro.ubbcluj.lci.uml.foundation.core.Namespace"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.custom.xmi.xmi1_1.XMIFieldMapping_namespace" xmlNamespace="" xmlName="namespace" oldXmlNamespace="" oldXmlName="namespace" owner="ro.ubbcluj.lci.uml.foundation.core.ModelElement"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.custom.xmi.xmi1_1.XMIFieldMapping_EO_visibility" xmlNamespace="" xmlName="visibility" oldXmlNamespace="" oldXmlName="visibility" owner="ro.ubbcluj.lci.uml.foundation.core.ModelElement"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.custom.xmi.xmi1_1.XMIFieldMapping_EO_isSpecification" xmlNamespace="" xmlName="isSpecification" oldXmlNamespace="" oldXmlName="isSpecification" owner="ro.ubbcluj.lci.uml.foundation.core.ModelElement"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.custom.xmi.xmi1_1.XMIFieldMappingAEVisibility" xmlNamespace="" xmlName="visibility" oldXmlNamespace="" oldXmlName="visibility" owner="ro.ubbcluj.lci.uml.foundation.core.AssociationEnd"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.custom.xmi.xmi1_1.XMIFieldMappingFeatureVisibility" xmlNamespace="" xmlName="visibility" oldXmlNamespace="" oldXmlName="visibility" owner="ro.ubbcluj.lci.uml.foundation.core.Feature"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.custom.xmi.xmi1_1.XMIFieldMapping_argument" xmlNamespace="" xmlName="argument" oldXmlNamespace="" oldXmlName="argument" owner="ro.ubbcluj.lci.uml.foundation.core.Binding"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.custom.xmi.xmi1_1.XMIFieldMapping_binding" xmlNamespace="" xmlName="binding" oldXmlNamespace="" oldXmlName="binding" owner="ro.ubbcluj.lci.uml.foundation.core.ModelElement"/>
+					<!-- Ignored objects - do not export these -->
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="DO_NOT_EXPORT" xmlNamespace="" xmlName="association" oldXmlNamespace="" oldXmlName="association" owner="ro.ubbcluj.lci.uml.foundation.core.Classifier"/>
+					<!--MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="DO_NOT_EXPORT" xmlNamespace="" xmlName="taggedValue" oldXmlNamespace="" oldXmlName="taggedValue" owner="ro.ubbcluj.lci.uml.foundation.core.ModelElement"/-->
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="DO_NOT_EXPORT" xmlNamespace="" xmlName="ownerModel" oldXmlNamespace="" oldXmlName="ownerModel" owner="ro.ubbcluj.lci.uml.foundation.core.Element"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="DO_NOT_EXPORT" xmlNamespace="" xmlName="typedFeature" oldXmlNamespace="" oldXmlName="typedFeature" owner="ro.ubbcluj.lci.uml.foundation.core.Classifier"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="DO_NOT_EXPORT" xmlNamespace="" xmlName="typedParameter" oldXmlNamespace="" oldXmlName="typedParameter" owner="ro.ubbcluj.lci.uml.foundation.core.Classifier"/>
+				</MSX:XMLMapping.exceptions>
+			</MSX:XMLMapping>
+		</MSX:Metamodel.xmlMappings>
+	</MSX:Metamodel>
+	<MSX:Metamodel name="GX API">
+		<MSX:Metamodel.classes>
+			<MSX:Class name="ro.ubbcluj.lci.gxapi.GXClassCell"/>
+			<MSX:Class name="ro.ubbcluj.lci.gxapi.GXObjectCell"/>
+			<MSX:Class name="ro.ubbcluj.lci.gxapi.GXClassDiagram"/>
+			<MSX:Class name="ro.ubbcluj.lci.gxapi.GXObjectDiagram"/>
+			<MSX:Class name="ro.ubbcluj.lci.gxapi.GXUseCaseDiagram"/>
+			<MSX:Class name="ro.ubbcluj.lci.gxapi.GXActorCell"/>
+			<MSX:Class name="ro.ubbcluj.lci.gxapi.GXUseCaseCell"/>
+			<MSX:Class name="ro.ubbcluj.lci.gxapi.GXClassGProperty"/>
+			<MSX:Class name="ro.ubbcluj.lci.gxapi.GXObjectGProperty"/>
+			<MSX:Class name="ro.ubbcluj.lci.gxapi.GXActorGProperty"/>
+			<MSX:Class name="ro.ubbcluj.lci.gxapi.GXConnectionSet"/>
+			<MSX:Class name="ro.ubbcluj.lci.gxapi.GXConnectionSet$GXConnection"/>
+			<MSX:Class name="ro.ubbcluj.lci.gxapi.GXDefaultEdge"/>
+			<MSX:Class name="ro.ubbcluj.lci.gxapi.GXDefaultGProperty"/>
+			<MSX:Class name="ro.ubbcluj.lci.gxapi.GXDefaultGraphCell"/>
+			<MSX:Class name="ro.ubbcluj.lci.gxapi.GXDefaultMutableTreeNode"/>
+			<MSX:Class name="ro.ubbcluj.lci.gxapi.GXDefaultPort"/>
+			<MSX:Class name="ro.ubbcluj.lci.gxapi.GXGProperty"/>
+			<MSX:Class name="ro.ubbcluj.lci.gxapi.GXHashtable"/>
+			<MSX:Class name="ro.ubbcluj.lci.gxapi.GXHashtableStrings"/>
+			<MSX:Class name="ro.ubbcluj.lci.gxapi.GXPackageCell"/>
+			<MSX:Class name="ro.ubbcluj.lci.gxapi.GXPackageGProperty"/>
+			<MSX:Class name="ro.ubbcluj.lci.gxapi.GXSpecialEdge"/>
+			<MSX:Class name="ro.ubbcluj.lci.gxapi.GXSpecialPort"/>
+			<MSX:Class name="ro.ubbcluj.lci.gxapi.filters.GXClassFilter"/>
+		</MSX:Metamodel.classes>
+		<MSX:Metamodel.xmlMappings>
+			<MSX:XMLMapping root="XMI" version="1.1" metamodel="GXAPI" mversion="0.1">
+				<MSX:XMLMapping.default>
+					<MSX:XMLClassMapping name="ro.ubbcluj.lci.xmi.custom.gxml.gxml0_1.GXMLClassMapping"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping"/>
+				</MSX:XMLMapping.default>
+				<MSX:XMLMapping.exceptions>
+					<!-- Field name changed -->
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="GXML" xmlName="ClassDiagram.flat" oldXmlNamespace="" oldXmlName="flat" owner="ro.ubbcluj.lci.gxapi.GXClassDiagram"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="GXML" xmlName="ObjectDiagram.flat" oldXmlNamespace="" oldXmlName="flat" owner="ro.ubbcluj.lci.gxapi.GXObjectDiagram"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="IDREF" xmlNamespace="GXML" xmlName="ClassDiagram.cells" oldXmlNamespace="" oldXmlName="cells" owner="ro.ubbcluj.lci.gxapi.GXClassDiagram"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="IDREF" xmlNamespace="GXML" xmlName="ObjectDiagram.cells" oldXmlNamespace="" oldXmlName="cells" owner="ro.ubbcluj.lci.gxapi.GXObjectDiagram"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="IDREF" xmlNamespace="GXML" xmlName="ClassDiagram.classViews" oldXmlNamespace="" oldXmlName="classViews" owner="ro.ubbcluj.lci.gxapi.GXClassDiagram"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="IDREF" xmlNamespace="GXML" xmlName="ObjectDiagram.objectViews" oldXmlNamespace="" oldXmlName="objectViews" owner="ro.ubbcluj.lci.gxapi.GXObjectDiagram"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="IDREF" xmlNamespace="GXML" xmlName="ClassDiagram.packageViews" oldXmlNamespace="" oldXmlName="packageViews" owner="ro.ubbcluj.lci.gxapi.GXClassDiagram"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="IDREF" xmlNamespace="GXML" xmlName="ClassDiagram.relationViews" oldXmlNamespace="" oldXmlName="relationViews" owner="ro.ubbcluj.lci.gxapi.GXClassDiagram"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="IDREF" xmlNamespace="GXML" xmlName="ObjectDiagram.relationViews" oldXmlNamespace="" oldXmlName="relationViews" owner="ro.ubbcluj.lci.gxapi.GXObjectDiagram"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="GXML" xmlName="ClassDiagram.connectionSet" oldXmlNamespace="" oldXmlName="connectionSet" owner="ro.ubbcluj.lci.gxapi.GXClassDiagram"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="GXML" xmlName="ObjectDiagram.connectionSet" oldXmlNamespace="" oldXmlName="connectionSet" owner="ro.ubbcluj.lci.gxapi.GXObjectDiagram"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="GXML" xmlName="ClassDiagram.viewAttributes" oldXmlNamespace="" oldXmlName="viewAttributes" owner="ro.ubbcluj.lci.gxapi.GXClassDiagram"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="GXML" xmlName="ObjectDiagram.viewAttributes" oldXmlNamespace="" oldXmlName="viewAttributes" owner="ro.ubbcluj.lci.gxapi.GXObjectDiagram"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="GXML" xmlName="ClassDiagram.flat" oldXmlNamespace="" oldXmlName="flat" owner="ro.ubbcluj.lci.gxapi.GXUseCaseDiagram"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="GXML" xmlName="ObjectDiagram.flat" oldXmlNamespace="" oldXmlName="flat" owner="ro.ubbcluj.lci.gxapi.GXUseCaseDiagram"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="GXML" xmlName="ClassDiagram.globalFilter" oldXmlNamespace="" oldXmlName="globalFilter" owner="ro.ubbcluj.lci.gxapi.GXClassDiagram"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="GXML" xmlName="ClassDiagram.connectionSet" oldXmlNamespace="" oldXmlName="connectionSet" owner="ro.ubbcluj.lci.gxapi.GXUseCaseDiagram"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="GXML" xmlName="ObjectDiagram.connectionSet" oldXmlNamespace="" oldXmlName="connectionSet" owner="ro.ubbcluj.lci.gxapi.GXUseCaseDiagram"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="GXML" xmlName="ClassDiagram.viewAttributes" oldXmlNamespace="" oldXmlName="viewAttributes" owner="ro.ubbcluj.lci.gxapi.GXUseCaseDiagram"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="GXML" xmlName="ObjectDiagram.viewAttributes" oldXmlNamespace="" oldXmlName="viewAttributes" owner="ro.ubbcluj.lci.gxapi.GXUseCaseDiagram"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="GXML" xmlName="DefaultGraphCell.attributes" oldXmlNamespace="" oldXmlName="attributes" owner="ro.ubbcluj.lci.gxapi.GXDefaultGraphCell"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="GXML" xmlName="ClassCell.filter" oldXmlNamespace="" oldXmlName="filter" owner="ro.ubbcluj.lci.gxapi.GXClassCell"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="GXML" xmlName="ClassCell.property" oldXmlNamespace="" oldXmlName="property" owner="ro.ubbcluj.lci.gxapi.GXClassCell"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="GXML" xmlName="ObjectCell.property" oldXmlNamespace="" oldXmlName="property" owner="ro.ubbcluj.lci.gxapi.GXObjectCell"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="GXML" xmlName="ActorCell.property" oldXmlNamespace="" oldXmlName="property" owner="ro.ubbcluj.lci.gxapi.GXActorCell"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="GXML" xmlName="UseCaseCell.property" oldXmlNamespace="" oldXmlName="property" owner="ro.ubbcluj.lci.gxapi.GXUseCaseCell"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="GXML" xmlName="ClassFilter.map" oldXmlNamespace="" oldXmlName="map" owner="ro.ubbcluj.lci.gxapi.filters.GXClassFilter"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="GXML" xmlName="ConnectionSet.connections" oldXmlNamespace="" oldXmlName="connections" owner="ro.ubbcluj.lci.gxapi.GXConnectionSet"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="ELEMENT" xmlNamespace="GXML" xmlName="Hashtable.values" oldXmlNamespace="" oldXmlName="values" owner="ro.ubbcluj.lci.gxapi.GXHashtable"/>
+					<!-- Href field -->
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="HREF" xmlNamespace="GXML" xmlName="DefaultMutableTreeNode.userObject" oldXmlNamespace="" oldXmlName="userObject" owner="ro.ubbcluj.lci.gxapi.GXDefaultMutableTreeNode"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="HREF" xmlNamespace="GXML" xmlName="HashtableStrings.value" oldXmlNamespace="" oldXmlName="value" owner="ro.ubbcluj.lci.gxapi.GXHashtableStrings"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="HREF" xmlNamespace="GXML" xmlName="ClassDiagram.owner" oldXmlNamespace="" oldXmlName="owner" owner="ro.ubbcluj.lci.gxapi.GXClassDiagram"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="HREF" xmlNamespace="GXML" xmlName="ObjectDiagram.owner" oldXmlNamespace="" oldXmlName="owner" owner="ro.ubbcluj.lci.gxapi.GXObjectDiagram"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="HREF" xmlNamespace="GXML" xmlName="UseCaseDiagram.owner" oldXmlNamespace="" oldXmlName="owner" owner="ro.ubbcluj.lci.gxapi.GXUseCaseDiagram"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="HREF" xmlNamespace="GXML" xmlName="ClassDiagram.classes" oldXmlNamespace="" oldXmlName="classes" owner="ro.ubbcluj.lci.gxapi.GXClassDiagram"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="HREF" xmlNamespace="GXML" xmlName="ObjectDiagram.objects" oldXmlNamespace="" oldXmlName="objects" owner="ro.ubbcluj.lci.gxapi.GXObjectDiagram"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="HREF" xmlNamespace="GXML" xmlName="ClassDiagram.packages" oldXmlNamespace="" oldXmlName="packages" owner="ro.ubbcluj.lci.gxapi.GXClassDiagram"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="HREF" xmlNamespace="GXML" xmlName="UseCaseDiagram.actors" oldXmlNamespace="" oldXmlName="actors" owner="ro.ubbcluj.lci.gxapi.GXUseCaseDiagram"/>
+					<MSX:XMLFieldMapping name="ro.ubbcluj.lci.xmi.structure.XMLFieldMapping" xmlType="HREF" xmlNamespace="GXML" xmlName="UseCaseDiagram.useCases" oldXmlNamespace="" oldXmlName="useCases" owner="ro.ubbcluj.lci.gxapi.GXUseCaseDiagram"/>
+				</MSX:XMLMapping.exceptions>
+			</MSX:XMLMapping>
+		</MSX:Metamodel.xmlMappings>
+	</MSX:Metamodel>
+</MSXConfiguration>

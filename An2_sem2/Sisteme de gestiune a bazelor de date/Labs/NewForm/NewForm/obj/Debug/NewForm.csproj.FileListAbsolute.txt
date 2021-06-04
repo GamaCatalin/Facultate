@@ -1,0 +1,10 @@
+D:\Faculta\An2_sem2\Sisteme de gestiune a bazelor de date\Labs\NewForm\NewForm\bin\Debug\NewForm.exe.config
+D:\Faculta\An2_sem2\Sisteme de gestiune a bazelor de date\Labs\NewForm\NewForm\bin\Debug\NewForm.exe
+D:\Faculta\An2_sem2\Sisteme de gestiune a bazelor de date\Labs\NewForm\NewForm\bin\Debug\NewForm.pdb
+D:\Faculta\An2_sem2\Sisteme de gestiune a bazelor de date\Labs\NewForm\NewForm\obj\Debug\NewForm.csprojAssemblyReference.cache
+D:\Faculta\An2_sem2\Sisteme de gestiune a bazelor de date\Labs\NewForm\NewForm\obj\Debug\NewForm.Form1.resources
+D:\Faculta\An2_sem2\Sisteme de gestiune a bazelor de date\Labs\NewForm\NewForm\obj\Debug\NewForm.Properties.Resources.resources
+D:\Faculta\An2_sem2\Sisteme de gestiune a bazelor de date\Labs\NewForm\NewForm\obj\Debug\NewForm.csproj.GenerateResource.cache
+D:\Faculta\An2_sem2\Sisteme de gestiune a bazelor de date\Labs\NewForm\NewForm\obj\Debug\NewForm.csproj.CoreCompileInputs.cache
+D:\Faculta\An2_sem2\Sisteme de gestiune a bazelor de date\Labs\NewForm\NewForm\obj\Debug\NewForm.exe
+D:\Faculta\An2_sem2\Sisteme de gestiune a bazelor de date\Labs\NewForm\NewForm\obj\Debug\NewForm.pdb

@@ -1,0 +1,122 @@
+package Model_Management
+    
+--   context ElementImport
+--   No extra well-formedness rules.
+--   context Model
+--   No extra well-formedness rules.
+
+/*
+context Package
+
+
+inv Package_WFR_1:
+--   [1] No imported element (excluding Association) may have the same name or alias as any element owned by the Package or one of its supertypes.
+
+	self.allImportedElements->reject(re| re.oclIsKindOf(Association))->forAll(re| (re.elementImport.alias <> "" implies
+	not (self.allContents - self.allImportedElements)->reject(ve| ve.oclIsKindOf(Association))->exists(ve| ve.name = re.elementImport.alias))
+	and (re.elementImport.alias = "" implies not (self.allContents - self.allImportedElements)->reject(ve|
+	ve.oclIsKindOf(Association))->exists(ve| ve.name = re.name)))
+
+    
+inv Package_WFR_2:
+--   [2] Imported elements (excluding Association) may not have the same name or alias.
+
+	self.allImportedElements->reject(re| not re.oclIsKindOf(Association))->forAll(r1, r2| (r1.elementImport.alias <> "" and
+	r2.elementImport.alias <> "" and r1.elementImport.alias = r2.elementImport.alias implies r1 = r2)
+	and (r1.elementImport.alias = "" and r2.elementImport.alias = "" and r1.name = r2.name implies r1 = r2)
+	and (r1.elementImport.alias <> "" and r2.elementImport.alias = "" implies r1.elementImport.alias <> r2.name))
+
+inv Package_WFR_3:
+--   [3] No imported element (Association) may have the same name or alias combined with the
+--       same set of associated Classifiers as any Association owned by the Package or one of its supertypes.
+--   !!!  Un exemplu tipic in care lipsesc o multime de oclAsType
+
+	self.allImportedElements->select(re| re.oclIsKindOf(Association)).oclAsType(Association)->forAll(re| (re.elementImport.alias <> "" implies
+	not (self.allContents - self.allImportedElements)->select(ve| ve.oclIsKindOf(Association)).oclAsType(Association)->exists(ve: Association|
+	ve.name = re.elementImport.alias and ve.connection->size = re.connection->size and Sequence{1..re.connection->size}->forAll(i|
+	re.connection->at(i).participant = ve.connection->at(i).participant))) and (re.elementImport.alias = "" implies
+	not (self.allContents - self.allImportedElements)->select(ve| not ve.oclIsKindOf(Association)).oclAsType(Association)->exists(ve: Association |
+	ve.name = re.name and ve.connection->size = re.connection->size and Sequence{1..re.connection->size}->forAll(i|
+	re.connection->at(i).participant = ve.connection->at(i).participant))))
+	
+inv Package_WFR_4:	
+
+--   [4] Imported elements (Association) may not have the same name or alias combined with the same set of associated Classifiers.
+self.allImportedElements->select(re|
+re.oclIsKindOf(Association)).oclAsType(Association)->forAll( r1, r2 : Association |
+(r1.connection->size = r2.connection->size and
+Sequence {1..r1.connection->size}->forAll ( i |
+r1.connection->at (i).participant =
+r2.connection->at (i).participant and
+r1.elementImport.alias <> "" and
+r2.elementImport.alias <> "" and
+r1.elementImport.alias = r2.elementImport.alias
+implies r1 = r2))
+and
+(r1.connection->size = r2.connection->size and
+Sequence {1..r1.connection->size}->forAll ( i |
+r1.connection->at (i).participant =
+r2.connection->at (i).participant and
+r1.elementImport.alias = "" and
+r2.elementImport.alias = "" and
+r1.name = r2.name
+implies r1 = r2))
+and
+(r1.connection->size = r2.connection->size and
+Sequence {1..r1.connection->size}->forAll ( i |
+r1.connection->at (i).participant =
+r2.connection->at (i).participant and
+r1.elementImport.alias <> "" and
+r2.elementImport.alias = ""
+implies r1.elementImport.alias <> r2.name)))
+
+*/
+--   !!!  Trebuie de vazut ce-i cu Profile si cu toate magariile de acolo
+
+context Subsystem
+
+inv Subsystem_WFR_1:
+--   [1] For each Operation in an Interface offered by a Subsystem, the Subsystem itself or at least
+--       one contained specification element must have a matching Operation.
+--   !!!  ATENTIE - diferentele dintre aceasta specificare si cea data de OMG sunt F MARI !!!
+
+	self.specification.allOperations->forAll(interOp| (Set{self.oclAsType(ModelElement)}->union
+	(self.allSpecificationElements))->select(specEl| specEl.oclIsKindOf(Classifier)).oclAsType(Classifier)
+	->forAll(c| c.allOperations->exists(op| op.hasSameSignature(interOp))))
+
+--inv Subsystem_WFR_2:
+--   [1] For each Reception in an Interface offered by a Subsystem, the Subsystem itself or at least
+--       one contained specification element must have a matching Reception.
+--   !!!   Nu stiu daca pentru allReception tipul trebuia declarat Set sau era suficient Bag
+--   !!!  d e unde provine specification ???
+--	let allReceptions: Set(Reception) = self.allFeatures->select(f| f.oclIsKindOf(Reception)).oclAsType(Reception)->asSet in
+
+--	self.specification.oclAsType(Subsystem).allReceptions->forAll(interRec| self.allReceptions->
+--	union(self.allSpecificationElements->select(specEl| specEl.oclIsKindOf(Classifier))->
+--	forAll(c|	c.allReceptions))->exists(rec | rec.hasSameSignature(interRec)))
+
+inv Subsystem_WFR_3:
+--   [3] The Features of a Subsystem may only be Operations or Receptions.
+
+	self.feature->forAll(f | f.oclIsKindOf(Operation) or f.oclIsKindOf(Reception))
+
+inv Subsystem_WFR_4:
+--   [4] A Subsystem may only own or reference Packages, Classes, DataTypes, Interfaces,
+--       UseCases, Actors, Subsystems, Signals, Associations, Generalizations, Dependencies,
+--       Constraints, Collaborations, StateMachines, and Stereotypes.
+
+	self.contents->forAll(c| c.oclIsKindOf(Package) or c.oclIsKindOf(Class) or c.oclIsKindOf(DataType) or
+	c.oclIsKindOf(Interface) or c.oclIsKindOf(UseCase) or c.oclIsKindOf(Actor) or c.oclIsKindOf(Subsystem) or
+	c.oclIsKindOf(Signal) or c.oclIsKindOf(Association) or c.oclIsKindOf(Generalization) or c.oclIsKindOf(Dependency) or
+	c.oclIsKindOf(Constraint) or c.oclIsKindOf(Collaboration) or c.oclIsKindOf(StateMachine) or c.oclIsKindOf(Stereotype) or c.oclIsKindOf(Component))
+
+--________________________________________________________________________________________________________________________________________
+inv test_cineLipsesteInSubsystem_WFR_4:
+--  In toate exemplele din subsistemul ComponentView pentru care se crasheaza, lipseste Component
+self.contents->reject(c| c.oclIsKindOf(Package) or c.oclIsKindOf(Class) or c.oclIsKindOf(DataType) or
+	c.oclIsKindOf(Interface) or c.oclIsKindOf(UseCase) or c.oclIsKindOf(Actor) or c.oclIsKindOf(Subsystem) or
+	c.oclIsKindOf(Signal) or c.oclIsKindOf(Association) or c.oclIsKindOf(Generalization) or c.oclIsKindOf(Dependency) or
+	c.oclIsKindOf(Constraint) or c.oclIsKindOf(Collaboration) or c.oclIsKindOf(StateMachine) or c.oclIsKindOf(Stereotype) or c.oclIsKindOf(Component))->isEmpty
+--________________________________________________________________________________________________________________________________________
+
+endpackage

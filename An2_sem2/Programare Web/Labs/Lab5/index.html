@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="script.js"></script>
+
+
+
+    <style>
+
+        html, body, main{
+            margin: 0;
+            padding: 0;
+        }
+
+        table{
+            margin: 0;
+            padding: 0;
+            position: absolute;
+            width: 100%;
+        }
+
+        tr{
+            margin:0;
+            padding: 0;
+        }
+
+        td{
+            margin:0;
+            padding:10px;
+            background-color: aqua;
+            border: solid black 1px;
+        }
+
+
+
+        #input{
+            margin:20px;
+            font-size: 20px;
+        }
+
+        #readButton{
+            display: none;
+            background-color: red;
+            padding: 20px;
+        }
+
+
+    </style>
+
+</head>
+<body>
+
+
+
+<main>
+
+    <div>
+        <label for="input"></label>
+        <textarea id="input" onchange="updateRows()" cols="100" rows="1">
+        </textarea>
+    </div>
+
+    <button onclick="updateRows()" id="readButton">
+        Press button
+    </button>
+
+    <table id="table">
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+
+
+</main>
+
+</body>
+</html>

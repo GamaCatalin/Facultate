@@ -1,0 +1,112 @@
+model Company_Example
+
+-- Navigating association classes
+    
+context Person
+    
+    inv managersSalary:
+        
+        if self.managedCompanies->isEmpty
+            then true
+            else self.managedCompanies->forAll(c | (self.employer->includes(c))
+            	and (self.job->select(j | j.employer = c).salary->sortedBy(s | s)->last = c.job.salary->sortedBy(s| s)->last))
+        endif
+        
+        
+        
+    inv isMarried:
+        
+        let marr: Set(Marriage) = Marriage.allInstances in
+        
+        self.isMarried implies
+        	if sex = Sex::male
+        	    then marr->exists(m:Marriage| m.husband = self)
+        	    else marr->exists(m:Marriage| m.wife = self)
+        	endif
+        			
+-- Navigating association classes and working with Tuple Types
+
+context Company
+    def listOfTuples_Job_Salary:
+          let lOT_J_S: Sequence(TupleType(a:String, b:Integer)) =
+          	self.job->collect(Tuple{a=title, b = salary})->sortedBy(e:TupleType(a:String, b:Integer)| e.b)
+          	
+    def salaries_expenses:
+          let c_s: Integer = lOT_J_S->iterate(t; s:Integer=0 | s+t.b)
+
+		
+--  Navigating recursive association classes
+        
+context Marriage
+    inv appropriateMArriageParticipants:
+        self.wife.sex = #female and self.husband.sex = #male
+        
+
+context NewPerson
+    
+    inv bosse_s_objectivy:
+        
+          let nB: Integer = self.bosses->size
+          let nE: Integer = self.employees->size in
+          if nB*nE = 0
+              then undefined
+              else (self.employeeRanking[bosses].score->sum / nB) <= (self.employeeRanking[employees].score->sum / nE)
+          endif
+          
+
+     
+context Person
+    
+     inv uniqueName:
+        //No two distinct persons with the same last name exist.
+--        Person.allInstances->forAll(p1, p2 | p1 <> p2 implies p1.name <> p2.name)
+		Person.allInstances.name->isUnique(n | n)
+		
+context Bank
+    def customers:
+          let customers: Set(Person) = self.customer
+          
+     inv differentClients:
+         self.customer[1597] <> self.customer[1598]		
+		
+
+context Company
+
+
+    inv selectExample_NoDeclarator:
+        //there is at least one employee older than 50 years
+        self.employee->select(age > 50)->notEmpty()
+        
+    inv correct_and_efficient_specification:
+
+        self.employee->exists(age > 50)
+        
+        
+    inv test_any:
+
+        self.employee->any(age > 50).isDefined
+        
+    inv test_one:
+        self.employee->one(age > 50)
+        
+    inv forAll2:
+
+        //two distinct employees cannot have the same first name. This is an example
+        //of a 2-declarator forAll. You may want to look at the generated Java source code
+        self.employee->forAll( e1, e2 | e1 <> e2 implies e1.name <> e2.name)
+       
+
+	inv correctUniqueness:
+	    self.employee.name->isUnique(n| n)      
+        
+context NamedEntities
+    
+    inv nameIsMandatory:
+        self.name.isDefined and self.name <> ''
+    
+context Person    
+    inv:
+        if self.sex=#male then true else false endif
+        
+
+endmodel

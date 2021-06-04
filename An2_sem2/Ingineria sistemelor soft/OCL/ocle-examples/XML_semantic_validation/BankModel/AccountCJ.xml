@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Accounts>
+<bankBranch>Cluj-Napoca</bankBranch>
+<Account id="A.1" client="C.1" accountType="deposit" creationDate="22-10-03" expireDate="22-04-04" sum="7823.6" />
+<Account id="A.2" client="C.2" accountType="deposit" creationDate="04-09-03" expireDate="04-09-04" sum="17845.2" />
+<Account id="A.3" client="C.2" accountType="loan" creationDate="28-03-03" expireDate="28-04-04" sum="45003" />
+<Account id="A.4" client="C.6" accountType="deposit" creationDate="12-01-04" expireDate="02-05-04" sum="6351.3" />
+<Account id="A.5" client="C.4" accountType="deposit" creationDate="27-01-04" expireDate="27-04-04" sum="9261.0" />
+<Account id="A.6" client="C.7" accountType="deposit" creationDate="01-11-03" expireDate="01-05-04" sum="3500.0" />
+<Account id="A.8" client="C.7" accountType="deposit" creationDate="25-11-03" expireDate="25-11-04" sum="74674.2" />
+<Account id="A.9" client="C.4" accountType="loan" creationDate="16-11-03" expireDate="08-08-06" sum="16356.3" />
+</Accounts>
+

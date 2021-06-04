@@ -1,0 +1,76 @@
+package Foundation::Core
+    
+       
+    context ModelElement
+        
+         def validIdentifier:
+             
+             let isbl(s:String) = ('a' <=s and s<='z') or ('A'<=s and s<='Z') or (s='_')
+             let isml(s:String) = isbl(s) or ('0' <= s and s<= '9')
+             let isji(s:String) = s.size>0 and isbl(s.substring(0,0)) and 
+                 Sequence{1..s.size-1}->forAll(i|isml(s.substring(i,i)))
+             
+             let isId = isji(self.name)
+             
+             let
+             javaResWord = Set{ "package", "import", "byte", "char", "short", "int", "long", "float", "double", "boolean",
+                           "void", "class", "interface", "abstract", "final", "private", "protected", "public", "static",
+                           "synchronized", "native", "volatile", "transient", "break", "case", "continue", "default", "do",
+                           "else", "for", "if", "instanceof", "new", "return", "switch", "while", "throw", "try", "catch",
+                           "extends", "finally", "implements", "throws", "this", "null", "super", "true", "false" }
+             
+             let
+             javaPrimitiveTypes = Set{ "byte", "char", "short", "int", "long", "float", "double", "boolean", "void" }
+              
+             
+    context Classifier
+        inv:
+           isId and  (if self.oclIsKindOf(DataType) then (javaResWord - javaPrimitiveTypes)
+           											else javaResWord
+           			  endif)->excludes(self.name)
+ 
+    context Feature
+        inv:
+            isId  and javaResWord->excludes(self.name)
+
+            
+    context StructuralFeature
+        
+        inv type_defined:
+        	if (self.owner.stereotype.name->excludes('enumeration') or self.owner.oclIsKindOf(Enumeration))
+        	    then self.type.isDefined
+        	    else true
+        	endif 
+            
+    context Parameter
+        inv:
+            if (self.kind <> #return) then (isId  and (not javaResWord->includes(self.name))) else true endif
+            
+        inv type_defined:
+        	self.type.isDefined
+            
+    context AssociationEnd
+        inv:
+            isNavigable implies (isId  and javaResWord->excludes(self.name))
+                 
+    
+    context Class
+        inv singleInheritance:
+            self.generalization->size < 2
+        
+            
+    context ModelElement
+        inv noParametrizedElements:
+            self.templateParameter[parameterTemplate]->isUndefined
+            
+endpackage
+
+     
+package Model_Management
+    
+    context Package
+        inv:
+           isId  and javaResWord->excludes(self.name)  
+            
+         
+endpackage

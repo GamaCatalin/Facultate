@@ -1,0 +1,22 @@
+{
+  "parentTableName": "TRANSACTIONS",
+  "childTableName": "LOANS",
+  "linkingId": "loanId"
+}
+
+
+/*
+  "parentTableName": "CATEGORIES",
+  "childTableName": "MODELS",
+  "linkingId": "categoryId"
+
+  "parentTableName": "MANUFACTURERS",
+  "childTableName": "MODELS",
+  "linkingId": "manufacturerName"
+
+
+  "parentTableName": "TRANSACTIONS",
+  "childTableName": "LOANS",
+  "linkingId": "loanId"
+
+*/

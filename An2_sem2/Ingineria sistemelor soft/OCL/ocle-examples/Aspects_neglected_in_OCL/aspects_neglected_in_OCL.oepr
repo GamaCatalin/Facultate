@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Project name="aspects_neglected_in_OCL">
+    <Directory name="Constraints" kind="0">
+        <File kind="1" AbsolutePath="F:/OCLE_2.03/Aspects_neglected_in_OCL/aspects_neglected_in_OCL.bcr" RelativePath="aspects_neglected_in_OCL.bcr" selected="true"/>
+    </Directory>
+    <Directory name="Models" kind="0">
+        <Model kind="4" AbsolutePath="F:/OCLE_2.03/Aspects_neglected_in_OCL/aspects_neglected_in_OCL.xml.zip" RelativePath="aspects_neglected_in_OCL.xml.zip" selected="true"/>
+    </Directory>
+</Project>

@@ -1,0 +1,29 @@
+// The model defines general tree. Each node can have 0..* sons.
+
+model tree_Mencl_Sample
+
+context node //Please set context to u1, the comments below apply to instance u1
+    
+def: let emptySetOfNode:Set(node) = Set{ }
+
+// The result of the union was incorrect in OCLE 2.02 version, returning Set{u21};
+// in 2.03 the result is correct, it returns Set{u2,u3,u4,u21}
+
+def: let offspring: Set(node) = 
+       if self.son->size()>0 then self.son -> union(self.son.offspring->asSet())
+       else emptySetOfNode
+       endif
+    
+// When trying to evaluate offspring2 (or offspring 3)in OCLE 2.02, a ConcurrentModificationException is reported.
+// In 2.03 version the evaluation works fine
+
+def: let offspring2: Set(node) = self.son->union(self.son.offspring2->asSet())    
+
+def: let offspring3(): Set(node) = self.son->union(self.son->collectNested(x|x.offspring3())->flatten()->asSet())    
+
+// When trying to evaluate this expresion (in OCLE 2.02, an internal error is reported:
+// In 2.03 version the evaluation works fine
+
+def: let isNode = self.oclIsTypeOf(node)
+    
+endmodel

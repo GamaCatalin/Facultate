@@ -1,0 +1,173 @@
+package Model_Management
+
+context Model
+
+   inv undefinedElements:
+        Stereotype.allInstances->select(s|
+        s.name.contains('Undefined')).extendedElement->asSet->isEmpty
+	
+   inv unexpectedElements:
+        Stereotype.allInstances->select(s|
+        s.name.contains('Unexpected')).extendedElement->asSet->isEmpty
+
+   inv missingElements: 
+        Stereotype.allInstances->select(s|
+        s.name.contains('Missing')).extendedElement->asSet->isEmpty
+
+endpackage
+
+
+package Foundation::Core
+   
+
+context Classifier
+
+	def: let hasDTDStereotype: Boolean = 
+		if self.stereotype->exists(s |
+			Set{'DTDElement', 'DTDEmptyElement', 'DTDAnyElement',
+		    	'DTDSequence', 'DTDChoice', 'DTDMixed',
+			    'DTDAny', 'DTDUndefinedElement'}->includes(s.name))
+			then true
+			else false
+		endif
+
+
+
+context Class
+    
+	inv leafElements:
+	    
+	    if (self.name = '#PCDATA' or 
+	        self.stereotype.name->includes('DTDEmptyElement'))
+	        
+	        then
+	        	self.oppositeAssociationEnds->select(ae | 
+	        		ae.isNavigable and 					
+					ae.participant.hasDTDStereotype)->isEmpty
+	        else true
+	    endif
+
+
+context Class
+    
+    inv uniqueIDAttribute:
+        
+        self.feature->select(a | a.oclIsTypeOf(Attribute) and 
+        	a.stereotype.name->includes('ID'))->size <= 1
+
+	    
+context Attribute
+    
+    inv REQUIRED:
+        
+        if self.stereotype.name->includes('REQUIRED')
+            
+            then
+            	self.attributeLink.value->any(v | v.isUndefined)->isEmpty
+            
+            else
+            	true
+            	
+        endif    
+	    
+        
+context Attribute
+    
+    inv IDREF:
+        
+        if self.stereotype.name->includes('IDREF')
+            
+            then
+            	self.attributeLink.value->forAll(v | 
+            		Model.allInstances->any(true).IDvalues->includes(v))
+            
+            else
+            	true
+            	
+        endif   
+
+
+context Attribute
+    
+    inv FIXED:
+        
+        if self.stereotype.name->includes('FIXED')
+            
+            then
+            	self.attributeLink.value->forAll(v | v = self.initialValue.body)
+            
+            else
+            	true
+            	
+        endif   
+
+context Attribute
+      
+inv enumerationType:
+   if self.type.oclIsTypeOf(Enumeration)
+      then
+       	 self.type.oclAsType(Enumeration).literal.name->
+       		includesAll(self.attributeLink.value.name->asSet)
+      else true
+   endif
+    
+def invalidSlotValue:
+    let invalidSlots: Set(AttributeLink) = self.attributeLink->select(
+			if self.type.oclIsTypeOf(Enumeration)
+      			then
+       	 			not self.type.oclAsType(Enumeration).literal.name->includes(value.name)
+			    else false
+		    endif)
+
+
+context Classifier
+
+    inv DTDMixed:
+		if stereotype->exists(s | s.name = 'DTDMixed')
+	    	
+	    	then self.oppositeAssociationEnds->select(isNavigable).participant.stereotype.name->
+	    	     excludesAll(Bag{'DTDChoice', 'DTDSequence', 'DTDMixed', 'DTDAny'})
+	    	
+	    	else
+	    		true
+	    
+	    endif
+endpackage
+
+
+
+package Behavioral_Elements::Common_Behavior
+     
+context Instance
+    inv DTDChoice_DTDAny_main_DTDMixed:
+        
+        if self.classifier->forAll(c | c.stereotype->exists(s | 
+            Set{'DTDChoice', 'DTDMixed', 'DTDAny'}->includes(s.name)))
+            then
+        		self.allOppositeLinkEnds->collect( lE: LinkEnd| lE.associationEnd)->
+        			select(ae | ae.isNavigable
+        			and 					
+					ae.participant.hasDTDStereotype)->size = 1
+	        else true    
+        endif
+  
+endpackage
+
+package Model_Management
+    
+--context Model
+    
+--inv IDUniqueInDocument:     
+--	Attribute.allInstances->select(att | 
+-- 		att.stereotype.name->includes('ID')).
+-- 		attributeLink.value->isUnique(v | v)
+
+
+context Model
+    def :
+        let IDvalues: Bag(Instance) = 
+        	Attribute.allInstances->select(att | 
+        	att.stereotype.name->includes('ID')).attributeLink.value            
+	                  
+endpackage     
+

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Project name="Company_Example">
+    <Directory name="Constraints" kind="0">
+        <File kind="1" AbsolutePath="C:/OCLE/Release/Company_Example/Company_Example.bcr" RelativePath="Company_Example.bcr" selected="true"/>
+    </Directory>
+    <Directory name="Models" kind="0">
+        <Model kind="4" AbsolutePath="C:/OCLE/Release/Company_Example/Company_Example.xml.zip" RelativePath="Company_Example.xml.zip" selected="true"/>
+    </Directory>
+</Project>

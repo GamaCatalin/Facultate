@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Project name="Checking UML Models">
+    <Directory name="Constraints" kind="0">
+        <File kind="1" AbsolutePath="C:/OCLE/5 dec/exemple-final_ver/Checking_UML_Models/inv_Activity_Graphs.ocl" RelativePath="inv_Activity_Graphs.ocl" selected="true"/>
+        <File kind="1" AbsolutePath="C:/OCLE/5 dec/exemple-final_ver/Checking_UML_Models/inv_Common_Behavior.ocl" RelativePath="inv_Common_Behavior.ocl" selected="true"/>
+        <File kind="1" AbsolutePath="C:/OCLE/5 dec/exemple-final_ver/Checking_UML_Models/inv_CORE_N.ocl" RelativePath="inv_CORE_N.ocl" selected="true"/>
+        <File kind="1" AbsolutePath="C:/OCLE/5 dec/exemple-final_ver/Checking_UML_Models/inv_Model_Management.ocl" RelativePath="inv_Model_Management.ocl" selected="true"/>
+        <File kind="1" AbsolutePath="C:/OCLE/5 dec/exemple-final_ver/Checking_UML_Models/inv_State_Machines.ocl" RelativePath="inv_State_Machines.ocl" selected="true"/>
+        <File kind="1" AbsolutePath="C:/OCLE/5 dec/exemple-final_ver/Checking_UML_Models/inv_Use_Cases.ocl" RelativePath="inv_Use_Cases.ocl" selected="true"/>
+        <File kind="1" AbsolutePath="C:/OCLE/5 dec/exemple-final_ver/Checking_UML_Models/UML_AO.ocl" RelativePath="UML_AO.ocl" selected="true"/>
+    </Directory>
+    <Directory name="Models" kind="0">
+        <Model kind="4" AbsolutePath="C:/OCLE/5 dec/exemple-final_ver/Checking_UML_Models/Checking_UML_models.xml.zip" RelativePath="Checking_UML_models.xml.zip" selected="true"/>
+        <Model kind="2" AbsolutePath="C:/OCLE/5 dec/exemple-final_ver/Checking_UML_Models/ordersys.xml" RelativePath="ordersys.xml" selected="false"/>
+    </Directory>
+</Project>

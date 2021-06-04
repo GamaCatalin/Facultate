@@ -1,0 +1,17 @@
+-- In this file you can write OCL constraints at the UML metamodel level.
+-- You have below an example invariant showing you the OCL syntax used. 
+
+model uml15_actions
+
+-- --Example invariant
+--package Foundation::Core
+--
+--    context ModelElement
+--      -- check whether the name is empty or not
+--        inv example:
+--            self.name <> ""
+--
+--endpackage
+
+endmodel
+            

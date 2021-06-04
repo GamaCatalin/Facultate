@@ -1,0 +1,29 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>FilterStudents</title>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script>
+                    $(document).ready(function(){
+                        $("#button").click(function() {
+                            $.get("/Main/GetStudentsFromGroup", {group_id : $("#group_id").val()},
+                                function(data,status) {
+                                    $("#maindiv").html(data);
+                            });
+                        });
+                    });
+    </script>
+</head>
+<body>
+    GroupID: <input type="text" id="group_id" /><br />
+    <input id="button" type="button" value="get students" />
+    Lista studentilor din grupa:
+    <div id="maindiv"></div><br />
+</body>
+</html>

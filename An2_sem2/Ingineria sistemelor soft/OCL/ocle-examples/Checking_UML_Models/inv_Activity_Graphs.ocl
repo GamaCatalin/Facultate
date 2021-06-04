@@ -1,0 +1,78 @@
+package Behavioral_Elements::Activity_Graphs
+    
+context ActivityGraph
+
+inv ActivityGraph_WFR_1:
+
+--   [1] An ActivityGraph specifies the dynamics of (i) a Package, or (ii) a Classifier (including UseCase), or
+--       (iii) a BehavioralFeature.
+
+	(self.context.oclIsTypeOf(Package) xor  self.context.oclIsKindOf(Classifier) xor self.context.oclIsKindOf(BehavioralFeature))  
+    
+
+context ActionState
+
+inv ActionState_WFR_1:
+--   [1] An action state has a non-empty entry action.
+
+	self.entry->size > 0
+
+inv ActionState_WFR_2:
+--   [2] An action state does not have an internal transition, exit action, or a do activity.
+
+	self.internalTransition->size = 0 and self.exit->size = 0 and self.doActivity->size = 0
+
+inv ActionState_WFR_3:
+--   [3] Transitions originating from an action state have no trigger event.
+
+	self.outgoing->forAll(t | t.trigger->size = 0)
+
+
+context ClassifierInState
+
+inv ClassifierInState_WFR_1:
+--   [1] Classifiers-in-state have no namespace contents.
+
+	self.allContents->size = 0
+
+
+context ObjectFlowState
+
+inv ObjectFlowState_WFR_1:
+--   [1] Parameters of an object flow state must have a type and direction compatible with
+--       classifier or classifier-in-state of the object flow state.
+
+	let ofstype : Classifier = (if self.type.oclIsKindOf(ClassifierInState) then self.parameter->asSequence->first.type else self.type endif) in
+
+	self.parameter->forAll(parameter| parameter.type = ofstype or (parameter.kind = #in and ofstype.allParents->includes(type))
+	or ((parameter.kind = #out or parameter.kind = #return) and type.allParents->includes(ofstype))
+	or (parameter.kind = #inout and ( ofstype.allParents->includes(type) or type.allParents->includes(ofstype))))  
+
+  
+inv ObjectFlowState_WFR_2:
+--   [2] Downstream states have entry actions that accept input conforming to the type of the
+--       classifier or classifier-in-state. The entry actions use the input parameters of the object
+--       flow state. Valid downstream states are calculated by traversing outgoing transitions
+--       transitively, skipping pseudo states, and entering and exiting subactivity states, looking for
+--       regular states. If the object flow state has no parameters, then the target of downstream
+--       actions must conform to the type of the classifier or classifier-in-state.
+
+	self.allNextLeafStates->size > 0 and self.allNextLeafStates->forAll(s | self.isInputAction(s.entry))
+
+inv ObjectFlowState_WFR_3:
+--   [3] Upstream states have entry actions that provide output or return values conforming to the
+--       type of the classifier or classifier-in-state. The entry actions use the output or return
+--       parameters of the object flow state. Valid upstream states are calculated by traversing
+--       incoming transitions transitively, skipping pseudo states, entering and exiting subactivity
+--       states, looking for regular states.
+
+	self.allPreviousLeafStates->size > 0 and self.allPreviousLeafStates->forAll(s | self.isOutputAction(s.entry))
+
+context SubactivityState
+
+inv SubactivityState_WFR_1:
+--   [1] A subactivity state is a submachine state that is linked to an activity graph.
+
+	self.submachine.oclIsKindOf(ActivityGraph)
+
+endpackage

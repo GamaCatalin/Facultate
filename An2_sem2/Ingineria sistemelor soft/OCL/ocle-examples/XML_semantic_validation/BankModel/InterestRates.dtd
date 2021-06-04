@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT InterestRates (InterestRate*)>
+<!ELEMENT InterestRate EMPTY>
+<!ATTLIST InterestRate 
+	type (deposit | loan) #REQUIRED
+	duration CDATA #REQUIRED
+	rate CDATA #REQUIRED
+>

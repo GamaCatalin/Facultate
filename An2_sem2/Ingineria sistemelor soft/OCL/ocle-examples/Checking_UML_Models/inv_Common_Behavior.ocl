@@ -1,0 +1,172 @@
+package Behavioral_Elements::Common_Behavior
+    
+--   Action
+--   No extra well-formedness rules.
+
+--   ActionSequence
+--   No extra well-formedness rules.
+
+--   Argument
+--   No extra well-formedness rules.
+
+context AttributeLink
+
+inv WFR_1_AttributeLink:
+--   [1] The type of the Instance must match the type of the Attribute.
+
+
+	self.value.classifier->union(self.value.classifier.allParents.oclAsType(Classifier))->includes(self.attribute.type)
+
+context ComponentInstance
+
+inv ComponentInstance_WFR_1:
+--   [1] A ComponentInstance originates from exactly one Component.
+
+	self.classifier->size = 1 and self.classifier->forAll(oclIsKindOf(Component))
+
+inv ComponentInstance_WFR_2:
+--   [2] A ComponentInstance may only own ComponentInstances.
+
+	self.contents->forAll(c| c.oclIsKindOf(ComponentInstance))
+
+
+context DataValue
+
+inv DataValue_WFR_1:
+--   [1] A DataValue originates from exactly one Classifier, which is a DataType.
+
+	(self.classifier->size = 1) and self.classifier->forAll(oclIsKindOf(DataType))
+
+inv DataValue_WFR_2:
+--   [2] A DataValue has no AttributeLinks.
+
+	self.slot->isEmpty
+
+inv DataValue_WFR_3:
+--   [3] A DataValue may not contain any Instances.
+
+	self.contents->isEmpty
+
+--   Exception
+--   No extra well-formedness rules.
+
+context Instance
+
+inv Instance_WFR_1:
+--   [1] The AttributeLinks match the declarations in the Classifiers.
+
+	self.slot->forAll( al| self.classifier->exists(c | c.allAttributes->includes(al.attribute)))
+
+inv Instance_WFR_2:
+--   [2] The Links matches the declarations in the Classifiers.
+
+	self.allLinks->forAll( l| self.classifier->exists( c| c.allAssociations->includes(l.association)))
+
+inv Instance_WFR_3:
+--   If two operations have the same operations they must be the same
+
+	self.classifier->forAll( c1, c2| c1.allOperations->forAll( op1| c2.allOperations->forAll( op2| op1.hasSameSignature(op2)
+		implies op1 = op2)))
+
+inv Instance_WFR_4:
+--   [4] There are no name conflicts between the AttributeLinks and opposite LinkEnds.
+
+	self.slot->forAll( al| not self.allOppositeLinkEnds->exists(le| le.name = al.name))
+		and self.allOppositeLinkEnds->forAll(le| not self.slot->exists(al| le.name = al.name))
+		
+inv Instance_WFR_5:
+--   [5] For each Association in which an Instance is involved, the number of opposite LinkEnds
+--       must match the multiplicity of the AssociationEnd.
+
+	self.classifier.allOppositeAssociationEnds->forAll( ae| ae.multiplicity.range->exists( mr|
+		self.selectedLinkEnds (ae)->size >= mr.lower and (mr.upper = 'unlimited' or
+		(mr.upper <> 'unlimited' and self.selectedLinkEnds(ae)->size <= mr.upper.oclAsType(Integer)))))
+
+inv Instance_WFR_6:
+--   [6] The number of associated AttributeLinks must match the multiplicity of the Attribute.
+
+	self.classifier.allAttributes->forAll( a| a.multiplicity.range->exists( mr|
+		self.selectedAttributeLinks(a)->size >= mr.lower and (mr.upper = 'unlimited' or
+		(mr.upper <> 'unlimited' and	self.selectedAttributeLinks(a)->size <= mr.upper.oclAsType(Integer)))))
+
+
+context Link
+
+inv Link_WFR_1:
+--   [1] The set of LinkEnds must match the set of AssociationEnds of the Association.
+
+	Sequence{1..self.connection->size}->forAll( i| self.connection->at(i).associationEnd = self.association.connection->at(i))
+
+inv Link_WFR_2:
+--   [2] There are not two Links of the same Association which connects the same set of Instances in the same way.
+
+	self.association.link->forAll( l| Sequence{1..self.connection->size}->forAll( i|
+		self.connection->at(i).instance = l.connection->at(i).instance) implies self = l )
+
+context LinkEnd
+
+inv LinkEnd_WFR_1:
+--   [1] The type of the Instance must match the type of the AssociationEnd.
+
+	self.instance.classifier->union(self.instance.classifier.allParents.oclAsType(Classifier))->includes(self.associationEnd.participant)
+
+context LinkObject
+
+inv LinkObject_WFR_2:
+--   [2] The Association must be a kind of AssociationClass.
+
+	self.association.oclIsKindOf(AssociationClass)
+
+context NodeInstance
+
+inv NodeInstance_WFR_1:
+--   [1] A NodeInstance must have only one Classifier as its origin, and it must be a Node.
+
+	self.classifier->forAll( c| c.oclIsKindOf(Node)) and self.classifier->size = 1
+
+--inv NodeInstance_WFR_2:
+--   [2] Each ComponentInstance that resides on a NodeInstance must be an instance of a Component that resides on the corresponding Node.
+
+--	self.resident->forAll( n| self.resident->includes(n.classifier))
+
+inv NodeInstance_WFR_3:
+--   [3] A NodeInstance may not contain any Instances.
+
+	self.contents->isEmpty
+
+context Object
+
+inv Object_WFR_1:
+--   [1] Each of the Classifiers must be a kind of Class or ClassifierInState.
+
+	self.classifier->forAll(c| c.oclIsKindOf(Class) or (c.oclIsKindOf(ClassifierInState) and
+		c.oclAsType(ClassifierInState).type.oclIsKindOf(Class)))
+
+inv Object_WFR_2:
+--   [2] An Object may only own Objects, DataValues, Links, UseCaseInstances, CollaborationInstances and Stimuli.
+
+	self.contents->forAll(c| c.oclIsKindOf(Object) or c.oclIsKindOf(DataValue) or c.oclIsKindOf(Link) or
+		c.oclIsKindOf(UseCaseInstance) or c.oclIsKindOf(CollaborationInstanceSet) or c.oclIsKindOf(Stimulus))
+
+context Reception
+
+inv Reception_WFR_1:
+--   [1] A Reception can not be a query.
+	not self.isQuery
+
+context SubsystemInstance
+
+inv SubsystemInstance_WFR_1:
+--   [1] A SubsystemInstance may only own Objects, DataValues, Links, UseCaseInstances, Col-laborationInstances, SubsystemInstances, and Stimuli.
+
+	self.contents->forAll( c| c.oclIsKindOf(Object) or c.oclIsKindOf(DataValue) or c.oclIsKindOf(Link) or c.oclIsKindOf(UseCaseInstance) or
+		c.oclIsKindOf(CollaborationInstanceSet) or c.oclIsKindOf(SubsystemInstance) or c.oclIsKindOf(Stimulus))
+
+inv SubsystemInstance_WFR_2:
+--   [2] A SubsystemInstance originates from a Subsystem.
+
+
+	self.classifier->forAll(oclIsKindOf(Subsystem))
+
+   
+endpackage

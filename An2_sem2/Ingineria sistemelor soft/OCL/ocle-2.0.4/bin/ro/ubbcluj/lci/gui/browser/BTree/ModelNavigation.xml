@@ -1,0 +1,37 @@
+<ModelNavigation>
+        <Navigation parent = "uml.foundation.core.Namespace" children = "directOwnedElementList" order = "true" />
+        <Navigation parent = "uml.foundation.core.Classifier" children = "FeatureList" order = "true" />
+		<!--Navigation parent = "uml.foundation.core.Classifier" children = "InstanceList" order = "false" -->
+        <Navigation parent = "uml.foundation.core.BehavioralFeature" children = "ParameterList" order = "false" />
+        <Navigation parent = "uml.foundation.core.Operation" children = "MethodList" order = "true" />
+        <Navigation parent = "uml.foundation.core.Association" children = "ConnectionList" order = "false" />
+        <Navigation parent = "uml.foundation.core.AssociationEnd" children = "QualifierList" order = "true" />
+        <Navigation parent = "uml.foundation.core.Enumeration" children = "LiteralList" order = "false" />
+        <Navigation parent = "uml.foundation.core.ModelElement" children = "directTemplateParameterList" order = "false" />
+        <Navigation parent = "uml.foundation.core.ModelElement" children = "TaggedValueList" order = "true" />
+        <Navigation parent = "uml.foundation.extensionMechanisms.Stereotype" children = "DefinedTagList" order = "true" />
+        <Navigation parent = "uml.foundation.extensionMechanisms.Stereotype" children = "StereotypeConstraintList" order = "true" />
+        <Navigation parent = "uml.foundation.dataTypes.Multiplicity" children = "RangeList" order = "true" />
+        <Navigation parent = "uml.behavioralElements.commonBehavior.Instance" children = "OwnedInstanceList" order = "true" />
+        <Navigation parent = "uml.behavioralElements.commonBehavior.Instance" children = "SlotList" order = "true" />
+        <Navigation parent = "uml.behavioralElements.commonBehavior.Instance" children = "OwnedLinkList" order = "true" />
+        <Navigation parent = "uml.behavioralElements.commonBehavior.Link" children = "ConnectionList" order = "false" />
+        <Navigation parent = "uml.behavioralElements.commonBehavior.LinkEnd" children = "QualifierValueList" order = "false" />
+        <Navigation parent = "uml.behavioralElements.collaborations.AssociationEndRole" children = "AvailableQualifierList" order = "true" />
+        <Navigation parent = "uml.behavioralElements.collaborations.Collaboration" children = "InteractionList" order = "true" />
+        <Navigation parent = "uml.behavioralElements.collaborations.Interaction" children = "MessageList" order = "true" />
+        <Navigation parent = "uml.behavioralElements.collaborations.CollaborationInstanceSet" children = "InteractionInstanceList" order = "true" />
+        <Navigation parent = "uml.behavioralElements.useCases.UseCase" children = "ExtensionPointList" order = "true" />
+        <Navigation parent = "uml.behavioralElements.stateMachines.StateMachine" children = "Top" order = "true" />
+        <Navigation parent = "uml.behavioralElements.stateMachines.StateMachine" children = "TransitionsList" order = "true" />
+        <Navigation parent = "uml.behavioralElements.stateMachines.State" children = "InternalTransitionList" order = "true" />
+        <Navigation parent = "uml.behavioralElements.stateMachines.State" children = "Entry" order = "true" />
+        <Navigation parent = "uml.behavioralElements.stateMachines.State" children = "Exit" order = "true" />
+        <Navigation parent = "uml.behavioralElements.stateMachines.State" children = "DoActivity" order = "true" />
+        <Navigation parent = "uml.behavioralElements.stateMachines.Transition" children = "Guard" order = "true" />
+        <Navigation parent = "uml.behavioralElements.stateMachines.Transition" children = "Effect" order = "true" />
+        <Navigation parent = "uml.behavioralElements.stateMachines.CompositeState" children = "SubvertexList" order = "true" />
+        <Navigation parent = "uml.foundation.core.ModelElement" children = "BehaviorList" order = "true" />
+        <Navigation parent = "uml.behavioralElements.stateMachines.Event" children = "ParameterList" order = "false" />
+        <Navigation parent = "uml.behavioralElements.activityGraphs.ActivityGraph" children = "PartitionList" order = "true" />
+</ModelNavigation>
